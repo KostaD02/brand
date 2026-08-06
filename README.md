@@ -1,2 +1,1 @@
-# brand
-My personal brand colors
+# TODO: update later

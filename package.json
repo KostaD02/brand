@@ -1,0 +1,28 @@
+{
+  "name": "@kostad02/brand",
+  "version": "1.0.0",
+  "description": "Personal branding",
+  "homepage": "https://github.com/KostaD02/brand#readme",
+  "bugs": {
+    "url": "https://github.com/KostaD02/brand/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KostaD02/brand.git"
+  },
+  "license": "MIT",
+  "author": "Konstantine Datunishvili <konstantineda@datunishvili.ge>",
+  "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
+  "packageManager": "pnpm@10.33.2",
+  "scripts": {
+    "build": "tsx scripts/build.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^26.1.2",
+    "tsx": "^4.23.9"
+  }
+}
