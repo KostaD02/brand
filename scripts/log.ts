@@ -1,16 +1,11 @@
-export function log(
-  message: string,
-  isSilentMode = false,
-  bypass = false,
-  isError = false,
-): void {
-  if (isSilentMode && !bypass) {
-    return;
-  }
-  const date = new Date();
+function format(message: string): string {
+  return `[${new Date().toLocaleString()}]: ${message}`;
+}
+
+export function log(message: string, isError = false): void {
   if (isError) {
-    console.error(`[${date.toLocaleString()}]: ${message}`);
+    console.error(format(message));
   } else {
-    console.log(`[${date.toLocaleString()}]: ${message}`);
+    console.log(format(message));
   }
 }
