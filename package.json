@@ -20,6 +20,9 @@
   "scripts": {
     "prepare": "husky",
     "build": "tsx scripts/build.ts",
+    "build:silent": "tsx scripts/build.ts --silent",
+    "watch": "tsx scripts/build.ts --watch",
+    "watch:silent": "tsx scripts/build.ts --watch --silent",
     "typecheck": "tsc --noEmit",
     "lint": "pnpm run lint:ts && pnpm run lint:scss",
     "lint:ts": "eslint .",
@@ -27,6 +30,9 @@
     "lint:fix": "eslint . --fix && stylelint \"scss/**/*.scss\" --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
+  },
+  "dependencies": {
+    "sass": "^1.102.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^21.2.1",

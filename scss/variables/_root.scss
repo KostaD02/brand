@@ -1,0 +1,16 @@
+@use "sass:map";
+@use "./global" as *;
+
+:root {
+  @for $i from 1 through 9 {
+    --#{$prefix}fw-#{$i}: #{100 * $i};
+  }
+
+  @each $property, $value in $font-sizes {
+    --#{$prefix}fs-#{$property}: #{$value}em;
+  }
+
+  @each $property, $value in $line-heights {
+    --#{$prefix}lh-#{$property}: #{$value};
+  }
+}
