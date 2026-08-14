@@ -1,0 +1,90 @@
+@use "sass:map";
+@use "../variables/global" as *;
+
+.#{$prefix}btn {
+  --#{$prefix}btn-color: var(--#{$prefix}accent);
+  --#{$prefix}btn-bg: transparent;
+  --#{$prefix}btn-border-color: var(--#{$prefix}accent);
+  --#{$prefix}btn-hover-color: var(--#{$prefix}btn-color);
+  --#{$prefix}btn-hover-bg: var(--#{$prefix}btn-bg);
+  --#{$prefix}btn-padding-y: #{map.get(map.get($button-sizes, md), padding-y)};
+  --#{$prefix}btn-padding-x: #{map.get(map.get($button-sizes, md), padding-x)};
+  --#{$prefix}btn-font-size: #{map.get(map.get($button-sizes, md), font-size)};
+  --#{$prefix}btn-radius: var(--#{$prefix}radius-sm);
+  --#{$prefix}btn-pop-offset: #{map.get(map.get($pops, base), offset)};
+  --#{$prefix}btn-pop-translate: #{map.get(map.get($pops, base), translate) * -1};
+  --#{$prefix}btn-pop-color: var(--#{$prefix}accent);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: map.get($spacers, 2);
+  padding: var(--#{$prefix}btn-padding-y) var(--#{$prefix}btn-padding-x);
+  border: var(--#{$prefix}border-width-1) solid var(--#{$prefix}btn-border-color);
+  border-radius: var(--#{$prefix}btn-radius);
+  font-family: var(--#{$prefix}font-secondary);
+  font-size: var(--#{$prefix}btn-font-size);
+  font-weight: var(--#{$prefix}font-weight-medium);
+  line-height: var(--#{$prefix}line-height-none);
+  color: var(--#{$prefix}btn-color);
+  background-color: var(--#{$prefix}btn-bg);
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  transition: var(--#{$prefix}transition);
+
+  &__icon {
+    display: inline-flex;
+    flex-shrink: 0;
+  }
+
+  &--block {
+    display: flex;
+    width: 100%;
+  }
+
+  &:hover,
+  &:focus-visible {
+    outline: none;
+    color: var(--#{$prefix}btn-hover-color);
+    background-color: var(--#{$prefix}btn-hover-bg);
+    box-shadow: var(--#{$prefix}btn-pop-offset) var(--#{$prefix}btn-pop-offset) 0 0
+      var(--#{$prefix}btn-pop-color);
+    transform: translate(
+      var(--#{$prefix}btn-pop-translate),
+      var(--#{$prefix}btn-pop-translate)
+    );
+  }
+
+  &:disabled,
+  &[aria-disabled="true"] {
+    opacity: var(--#{$prefix}opacity-disabled);
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+}
+
+@each $variation, $styles in $button-variations {
+  .#{$prefix}btn--#{$variation} {
+    --#{$prefix}btn-color: #{map.get($styles, color)};
+    --#{$prefix}btn-bg: #{map.get($styles, bg)};
+    --#{$prefix}btn-border-color: #{map.get($styles, border)};
+    --#{$prefix}btn-hover-color: #{map.get($styles, hover-color)};
+    --#{$prefix}btn-hover-bg: #{map.get($styles, hover-bg)};
+    --#{$prefix}btn-pop-color: #{map.get($styles, pop)};
+  }
+}
+
+@each $size, $styles in $button-sizes {
+  @if $size != md {
+    $pop: map.get($pops, map.get($styles, pop));
+
+    .#{$prefix}btn--#{$size} {
+      --#{$prefix}btn-padding-y: #{map.get($styles, padding-y)};
+      --#{$prefix}btn-padding-x: #{map.get($styles, padding-x)};
+      --#{$prefix}btn-font-size: #{map.get($styles, font-size)};
+      --#{$prefix}btn-pop-offset: #{map.get($pop, offset)};
+      --#{$prefix}btn-pop-translate: #{map.get($pop, translate) * -1};
+    }
+  }
+}

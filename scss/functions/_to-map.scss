@@ -1,0 +1,16 @@
+@use "sass:map";
+@use "sass:meta";
+
+@function to-map($values) {
+  @if meta.type-of($values) == "map" {
+    @return $values;
+  }
+
+  $result: ();
+
+  @each $value in $values {
+    $result: map.set($result, $value, $value);
+  }
+
+  @return $result;
+}

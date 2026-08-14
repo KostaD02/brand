@@ -1,0 +1,90 @@
+@use "sass:map";
+@use "../variables/global" as *;
+
+blockquote {
+  margin: map.get($spacers, 3) 0;
+  padding: map.get($spacers, 1) 0 map.get($spacers, 1) map.get($spacers, 3);
+  border-left: var(--#{$prefix}border-width-2) solid var(--#{$prefix}accent);
+  border-radius: 0 var(--#{$prefix}radius-sm) var(--#{$prefix}radius-sm) 0;
+  color: var(--#{$prefix}text-secondary);
+}
+
+hr {
+  height: 0;
+  margin: map.get($spacers, 4) 0;
+  border: 0;
+  border-top: var(--#{$prefix}border-width-1) solid var(--#{$prefix}border);
+}
+
+figure {
+  margin: map.get($spacers, 3) 0;
+}
+
+figcaption {
+  margin-top: map.get($spacers, 2);
+  font-size: var(--#{$prefix}font-size-xxs);
+  color: var(--#{$prefix}text-muted);
+}
+
+pre {
+  position: relative;
+  width: 100%;
+  margin: map.get($spacers, 3) 0;
+  border-radius: var(--#{$prefix}radius-md);
+  overflow-x: auto;
+  background: var(--#{$prefix}code-bg);
+  color: var(--#{$prefix}code-fg);
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 13px;
+    height: 100%;
+    border-left: var(--#{$prefix}border-width-2) solid var(--#{$prefix}accent);
+    border-radius: var(--#{$prefix}radius-sm) 0 0 var(--#{$prefix}radius-sm);
+  }
+
+  code {
+    display: block;
+    padding: map.get($spacers, 3);
+    font-size: var(--#{$prefix}font-size-sm);
+    line-height: var(--#{$prefix}line-height-xxl);
+    color: inherit;
+    background: none;
+    overflow-x: auto;
+  }
+}
+
+code {
+  padding: 0 0.3rem;
+  border-radius: var(--#{$prefix}radius-sm);
+  font-family: var(--#{$prefix}font-mono);
+  font-size: var(--#{$prefix}font-size-xs);
+  color: var(--#{$prefix}code-inline-fg);
+  background-color: var(--#{$prefix}bg-elevated-hover);
+}
+
+.#{$prefix}prose {
+  img {
+    width: 100%;
+    max-height: 420px;
+    margin-bottom: map.get($spacers, 3);
+    object-fit: cover;
+    border-radius: var(--#{$prefix}radius-md);
+  }
+
+  p,
+  li {
+    font-size: var(--#{$prefix}font-size-md);
+  }
+
+  h1 {
+    font-size: var(--#{$prefix}font-size-fluid-h2);
+  }
+
+  h2 {
+    font-size: clamp(var(--#{$prefix}font-size-xl), 5vw, var(--#{$prefix}font-size-xxl));
+  }
+}

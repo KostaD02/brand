@@ -1,0 +1,81 @@
+@use "sass:map";
+@use "../variables/global" as *;
+
+.#{$prefix}toggle {
+  --#{$prefix}toggle-track-width: 40px;
+  --#{$prefix}toggle-track-height: 22px;
+  --#{$prefix}toggle-thumb-size: 16px;
+  --#{$prefix}toggle-inset: 3px;
+  --#{$prefix}toggle-thumb-box: calc(
+    var(--#{$prefix}toggle-thumb-size) + var(--#{$prefix}toggle-inset) * 2
+  );
+  --#{$prefix}toggle-travel: calc(
+    var(--#{$prefix}toggle-track-width) - var(--#{$prefix}toggle-thumb-box)
+  );
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  user-select: none;
+
+  &--disabled {
+    opacity: var(--#{$prefix}opacity-disabled);
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  &__input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+    opacity: 0;
+    clip-path: inset(50%);
+  }
+
+  &__track {
+    position: relative;
+    flex: 0 0 auto;
+    width: var(--#{$prefix}toggle-track-width);
+    height: var(--#{$prefix}toggle-track-height);
+    border: var(--#{$prefix}border-width-1) solid var(--#{$prefix}border);
+    border-radius: var(--#{$prefix}radius-pill);
+    background: var(--#{$prefix}border-strong);
+    transition: var(--#{$prefix}transition);
+  }
+
+  &__thumb {
+    position: absolute;
+    top: 50%;
+    left: var(--#{$prefix}toggle-inset);
+    width: var(--#{$prefix}toggle-thumb-size);
+    height: var(--#{$prefix}toggle-thumb-size);
+    border-radius: var(--#{$prefix}radius-circle);
+    background: var(--#{$prefix}bg-elevated);
+    transform: translateY(-50%);
+    transition: var(--#{$prefix}transition);
+  }
+
+  &__label {
+    font-size: var(--#{$prefix}font-size-xs);
+    color: var(--#{$prefix}text-primary);
+  }
+
+  &__input:checked + &__track {
+    border-color: var(--#{$prefix}accent);
+    background: var(--#{$prefix}accent);
+  }
+
+  &__input:checked + &__track &__thumb {
+    transform: translate(var(--#{$prefix}toggle-travel), -50%);
+  }
+
+  &__input:focus-visible + &__track {
+    outline: none;
+    box-shadow: var(--#{$prefix}shadow-pop);
+  }
+}

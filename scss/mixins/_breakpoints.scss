@@ -1,0 +1,85 @@
+@use "sass:list";
+@use "sass:map";
+@use "../variables/global" as *;
+
+// Copyright (c) 2026, Bootstrap
+
+@function breakpoint-min($name, $breakpoints: $breakpoints) {
+  @if not map.has-key($breakpoints, $name) {
+    @error "Unknown breakpoint `#{$name}`.";
+  }
+
+  $min: map.get($breakpoints, $name);
+
+  @if $min == 0 {
+    @return null;
+  }
+
+  @return $min;
+}
+
+@function breakpoint-next($name, $breakpoints: $breakpoints) {
+  $names: map.keys($breakpoints);
+  $index: list.index($names, $name);
+
+  @if not $index {
+    @error "Unknown breakpoint `#{$name}`.";
+  }
+
+  @if $index >= list.length($names) {
+    @return null;
+  }
+
+  @return list.nth($names, $index + 1);
+}
+
+@function breakpoint-infix($name, $breakpoints: $breakpoints) {
+  @if breakpoint-min($name, $breakpoints) {
+    @return "-#{$name}";
+  }
+
+  @return "";
+}
+
+@mixin respond-up($name, $breakpoints: $breakpoints) {
+  $min: breakpoint-min($name, $breakpoints);
+
+  @if $min {
+    @media (min-width: $min) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+
+@mixin respond-down($name, $breakpoints: $breakpoints) {
+  $max: breakpoint-min($name, $breakpoints);
+
+  @if $max {
+    @media (max-width: $max) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+
+@mixin respond-between($lower, $upper, $breakpoints: $breakpoints) {
+  $min: breakpoint-min($lower, $breakpoints);
+  $max: breakpoint-min($upper, $breakpoints);
+
+  @if $min and $max {
+    @media (min-width: $min) and (max-width: $max) {
+      @content;
+    }
+  } @else if $max {
+    @include respond-down($upper, $breakpoints) {
+      @content;
+    }
+  } @else {
+    @include respond-up($lower, $breakpoints) {
+      @content;
+    }
+  }
+}

@@ -1,0 +1,50 @@
+@use "../variables/global" as *;
+@use "../mixins/apply-utility" as *;
+@use "../mixins/focus-ring" as *;
+@use "../mixins/pop" as *;
+
+$opacity-values: 0, 25, 50, 75, 100;
+$cursor-values: pointer, default, not-allowed, wait, text, grab;
+$pointer-events-values: none, auto;
+$user-select-values: none, text, all;
+
+$shadow-values: (
+  sm: var(--#{$prefix}shadow-sm),
+  md: var(--#{$prefix}shadow-md),
+  lg: var(--#{$prefix}shadow-lg),
+  side: var(--#{$prefix}shadow-side),
+  none: none,
+);
+
+$transition-values: (
+  fast: var(--#{$prefix}transition-fast),
+  slow: var(--#{$prefix}transition-slow),
+  none: none,
+);
+
+@include apply-utility("shadow", box-shadow, $shadow-values);
+
+.#{$prefix}pop {
+  @include pop(base);
+}
+
+.#{$prefix}pop-lg {
+  @include pop(lg);
+}
+
+@include apply-utility("opacity", opacity, $opacity-values, "%");
+
+.#{$prefix}transition {
+  transition: var(--#{$prefix}transition);
+}
+
+@include apply-utility("transition", transition, $transition-values);
+@include apply-utility("cursor", cursor, $cursor-values);
+@include apply-utility("pointer", pointer-events, $pointer-events-values);
+@include apply-utility("select", user-select, $user-select-values);
+
+.#{$prefix}focus-ring {
+  &:focus-visible {
+    @include focus-ring;
+  }
+}

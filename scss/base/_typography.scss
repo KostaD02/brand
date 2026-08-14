@@ -1,0 +1,93 @@
+@use "sass:map";
+@use "../variables/global" as *;
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0 0 0.625rem;
+  font-family: var(--#{$prefix}font-primary);
+  font-weight: var(--#{$prefix}font-weight-semibold);
+  line-height: var(--#{$prefix}line-height-xs);
+  color: var(--#{$prefix}text-primary);
+}
+
+h1 {
+  font-size: var(--#{$prefix}font-size-fluid-h1);
+}
+
+h2 {
+  font-size: var(--#{$prefix}font-size-fluid-h2);
+}
+
+h3,
+h4,
+h5,
+h6 {
+  font-size: var(--#{$prefix}font-size-fluid-h3);
+}
+
+p {
+  margin: 0;
+  color: var(--#{$prefix}text-secondary);
+}
+
+small,
+.#{$prefix}small {
+  font-size: var(--#{$prefix}font-size-xxs);
+  color: var(--#{$prefix}text-muted);
+}
+
+.#{$prefix}heading {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin: 0.625rem 0 2.5rem;
+  font-family: var(--#{$prefix}font-primary);
+  font-size: var(--#{$prefix}font-size-fluid-section);
+  white-space: nowrap;
+
+  &::after {
+    content: "";
+    display: block;
+    width: 100%;
+    max-width: 300px;
+    height: 1px;
+    margin-left: 1.25rem;
+    background-color: var(--#{$prefix}bg-elevated);
+  }
+}
+
+.#{$prefix}mono {
+  font-family: var(--#{$prefix}font-mono);
+  font-feature-settings: "tnum" 1;
+}
+
+ul.#{$prefix}list {
+  display: grid;
+  gap: 0 0.625rem;
+  margin: 1.25rem 0 0;
+  padding: 0;
+  overflow: hidden;
+  list-style: none;
+
+  li {
+    position: relative;
+    display: flex;
+    margin-bottom: 0.625rem;
+    padding-left: 1.25rem;
+    font-size: var(--#{$prefix}font-size-sm);
+    color: var(--#{$prefix}text-secondary);
+
+    &::before {
+      content: "\25b9";
+      position: absolute;
+      left: 0;
+      font-family: var(--#{$prefix}font-secondary);
+      font-size: var(--#{$prefix}font-size-sm);
+      color: var(--#{$prefix}accent);
+    }
+  }
+}

@@ -1,0 +1,59 @@
+@use "sass:map";
+@use "../variables/global" as *;
+
+table {
+  --#{$prefix}table-padding-y: #{map.get($spacers, 2)};
+  --#{$prefix}table-padding-x: 0.875rem;
+  --#{$prefix}table-border-color: var(--#{$prefix}border);
+  --#{$prefix}table-head-bg: var(--#{$prefix}bg-elevated);
+  --#{$prefix}table-head-color: var(--#{$prefix}text-muted);
+
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--#{$prefix}font-size-sm);
+
+  th,
+  td {
+    padding: var(--#{$prefix}table-padding-y) var(--#{$prefix}table-padding-x);
+    border-bottom: var(--#{$prefix}border-width-1) solid
+      var(--#{$prefix}table-border-color);
+    text-align: left;
+  }
+
+  th {
+    font-size: var(--#{$prefix}font-size-xxs);
+    font-weight: var(--#{$prefix}font-weight-semibold);
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    color: var(--#{$prefix}table-head-color);
+    background: var(--#{$prefix}table-head-bg);
+    user-select: none;
+  }
+
+  tr:last-child td {
+    border-bottom: 0;
+  }
+
+  caption {
+    padding-bottom: map.get($spacers, 2);
+    font-size: var(--#{$prefix}font-size-xxs);
+    text-align: left;
+    color: var(--#{$prefix}text-muted);
+  }
+}
+
+.#{$prefix}table-scroll {
+  width: 100%;
+  margin: map.get($spacers, 3) 0;
+  overflow-x: auto;
+}
+
+table.#{$prefix}fixed {
+  table-layout: fixed;
+}
+
+table.#{$prefix}sticky-head th {
+  position: sticky;
+  top: 0;
+  z-index: var(--#{$prefix}z-raised);
+}

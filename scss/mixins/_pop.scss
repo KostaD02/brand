@@ -1,0 +1,19 @@
+@use "sass:map";
+@use "../variables/global" as *;
+
+@mixin pop($size: base) {
+  @if not map.has-key($pops, $size) {
+    @error "Unknown pop size `#{$size}`.";
+  }
+
+  $offset: map.get(map.get($pops, $size), offset);
+  $translate: map.get(map.get($pops, $size), translate) * -1;
+
+  transition: var(--#{$prefix}transition);
+
+  &:hover,
+  &:focus-visible {
+    box-shadow: #{$offset} #{$offset} 0 0 var(--#{$prefix}shadow-pop-color);
+    transform: translate(#{$translate}, #{$translate});
+  }
+}

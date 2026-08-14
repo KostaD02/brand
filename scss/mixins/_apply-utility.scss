@@ -1,0 +1,16 @@
+@use "../functions/to-map" as *;
+@use "../variables/global" as *;
+
+@mixin apply-utility($classname, $properties, $values, $unit: null) {
+  @each $key, $value in to-map($values) {
+    .#{$prefix}#{$classname}-#{$key} {
+      @each $property in $properties {
+        @if $value == auto {
+          #{$property}: auto;
+        } @else {
+          #{$property}: #{$value}#{$unit};
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,63 @@
+@use "../variables/global" as *;
+@use "../mixins/apply-utility" as *;
+
+$direction-values: row, row-reverse, column, column-reverse;
+$wrap-values: wrap, nowrap, wrap-reverse;
+$grow-values: 0, 1;
+$shrink-values: 0, 1;
+
+$justify-content-values: (
+  start: flex-start,
+  end: flex-end,
+  center: center,
+  between: space-between,
+  around: space-around,
+  evenly: space-evenly,
+);
+
+$align-items-values: (
+  start: flex-start,
+  end: flex-end,
+  center: center,
+  baseline: baseline,
+  stretch: stretch,
+);
+
+$align-self-values: $align-items-values;
+
+$align-content-values: (
+  start: flex-start,
+  end: flex-end,
+  center: center,
+  between: space-between,
+  around: space-around,
+  evenly: space-evenly,
+  stretch: stretch,
+);
+
+$order-values: (
+  0: 0,
+  1: 1,
+  2: 2,
+  3: 3,
+  4: 4,
+  5: 5,
+  first: -1,
+  last: 99,
+);
+
+.#{$prefix}flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@include apply-utility("flex", flex-direction, $direction-values);
+@include apply-utility("flex", flex-wrap, $wrap-values);
+@include apply-utility("justify", justify-content, $justify-content-values);
+@include apply-utility("items", align-items, $align-items-values);
+@include apply-utility("self", align-self, $align-self-values);
+@include apply-utility("content", align-content, $align-content-values);
+@include apply-utility("grow", flex-grow, $grow-values);
+@include apply-utility("shrink", flex-shrink, $shrink-values);
+@include apply-utility("order", order, $order-values);

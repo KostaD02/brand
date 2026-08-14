@@ -1,0 +1,49 @@
+@use "sass:map";
+@use "../variables/global" as *;
+@use "../mixins/apply-utility" as *;
+
+$border-side-values: (
+  t: top,
+  r: right,
+  b: bottom,
+  l: left,
+);
+
+$border-style-values: solid, dashed, dotted, none;
+
+$radius-values: (
+  0: 0,
+);
+
+@each $name in map.keys($radii) {
+  $radius-values: map.set($radius-values, $name, var(--#{$prefix}radius-#{$name}));
+}
+
+@each $key in map.keys($border-widths) {
+  .#{$prefix}border-#{$key} {
+    border-width: var(--#{$prefix}border-width-#{$key});
+    border-style: solid;
+    border-color: var(--#{$prefix}border);
+  }
+}
+
+@each $side, $edge in $border-side-values {
+  @each $key in map.keys($border-widths) {
+    .#{$prefix}border-#{$side}-#{$key} {
+      border-#{$edge}-width: var(--#{$prefix}border-width-#{$key});
+      border-#{$edge}-style: solid;
+      border-#{$edge}-color: var(--#{$prefix}border);
+    }
+  }
+}
+
+.#{$prefix}border-0 {
+  border: 0;
+}
+
+@include apply-utility("border", border-style, $border-style-values);
+@include apply-utility("radius", border-radius, $radius-values);
+
+.#{$prefix}border-accent-hairline {
+  border: var(--#{$prefix}border-width-1) solid var(--#{$prefix}accent);
+}

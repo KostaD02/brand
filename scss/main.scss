@@ -1,1 +1,5 @@
-@use "./variables/root" as *;
+@use "./variables/root";
+@use "./base/reset";
+@use "./base/index" as elements;
+@use "./components/index" as components;
+@use "./utilities/index" as utilities;

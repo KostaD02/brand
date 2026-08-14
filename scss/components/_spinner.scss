@@ -1,0 +1,37 @@
+@use "sass:map";
+@use "../variables/global" as *;
+
+.#{$prefix}spinner {
+  --#{$prefix}spinner-size: 24px;
+  --#{$prefix}spinner-width: var(--#{$prefix}border-width-2);
+  --#{$prefix}spinner-color: var(--#{$prefix}accent);
+  --#{$prefix}spinner-track: var(--#{$prefix}border);
+  --#{$prefix}spinner-speed: 0.7s;
+
+  display: inline-block;
+  width: var(--#{$prefix}spinner-size);
+  height: var(--#{$prefix}spinner-size);
+  border: var(--#{$prefix}spinner-width) solid var(--#{$prefix}spinner-track);
+  border-top-color: var(--#{$prefix}spinner-color);
+  border-radius: var(--#{$prefix}radius-circle);
+  animation: #{$prefix}spin var(--#{$prefix}spinner-speed) linear infinite;
+
+  &--sm {
+    --#{$prefix}spinner-size: 16px;
+  }
+
+  &--lg {
+    --#{$prefix}spinner-size: 40px;
+    --#{$prefix}spinner-width: var(--#{$prefix}border-width-3);
+  }
+
+  &--danger {
+    --#{$prefix}spinner-color: var(--#{$prefix}danger);
+  }
+}
+
+@keyframes #{$prefix}spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

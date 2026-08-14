@@ -1,0 +1,50 @@
+@use "sass:map";
+@use "../variables/global" as *;
+@use "../mixins/apply-utility" as *;
+
+$spacing-values: ();
+
+@each $step, $value in $spacers {
+  $spacing-values: map.set($spacing-values, $step, var(--#{$prefix}space-#{$step}));
+}
+
+$auto-values: auto;
+
+$margin-properties: (
+  "m": margin,
+  "mt": margin-top,
+  "mr": margin-right,
+  "mb": margin-bottom,
+  "ml": margin-left,
+  "mx": margin-left margin-right,
+  "my": margin-top margin-bottom,
+);
+
+$padding-properties: (
+  "p": padding,
+  "pt": padding-top,
+  "pr": padding-right,
+  "pb": padding-bottom,
+  "pl": padding-left,
+  "px": padding-left padding-right,
+  "py": padding-top padding-bottom,
+);
+
+$gap-properties: (
+  "gap": gap,
+  "gap-x": column-gap,
+  "gap-y": row-gap,
+);
+
+$spacing-properties: map.merge(
+  map.merge($margin-properties, $padding-properties),
+  $gap-properties
+);
+
+@each $classname, $properties in $spacing-properties {
+  @include apply-utility($classname, $properties, $spacing-values);
+}
+
+@each $classname, $properties in $margin-properties {
+  @include apply-utility($classname, $properties, $auto-values);
+}

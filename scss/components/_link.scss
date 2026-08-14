@@ -1,0 +1,58 @@
+@use "sass:map";
+@use "../variables/global" as *;
+@use "../mixins/link" as *;
+
+.#{$prefix}link {
+  @include link-base;
+
+  &--anchor {
+    @include link-anchor;
+  }
+}
+
+.#{$prefix}skip {
+  position: absolute;
+  top: 0;
+  left: -200%;
+  width: 1px;
+  height: 1px;
+  padding: 1.25rem 1.75rem;
+  border: var(--#{$prefix}border-width-1) solid var(--#{$prefix}accent);
+  border-radius: var(--#{$prefix}radius-sm);
+  overflow: hidden;
+  font-family: var(--#{$prefix}font-secondary);
+  font-size: var(--#{$prefix}font-size-xs);
+  font-weight: var(--#{$prefix}font-weight-medium);
+  line-height: var(--#{$prefix}line-height-none);
+  text-decoration: none;
+  color: var(--#{$prefix}accent);
+  background-color: transparent;
+  opacity: 0;
+  z-index: var(--#{$prefix}z-behind);
+  transition: var(--#{$prefix}transition);
+
+  &::after {
+    display: none;
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: var(--#{$prefix}shadow-pop-lg);
+    transform: var(--#{$prefix}translate-pop-lg);
+  }
+
+  &:hover,
+  &:focus {
+    top: 0;
+    left: 0;
+    width: auto;
+    height: auto;
+    overflow: auto;
+    color: var(--#{$prefix}text-inverse);
+    background-color: var(--#{$prefix}accent);
+    opacity: 1;
+    z-index: var(--#{$prefix}z-skip);
+    box-shadow: none;
+    transform: none;
+  }
+}

@@ -1,0 +1,29 @@
+@use "sass:map";
+@use "../variables/global" as *;
+@use "../mixins/apply-utility" as *;
+
+$position-values: static, relative, absolute, fixed, sticky;
+$overflow-values: auto, hidden, visible, scroll, clip;
+$edge-properties: top, right, bottom, left;
+
+$edge-values: (
+  0: 0,
+);
+
+$z-index-values: ();
+
+@each $name in map.keys($z-indexes) {
+  $z-index-values: map.set($z-index-values, $name, var(--#{$prefix}z-#{$name}));
+}
+
+@include apply-utility("pos", position, $position-values);
+@include apply-utility("inset", inset, $edge-values);
+
+@each $side in $edge-properties {
+  @include apply-utility($side, $side, $edge-values);
+}
+
+@include apply-utility("z", z-index, $z-index-values);
+@include apply-utility("overflow", overflow, $overflow-values);
+@include apply-utility("overflow-x", overflow-x, $overflow-values);
+@include apply-utility("overflow-y", overflow-y, $overflow-values);

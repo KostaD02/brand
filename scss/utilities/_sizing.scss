@@ -1,0 +1,65 @@
+@use "../variables/global" as *;
+@use "../mixins/apply-utility" as *;
+
+$sizing-values: 25, 50, 75, 100;
+
+$sizing-zero-values: (
+  0: 0,
+);
+
+@include apply-utility("w", width, $sizing-values, "%");
+@include apply-utility("min-w", min-width, $sizing-values, "%");
+@include apply-utility("max-w", max-width, $sizing-values, "%");
+@include apply-utility("h", height, $sizing-values, "%");
+@include apply-utility("min-h", min-height, $sizing-values, "%");
+@include apply-utility("max-h", max-height, $sizing-values, "%");
+@include apply-utility("vw", width, $sizing-values, "vw");
+@include apply-utility("min-vw", min-width, $sizing-values, "vw");
+@include apply-utility("max-vw", max-width, $sizing-values, "vw");
+@include apply-utility("vh", height, $sizing-values, "vh");
+@include apply-utility("min-vh", min-height, $sizing-values, "vh");
+@include apply-utility("max-vh", max-height, $sizing-values, "vh");
+@include apply-utility("w", width, $sizing-zero-values);
+@include apply-utility("min-w", min-width, $sizing-zero-values);
+@include apply-utility("max-w", max-width, $sizing-zero-values);
+@include apply-utility("h", height, $sizing-zero-values);
+@include apply-utility("min-h", min-height, $sizing-zero-values);
+@include apply-utility("max-h", max-height, $sizing-zero-values);
+@include apply-utility("vw", width, $sizing-zero-values);
+@include apply-utility("min-vw", min-width, $sizing-zero-values);
+@include apply-utility("max-vw", max-width, $sizing-zero-values);
+@include apply-utility("vh", height, $sizing-zero-values);
+@include apply-utility("min-vh", min-height, $sizing-zero-values);
+@include apply-utility("max-vh", max-height, $sizing-zero-values);
+
+.#{$prefix}w-auto {
+  width: auto;
+}
+
+.#{$prefix}h-auto {
+  height: auto;
+}
+
+.#{$prefix}w-fit {
+  width: fit-content;
+}
+
+.#{$prefix}h-fit {
+  height: fit-content;
+}
+
+.#{$prefix}w-full {
+  width: 100%;
+}
+
+.#{$prefix}h-full {
+  height: 100%;
+}
+
+.#{$prefix}h-screen {
+  height: 100dvh;
+}
+
+.#{$prefix}min-h-screen {
+  min-height: 100dvh;
+}

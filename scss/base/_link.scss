@@ -1,0 +1,10 @@
+@use "../variables/global" as *;
+@use "../mixins/link" as *;
+
+a {
+  @include link-base;
+}
+
+a.#{$prefix}header-anchor {
+  @include link-anchor;
+}

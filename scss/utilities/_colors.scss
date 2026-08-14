@@ -1,0 +1,49 @@
+@use "sass:map";
+@use "../variables/global" as *;
+@use "../mixins/apply-utility" as *;
+
+@function role-values($roles) {
+  $result: ();
+
+  @each $suffix, $role in $roles {
+    $result: map.set($result, $suffix, var(--#{$prefix}#{$role}));
+  }
+
+  @return $result;
+}
+
+$background-roles: (
+  base: bg,
+  alpha: bg-alpha,
+  elevated: bg-elevated,
+  elevated-hover: bg-elevated-hover,
+  accent: accent,
+  accent-soft: accent-soft,
+  warning-soft: warning-soft,
+  danger-soft: danger-soft,
+);
+
+$border-roles: (
+  base: border,
+  strong: border-strong,
+  focus: border-focus,
+  accent: accent,
+  accent-line: accent-line,
+  danger: danger,
+  warning: warning,
+);
+
+$background-values: role-values($background-roles);
+$background-values: map.set($background-values, "transparent", transparent);
+
+@each $name, $value in $colors {
+  $key: "" + $name;
+  $background-values: map.set($background-values, $key, var(--#{$prefix}color-#{$key}));
+}
+
+@include apply-utility("bg", background-color, $background-values);
+
+$border-color-values: role-values($border-roles);
+$border-color-values: map.set($border-color-values, "transparent", transparent);
+
+@include apply-utility("border", border-color, $border-color-values);

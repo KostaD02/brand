@@ -1,0 +1,48 @@
+@use "../variables/global" as *;
+
+@mixin link-base {
+  position: relative;
+  font-family: inherit;
+  font-size: inherit;
+  text-decoration: none;
+  text-decoration-skip-ink: auto;
+  color: var(--#{$prefix}accent);
+  transition: color var(--#{$prefix}duration-fast) var(--#{$prefix}easing);
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: var(--#{$prefix}accent);
+    transform: scaleX(0);
+    transform-origin: bottom left;
+    transition: transform var(--#{$prefix}duration-slow) var(--#{$prefix}easing);
+  }
+
+  &:not(:hover)::after {
+    transform-origin: right;
+  }
+
+  &:hover::after,
+  &:focus-visible::after,
+  &.#{$prefix}active::after {
+    transform: scaleX(1);
+  }
+}
+
+@mixin link-anchor {
+  color: var(--#{$prefix}text-primary);
+
+  &::after {
+    display: none;
+  }
+
+  &:hover,
+  &:focus-visible,
+  &.#{$prefix}active {
+    color: var(--#{$prefix}accent);
+  }
+}

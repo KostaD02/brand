@@ -1,15 +1,383 @@
-$prefix: "kd-";
-$font-sizes: (
-  xxxl: 3,
-  xxl: 2,
-  xl: 1.5,
-  lg: 1.25,
-  md: 1,
-  sm: 0.75,
+@use "sass:map";
+
+$prefix: "kd-" !default;
+
+$kd-navy: #0a192f !default;
+
+$kd-navy-alpha: #0a192fd9 !default;
+$kd-navy-dim: #0d2035 !default;
+$kd-navy-light: #112240 !default;
+$kd-navy-lightest: #233554 !default;
+
+$kd-slate: #8892b0 !default;
+$kd-slate-light: #a8b2d1 !default;
+$kd-slate-lightest: #ccd6f6 !default;
+$kd-ice: #e6f1ff !default;
+
+$kd-green: #64ffda !default;
+$kd-green-deep: #0baa84 !default;
+
+$kd-paper: #f5f7fb !default;
+$kd-paper-dim: #fafbfd !default;
+$kd-paper-elevated: #fff !default;
+$kd-paper-elevated-hover: #eef2f9 !default;
+$kd-paper-border: #e1e6f0 !default;
+$kd-paper-border-strong: #c3ccdc !default;
+
+$kd-steel: #495670 !default;
+$kd-steel-soft: #6b7891 !default;
+
+$kd-amber: #ffd166 !default;
+$kd-amber-deep: #d49100 !default;
+$kd-red: #ff6363 !default;
+$kd-red-deep: #d33b3b !default;
+
+$kd-shadow: #020c1b !default;
+
+$kd-code-navy: #011627 !default;
+$kd-code-fg: #d6deeb !default;
+$kd-code-green: #addb67 !default;
+$kd-code-paper: #f3f5fa !default;
+
+$colors: (
+  navy: $kd-navy,
+  navy-dim: $kd-navy-dim,
+  navy-light: $kd-navy-light,
+  navy-lightest: $kd-navy-lightest,
+  slate: $kd-slate,
+  slate-light: $kd-slate-light,
+  slate-lightest: $kd-slate-lightest,
+  ice: $kd-ice,
+  green: $kd-green,
+  green-deep: $kd-green-deep,
+  paper: $kd-paper,
+  paper-dim: $kd-paper-dim,
+  paper-elevated: $kd-paper-elevated,
+  paper-elevated-hover: $kd-paper-elevated-hover,
+  paper-border: $kd-paper-border,
+  paper-border-strong: $kd-paper-border-strong,
+  steel: $kd-steel,
+  steel-soft: $kd-steel-soft,
+  amber: $kd-amber,
+  amber-deep: $kd-amber-deep,
+  red: $kd-red,
+  red-deep: $kd-red-deep,
+  shadow: $kd-shadow,
+  code-navy: $kd-code-navy,
+  code-fg: $kd-code-fg,
+  code-green: $kd-code-green,
+  code-paper: $kd-code-paper,
 ) !default;
+
+$easing: cubic-bezier(0.645, 0.045, 0.355, 1) !default;
+
+$durations: (
+  fast: 0.2s,
+  base: 0.25s,
+  slow: 0.5s,
+) !default;
+
+$font-primary: "Raleway", sans-serif !default;
+$font-secondary: "Poppins", sans-serif !default;
+$font-mono: "JetBrains Mono", "Fira Code", ui-monospace, "Menlo", monospace !default;
+
+$font-families: (
+  primary: $font-primary,
+  secondary: $font-secondary,
+  mono: $font-mono,
+) !default;
+
+$font-sizes: (
+  micro: 10px,
+  xxxs: 11px,
+  xxs: 12px,
+  xs: 13px,
+  sm: 14px,
+  md: 16px,
+  lg: 18px,
+  xl: 20px,
+  xxl: 22px,
+  heading: 32px,
+  xxxl: 40px,
+  display: 50px,
+  hero: 60px,
+) !default;
+
+$font-sizes-fluid: (
+  hero: clamp(40px, 5vw, 60px),
+  h1: clamp(32px, 5vw, 50px),
+  h2: clamp(22px, 5vw, 32px),
+  h3: clamp(14px, 8vw, 16px),
+  section: clamp(25px, 5vw, 32px),
+) !default;
+
+$font-weights: (
+  regular: 400,
+  medium: 500,
+  semibold: 600,
+  bold: 700,
+) !default;
+
 $line-heights: (
-  1: 1,
+  none: 1,
+  xs: 1.1,
   sm: 1.25,
-  base: 1.5,
-  lg: 2,
+  md: 1.3,
+  lg: 1.4,
+  xl: 1.5,
+  xxl: 1.6,
+  xxxl: 1.75,
+) !default;
+
+$spacer: 1rem !default;
+
+$spacers: (
+  0: 0,
+  1: $spacer * 0.25,
+  2: $spacer * 0.5,
+  3: $spacer,
+  4: $spacer * 1.5,
+  5: $spacer * 3,
+) !default;
+
+$radii: (
+  sm: 4px,
+  md: 8px,
+  lg: 10px,
+  pill: 999px,
+  circle: 50%,
+) !default;
+
+$border-widths: (
+  1: 1px,
+  2: 2px,
+  3: 3px,
+  4: 4px,
+) !default;
+
+$focus-ring: (
+  width: 2px,
+  style: dashed,
+  offset: 3px,
+) !default;
+
+$pops: (
+  base: (
+    offset: 3px,
+    translate: 4px,
+  ),
+  lg: (
+    offset: 4px,
+    translate: 5px,
+  ),
+) !default;
+
+$breakpoints: (
+  base: 0,
+  xxs: 350px,
+  xs: 480px,
+  sm: 600px,
+  md: 768px,
+  lg: 945px,
+  xl: 1080px,
+) !default;
+
+$container-padding-x: map.get($spacers, 4) !default;
+
+$container-max-widths: (
+  xxs: 320px,
+  xs: 450px,
+  sm: 560px,
+  md: 720px,
+  lg: 900px,
+  xl: 1250px,
+) !default;
+
+$measures: (
+  xxs: 600px,
+  xs: 650px,
+  sm: 700px,
+  md: 800px,
+  lg: 900px,
+  xl: 1000px,
+  xxl: 1250px,
+  xxxl: 1600px,
+) !default;
+
+$opacities: (
+  disabled: 0.5,
+  muted: 0.65,
+) !default;
+
+$z-indexes: (
+  behind: -1,
+  base: 0,
+  raised: 1,
+  dropdown: 10,
+  sticky: 30,
+  overlay: 50,
+  modal: 100,
+  toast: 500,
+  skip: 1000,
+) !default;
+
+$button-sizes: (
+  sm: (
+    padding-y: 0.5rem,
+    padding-x: 0.75rem,
+    font-size: var(--#{$prefix}font-size-xxs),
+    pop: base,
+  ),
+  md: (
+    padding-y: 0.75rem,
+    padding-x: 1rem,
+    font-size: var(--#{$prefix}font-size-xs),
+    pop: base,
+  ),
+  lg: (
+    padding-y: 1rem,
+    padding-x: 1.5rem,
+    font-size: var(--#{$prefix}font-size-sm),
+    pop: lg,
+  ),
+) !default;
+
+$button-variations: (
+  primary: (
+    color: var(--#{$prefix}accent),
+    bg: transparent,
+    border: var(--#{$prefix}accent),
+    pop: var(--#{$prefix}accent),
+    hover-color: var(--#{$prefix}text-inverse),
+    hover-bg: var(--#{$prefix}accent),
+  ),
+  ghost: (
+    color: var(--#{$prefix}text-secondary),
+    bg: transparent,
+    border: var(--#{$prefix}border-strong),
+    pop: var(--#{$prefix}border-strong),
+    hover-color: var(--#{$prefix}text-secondary),
+    hover-bg: transparent,
+  ),
+  danger: (
+    color: var(--#{$prefix}danger),
+    bg: transparent,
+    border: var(--#{$prefix}danger),
+    pop: var(--#{$prefix}danger),
+    hover-color: var(--#{$prefix}danger),
+    hover-bg: transparent,
+  ),
+) !default;
+
+$pill-variations: (
+  idle: (
+    color: var(--#{$prefix}text-secondary),
+    bg: var(--#{$prefix}bg-elevated),
+    border: var(--#{$prefix}border),
+  ),
+  active: (
+    color: var(--#{$prefix}accent),
+    bg: var(--#{$prefix}accent-soft),
+    border: var(--#{$prefix}accent-line),
+  ),
+  warning: (
+    color: var(--#{$prefix}warning),
+    bg: var(--#{$prefix}warning-soft),
+    border: var(--#{$prefix}warning),
+  ),
+  danger: (
+    color: var(--#{$prefix}danger),
+    bg: var(--#{$prefix}danger-soft),
+    border: var(--#{$prefix}danger),
+  ),
+  offline: (
+    color: var(--#{$prefix}text-muted),
+    bg: transparent,
+    border: var(--#{$prefix}border-strong),
+  ),
+) !default;
+
+$theme-dark: (
+  bg: $kd-navy,
+  bg-alpha: $kd-navy-alpha,
+  bg-surface: $kd-navy-dim,
+  bg-elevated: $kd-navy-light,
+  bg-elevated-hover: $kd-navy-lightest,
+
+  border: $kd-navy-lightest,
+  border-strong: $kd-steel,
+  border-focus: $kd-green,
+
+  text-primary: $kd-slate-lightest,
+  text-secondary: $kd-slate-light,
+  text-muted: $kd-slate,
+  text-bright: $kd-ice,
+  text-inverse: $kd-navy,
+
+  accent: $kd-green,
+  accent-soft: rgba($kd-green, 0.08),
+  accent-line: rgba($kd-green, 0.3),
+  success: var(--#{$prefix}accent),
+  warning: $kd-amber,
+  warning-soft: rgba($kd-amber, 0.1),
+  danger: $kd-red,
+  danger-soft: rgba($kd-red, 0.1),
+  selection-bg: $kd-navy-lightest,
+  selection-fg: $kd-green,
+
+  scrollbar-thumb: $kd-steel,
+
+  code-bg: $kd-code-navy,
+  code-fg: $kd-code-fg,
+  code-inline-fg: $kd-code-green,
+
+  shadow-sm: 0 10px 30px -15px rgba($kd-shadow, 0.5),
+  shadow-md: 0 10px 30px -15px rgba($kd-shadow, 0.7),
+  shadow-lg: 0 20px 30px -15px rgba($kd-shadow, 0.7),
+  shadow-side: -10px 0 30px -15px rgba($kd-shadow, 0.7),
+) !default;
+
+$theme-light: (
+  bg: $kd-paper,
+  bg-alpha: rgba($kd-paper, 0.85),
+  bg-surface: $kd-paper-dim,
+  bg-elevated: $kd-paper-elevated,
+  bg-elevated-hover: $kd-paper-elevated-hover,
+
+  border: $kd-paper-border,
+  border-strong: $kd-paper-border-strong,
+  border-focus: $kd-green-deep,
+
+  text-primary: $kd-navy,
+  text-secondary: $kd-steel,
+  text-muted: $kd-steel-soft,
+  text-bright: $kd-navy,
+  text-inverse: $kd-paper-elevated,
+
+  accent: $kd-green-deep,
+  accent-soft: rgba($kd-green-deep, 0.08),
+  accent-line: rgba($kd-green-deep, 0.3),
+  success: var(--#{$prefix}accent),
+  warning: $kd-amber-deep,
+  warning-soft: rgba($kd-amber-deep, 0.1),
+  danger: $kd-red-deep,
+  danger-soft: rgba($kd-red-deep, 0.1),
+  selection-bg: rgba($kd-green-deep, 0.18),
+  selection-fg: $kd-navy,
+
+  scrollbar-thumb: $kd-paper-border-strong,
+
+  code-bg: $kd-code-paper,
+  code-fg: $kd-navy,
+  code-inline-fg: $kd-green-deep,
+
+  shadow-sm: 0 10px 30px -15px rgba($kd-shadow, 0.12),
+  shadow-md: 0 10px 30px -15px rgba($kd-shadow, 0.16),
+  shadow-lg: 0 20px 30px -15px rgba($kd-shadow, 0.2),
+  shadow-side: -10px 0 30px -15px rgba($kd-shadow, 0.16),
+) !default;
+
+$themes: (
+  dark: $theme-dark,
+  light: $theme-light,
 ) !default;

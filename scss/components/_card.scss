@@ -1,0 +1,64 @@
+@use "sass:map";
+@use "../variables/global" as *;
+@use "../mixins/pop" as *;
+
+.#{$prefix}card {
+  --#{$prefix}card-padding: 1.25rem;
+  --#{$prefix}card-bg: var(--#{$prefix}bg-elevated);
+  --#{$prefix}card-border-color: var(--#{$prefix}border);
+  --#{$prefix}card-radius: var(--#{$prefix}radius-md);
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: var(--#{$prefix}card-padding);
+  border: var(--#{$prefix}border-width-1) solid var(--#{$prefix}card-border-color);
+  border-radius: var(--#{$prefix}card-radius);
+  background: var(--#{$prefix}card-bg);
+
+  &__media {
+    margin: calc(var(--#{$prefix}card-padding) * -1);
+    margin-bottom: 0;
+    border-radius: var(--#{$prefix}card-radius) var(--#{$prefix}card-radius) 0 0;
+    overflow: hidden;
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: map.get($spacers, 2);
+    flex: 1 1 auto;
+  }
+
+  &__title {
+    font-family: var(--#{$prefix}font-primary);
+    font-size: var(--#{$prefix}font-size-lg);
+    font-weight: var(--#{$prefix}font-weight-semibold);
+    color: var(--#{$prefix}text-primary);
+  }
+
+  &__text {
+    font-size: var(--#{$prefix}font-size-sm);
+    line-height: var(--#{$prefix}line-height-lg);
+    color: var(--#{$prefix}text-secondary);
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    gap: map.get($spacers, 2);
+    margin-top: auto;
+  }
+
+  &--surface {
+    --#{$prefix}card-bg: var(--#{$prefix}bg-surface);
+  }
+
+  &--flush {
+    --#{$prefix}card-padding: 0;
+  }
+
+  &--interactive {
+    @include pop;
+  }
+}

@@ -2,6 +2,13 @@
   "name": "@kostad02/brand",
   "version": "1.0.0",
   "description": "Personal branding",
+  "keywords": [
+    "brand",
+    "design-tokens",
+    "design-system",
+    "scss",
+    "css"
+  ],
   "homepage": "https://github.com/KostaD02/brand#readme",
   "bugs": {
     "url": "https://github.com/KostaD02/brand/issues"
@@ -13,6 +20,36 @@
   "license": "MIT",
   "author": "Konstantine Datunishvili <konstantineda@datunishvili.ge>",
   "type": "module",
+  "sideEffects": [
+    "*.css",
+    "*.scss"
+  ],
+  "style": "./dist/kostad-brand.css",
+  "sass": "./scss/main.scss",
+  "exports": {
+    ".": {
+      "sass": "./scss/main.scss",
+      "style": "./dist/kostad-brand.css",
+      "default": "./dist/kostad-brand.css"
+    },
+    "./css": "./dist/kostad-brand.css",
+    "./css/min": "./dist/kostad-brand.min.css",
+    "./css/tokens": "./dist/kostad-brand-tokens.css",
+    "./css/reset": "./dist/kostad-brand-reset.css",
+    "./css/elements": "./dist/kostad-brand-elements.css",
+    "./css/components": "./dist/kostad-brand-components.css",
+    "./css/utilities": "./dist/kostad-brand-utilities.css",
+    "./tokens.json": "./dist/kostad-brand-tokens.json",
+    "./scss": "./scss/main.scss",
+    "./scss/*": "./scss/*",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "scss",
+    "LICENSE",
+    "README.md"
+  ],
   "publishConfig": {
     "access": "public"
   },
@@ -31,8 +68,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
-  "dependencies": {
-    "sass": "^1.102.0"
+  "peerDependencies": {
+    "sass": ">=1.79"
   },
   "devDependencies": {
     "@commitlint/cli": "^21.2.1",
@@ -43,6 +80,7 @@
     "eslint-config-prettier": "^10.1.8",
     "husky": "^9.1.7",
     "prettier": "^3.9.6",
+    "sass": "^1.102.0",
     "stylelint": "^17.14.1",
     "stylelint-config-standard-scss": "^17.0.0",
     "tsx": "^4.23.9",

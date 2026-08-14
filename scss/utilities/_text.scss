@@ -1,0 +1,80 @@
+@use "../variables/global" as *;
+@use "../mixins/apply-utility" as *;
+
+$text-align-values: start, end, center, justify;
+$text-transform-values: uppercase, lowercase, capitalize;
+$text-decoration-values: underline, line-through;
+$white-space-values: normal, nowrap, pre, pre-line, pre-wrap;
+$word-break-values: normal, break-all, keep-all;
+$font-style-values: normal, italic;
+$text-role-values: primary, secondary, muted, bright, inverse;
+$intent-role-values: accent, success, warning, danger;
+
+@include apply-utility("text", text-align, $text-align-values);
+@include apply-utility("text", text-transform, $text-transform-values);
+@include apply-utility("text", text-decoration, $text-decoration-values);
+
+.#{$prefix}text-none {
+  text-decoration: none;
+  text-transform: none;
+}
+
+@include apply-utility("whitespace", white-space, $white-space-values);
+@include apply-utility("break", word-break, $word-break-values);
+@include apply-utility("font", font-style, $font-style-values);
+
+@each $name, $value in $font-sizes {
+  .#{$prefix}fs-#{$name} {
+    font-size: var(--#{$prefix}font-size-#{$name});
+  }
+}
+
+@each $name, $value in $font-weights {
+  .#{$prefix}fw-#{$name} {
+    font-weight: var(--#{$prefix}font-weight-#{$name});
+  }
+}
+
+@for $i from 1 through 9 {
+  .#{$prefix}fw-#{100 * $i} {
+    font-weight: var(--#{$prefix}font-weight-#{100 * $i});
+  }
+}
+
+@each $name, $value in $line-heights {
+  .#{$prefix}lh-#{$name} {
+    line-height: var(--#{$prefix}line-height-#{$name});
+  }
+}
+
+@each $name, $value in $font-families {
+  .#{$prefix}font-#{$name} {
+    font-family: var(--#{$prefix}font-#{$name});
+  }
+}
+
+.#{$prefix}text-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.#{$prefix}text-balance {
+  text-wrap: balance;
+}
+
+.#{$prefix}text-pretty {
+  text-wrap: pretty;
+}
+
+@each $role in $text-role-values {
+  .#{$prefix}text-#{$role} {
+    color: var(--#{$prefix}text-#{$role});
+  }
+}
+
+@each $role in $intent-role-values {
+  .#{$prefix}text-#{$role} {
+    color: var(--#{$prefix}#{$role});
+  }
+}

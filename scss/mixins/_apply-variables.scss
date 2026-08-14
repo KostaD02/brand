@@ -1,0 +1,12 @@
+@use "../functions/to-map" as *;
+@use "../variables/global" as *;
+
+@mixin apply-variables($classname, $variables, $values) {
+  @each $key, $value in to-map($values) {
+    .#{$prefix}#{$classname}-#{$key} {
+      @each $variable in $variables {
+        --#{$prefix}#{$variable}: #{$value};
+      }
+    }
+  }
+}

@@ -1,0 +1,55 @@
+@use "sass:map";
+@use "../variables/global" as *;
+
+.#{$prefix}status-pill {
+  --#{$prefix}pill-color: var(--#{$prefix}text-muted);
+  --#{$prefix}pill-bg: var(--#{$prefix}bg-elevated);
+  --#{$prefix}pill-border: var(--#{$prefix}border);
+  --#{$prefix}pill-dot-size: 6px;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: map.get($spacers, 1) 0.625rem;
+  border: var(--#{$prefix}border-width-1) solid var(--#{$prefix}pill-border);
+  border-radius: var(--#{$prefix}radius-pill);
+  font-size: var(--#{$prefix}font-size-xxxs);
+  font-weight: var(--#{$prefix}font-weight-semibold);
+  letter-spacing: 0.4px;
+  white-space: nowrap;
+  color: var(--#{$prefix}pill-color);
+  background: var(--#{$prefix}pill-bg);
+  transition: var(--#{$prefix}transition);
+
+  &__dot {
+    flex-shrink: 0;
+    width: var(--#{$prefix}pill-dot-size);
+    height: var(--#{$prefix}pill-dot-size);
+    border-radius: var(--#{$prefix}radius-circle);
+    background-color: currentcolor;
+  }
+}
+
+@each $variation, $styles in $pill-variations {
+  .#{$prefix}status-pill--#{$variation} {
+    --#{$prefix}pill-color: #{map.get($styles, color)};
+    --#{$prefix}pill-bg: #{map.get($styles, bg)};
+    --#{$prefix}pill-border: #{map.get($styles, border)};
+  }
+}
+
+.#{$prefix}status-pill--active .#{$prefix}status-pill__dot {
+  box-shadow: 0 0 0 map.get($spacers, 1) var(--#{$prefix}accent-soft);
+  animation: #{$prefix}pulse 1.8s var(--#{$prefix}easing) infinite;
+}
+
+@keyframes #{$prefix}pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 map.get($spacers, 1) var(--#{$prefix}accent-soft);
+  }
+
+  50% {
+    box-shadow: 0 0 0 map.get($spacers, 2) transparent;
+  }
+}

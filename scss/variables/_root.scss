@@ -1,16 +1,125 @@
 @use "sass:map";
+@use "sass:meta";
 @use "./global" as *;
+@use "../functions/to-rgb" as *;
+
+:root,
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  @each $role, $value in $theme-dark {
+    --#{$prefix}#{$role}: #{$value};
+  }
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+
+  @each $role, $value in $theme-light {
+    --#{$prefix}#{$role}: #{$value};
+  }
+}
 
 :root {
+  @each $name, $value in $colors {
+    --#{$prefix}color-#{"" + $name}: #{$value};
+    --#{$prefix}color-#{"" + $name}-rgb: #{to-rgb($value)};
+  }
+
+  @each $name, $value in $font-families {
+    --#{$prefix}font-#{$name}: #{meta.inspect($value)};
+  }
+
+  @each $name, $value in $font-sizes {
+    --#{$prefix}font-size-#{$name}: #{$value};
+  }
+
+  --#{$prefix}font-size-body: var(--#{$prefix}font-size-sm);
+
+  @each $name, $value in $font-sizes-fluid {
+    --#{$prefix}font-size-fluid-#{$name}: #{$value};
+  }
+
+  @each $name, $value in $font-weights {
+    --#{$prefix}font-weight-#{$name}: #{$value};
+  }
+
   @for $i from 1 through 9 {
-    --#{$prefix}fw-#{$i}: #{100 * $i};
+    --#{$prefix}font-weight-#{100 * $i}: #{100 * $i};
   }
 
-  @each $property, $value in $font-sizes {
-    --#{$prefix}fs-#{$property}: #{$value}em;
+  @each $name, $value in $line-heights {
+    --#{$prefix}line-height-#{$name}: #{$value};
   }
 
-  @each $property, $value in $line-heights {
-    --#{$prefix}lh-#{$property}: #{$value};
+  --#{$prefix}line-height-base: var(--#{$prefix}line-height-xl);
+
+  @each $step, $value in $spacers {
+    --#{$prefix}space-#{$step}: #{$value};
+  }
+
+  @each $name, $value in $radii {
+    --#{$prefix}radius-#{$name}: #{$value};
+  }
+
+  @each $step, $value in $border-widths {
+    --#{$prefix}border-width-#{$step}: #{$value};
+  }
+
+  @each $name, $value in $focus-ring {
+    --#{$prefix}focus-ring-#{$name}: #{$value};
+  }
+
+  --#{$prefix}focus-ring-color: var(--#{$prefix}accent);
+
+  @each $name, $value in $opacities {
+    --#{$prefix}opacity-#{$name}: #{$value};
+  }
+
+  --#{$prefix}shadow-pop-color: var(--#{$prefix}accent);
+
+  @each $name, $value in $pops {
+    $suffix: "-#{$name}";
+    $offset: map.get($value, offset);
+    $translate: map.get($value, translate) * -1;
+
+    @if $name == base {
+      $suffix: "";
+    }
+
+    $shadow: #{$offset} #{$offset} 0 0 var(--#{$prefix}accent);
+
+    --#{$prefix}shadow-pop#{$suffix}: #{$shadow};
+    --#{$prefix}translate-pop#{$suffix}: translate(#{$translate}, #{$translate});
+  }
+
+  --#{$prefix}easing: #{$easing};
+
+  @each $name, $value in $durations {
+    --#{$prefix}duration-#{$name}: #{$value};
+  }
+
+  --#{$prefix}transition: all var(--#{$prefix}duration-base) var(--#{$prefix}easing);
+  --#{$prefix}transition-fast: all var(--#{$prefix}duration-fast) var(--#{$prefix}easing);
+  --#{$prefix}transition-slow: all var(--#{$prefix}duration-slow) var(--#{$prefix}easing);
+
+  @each $name, $value in $breakpoints {
+    @if $value != 0 {
+      --#{$prefix}breakpoint-#{$name}: #{$value};
+    }
+  }
+
+  --#{$prefix}container-padding-x: #{$container-padding-x};
+
+  @each $name, $value in $container-max-widths {
+    --#{$prefix}container-max-width-#{$name}: #{$value};
+  }
+
+  @each $name, $value in $measures {
+    --#{$prefix}measure-#{$name}: #{$value};
+  }
+
+  @each $name, $value in $z-indexes {
+    --#{$prefix}z-#{$name}: #{$value};
   }
 }

@@ -1,0 +1,88 @@
+@use "sass:map";
+@use "../variables/global" as *;
+@use "../mixins/apply-variables" as *;
+@use "../mixins/breakpoints" as *;
+
+%container-base {
+  --#{$prefix}container-padding-x: #{$container-padding-x};
+
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: var(--#{$prefix}container-padding-x);
+
+  @include respond-down(sm) {
+    --#{$prefix}container-padding-x: #{map.get($spacers, 3)};
+  }
+}
+
+.#{$prefix}container,
+.#{$prefix}container--fluid {
+  @extend %container-base;
+}
+
+@each $tier, $max in $container-max-widths {
+  .#{$prefix}container-#{$tier} {
+    @extend %container-base;
+  }
+
+  @include respond-up($tier) {
+    %container-cap-#{$tier} {
+      max-width: $max;
+    }
+
+    $reached: false;
+
+    @each $name, $width in $breakpoints {
+      @if not $reached {
+        .#{$prefix}container#{breakpoint-infix($name)} {
+          @extend %container-cap-#{$tier};
+        }
+
+        @if $name == $tier {
+          $reached: true;
+        }
+      }
+    }
+  }
+}
+
+.#{$prefix}container--fluid {
+  --#{$prefix}container-max-width: 100%;
+}
+
+.#{$prefix}container--flush {
+  --#{$prefix}container-padding-x: 0;
+}
+
+$gutter-values: ();
+
+@each $step, $value in $spacers {
+  $gutter-values: map.set($gutter-values, $step, var(--#{$prefix}space-#{$step}));
+}
+
+@include apply-variables("gutter", "container-padding-x", $gutter-values);
+
+@each $size, $width in $measures {
+  .#{$prefix}measure-#{$size} {
+    width: 100%;
+    max-width: var(--#{$prefix}measure-#{$size});
+    margin-inline: auto;
+  }
+}
+
+.#{$prefix}section {
+  --#{$prefix}section-padding-y: #{map.get($spacers, 5)};
+
+  position: relative;
+  width: 100%;
+  margin-inline: auto;
+  padding-block: var(--#{$prefix}section-padding-y);
+
+  &--flush {
+    --#{$prefix}section-padding-y: 0;
+  }
+
+  &--tight {
+    --#{$prefix}section-padding-y: #{map.get($spacers, 4)};
+  }
+}
