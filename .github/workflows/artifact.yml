@@ -1,0 +1,49 @@
+name: Artifact
+
+on:
+  workflow_call:
+    inputs:
+      dist-artifact:
+        description: Name of the internal dist artifact uploaded by build.yml
+        required: true
+        type: string
+
+jobs:
+  artifact:
+    name: Artifact
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Compute artifact name
+        id: name
+        run: echo "value=kostad-brand-PR-${{ github.event.pull_request.number }}-${{ github.event.pull_request.commits }}" >> "$GITHUB_OUTPUT"
+
+      - name: Download build output
+        uses: actions/download-artifact@v8
+        with:
+          name: ${{ inputs.dist-artifact }}
+          path: dist
+
+      - name: Upload PR artifact
+        id: upload
+        uses: actions/upload-artifact@v7
+        with:
+          name: ${{ steps.name.outputs.value }}
+          path: dist
+          if-no-files-found: error
+
+      - name: Comment artifact on PR
+        if: github.event.pull_request.head.repo.full_name == github.repository
+        uses: actions/github-script@v9
+        env:
+          ARTIFACT_NAME: ${{ steps.name.outputs.value }}
+          ARTIFACT_URL: ${{ steps.upload.outputs.artifact-url }}
+          PR_COMMIT_COUNT: ${{ github.event.pull_request.commits }}
+        with:
+          script: |
+            const report = require('./.github/scripts/comment-pr.cjs');
+            await report({ github, context });

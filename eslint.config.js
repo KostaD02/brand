@@ -15,5 +15,16 @@ export default tseslint.config(
       },
     },
   },
+  {
+    files: [".github/scripts/**/*.cjs"],
+    languageOptions: {
+      sourceType: "commonjs",
+      globals: {
+        console: "readonly",
+        process: "readonly",
+        require: "readonly",
+      },
+    },
+  },
   prettier,
 );
