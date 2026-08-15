@@ -45,6 +45,7 @@ jobs:
         with:
           source-dir: storybook-static
           action: deploy
+          comment: false
 
       - name: Deploy to Pages
         if: github.event_name == 'push'

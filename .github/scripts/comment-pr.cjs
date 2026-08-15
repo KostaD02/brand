@@ -45,7 +45,8 @@ module.exports = async ({ github, context }) => {
   entries.unshift(entry);
   entries = entries.slice(0, MAX_ENTRIES);
 
-  const body = renderBody(entries, collectSizes());
+  const preview = `https://${owner.toLowerCase()}.github.io/${repo}/pr-preview/pr-${issueNumber}/`;
+  const body = renderBody(entries, collectSizes(), preview);
 
   if (existing) {
     await github.rest.issues.updateComment({
@@ -90,7 +91,7 @@ function collectSizes() {
     });
 }
 
-function renderBody(entries, sizes) {
+function renderBody(entries, sizes, preview) {
   const [latest, ...previous] = entries;
 
   const lines = [
@@ -101,6 +102,7 @@ function renderBody(entries, sizes) {
     `**${latest.sha} · build N${latest.count}** _(${latest.date} UTC)_`,
     ``,
     `⬇️ **[${latest.name}.zip](${latest.url})**`,
+    `🔎 **[Storybook preview](${preview})**`,
   ];
 
   if (sizes.length) {
