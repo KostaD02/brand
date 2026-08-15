@@ -1,0 +1,44 @@
+import { Canvas, Meta } from "@storybook/addon-docs/blocks";
+
+import * as LinkStories from "./link.stories.ts";
+
+<Meta of={LinkStories} />
+
+# Link
+
+Links draw their own underline as a pseudo-element rather than using
+`text-decoration`, so it can be animated. The rule sweeps in from the left on hover and
+retracts to the right on leave.
+
+## Example
+
+The reset already applies this to every `<a>`, so plain anchors need no class.
+`kd-link` exists for elements that are not anchors, and for anchors inside a component
+that has opted out.
+
+<Canvas of={LinkStories.Example} />
+
+## Anchor
+
+`kd-link--anchor` drops the underline and inherits the body colour, tinting to accent on
+hover instead. It is the treatment used for heading permalinks, where a sweeping rule
+would be noise.
+
+<Canvas of={LinkStories.Anchor} />
+
+## Active
+
+`kd-active` holds the underline extended without hover, for marking the current page in
+a nav.
+
+<Canvas of={LinkStories.Active} />
+
+## Skip link
+
+`kd-skip` is positioned off-screen and pulls itself into the top-left corner when
+focused. Put it first in the document and point it at your main landmark.
+
+<Canvas of={LinkStories.Skip} />
+
+> The skip link is only reachable by keyboard. Verify it by pressing Tab as the first
+> action on a fresh page load. A mouse will never reveal it.

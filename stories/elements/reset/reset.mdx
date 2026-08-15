@@ -1,0 +1,77 @@
+import { Canvas, Meta } from "@storybook/addon-docs/blocks";
+
+import * as ResetStories from "./reset.stories.ts";
+
+<Meta of={ResetStories} />
+
+# Reset
+
+The base layer that everything else assumes. It ships as its own entry
+(`@kostad02/brand/css/reset`) so it can be loaded without the element styles, or skipped
+if you already have a reset you trust.
+
+## What it sets
+
+- `box-sizing: border-box` on every element and pseudo-element.
+- `margin` and `padding` cleared on `html` and `body`.
+- `body` gets the secondary family, the body size and line height, the primary text
+  colour and the page background, with a transition on colour and background so theme
+  switching fades rather than snaps.
+- `html` gets `scroll-behavior: smooth` and a scroll padding equal to the largest spacer,
+  so anchor targets are not hidden under a fixed header.
+- `img`, `svg` and `video` become `display: block` with `max-width: 100%`.
+- `textarea` is bounded on both axes from `--kd-textarea-*`: it starts at least 200px wide
+  and 120px tall, and cannot be dragged wider than its container or taller than 600px. The
+  minimum width is written as `min(100%, var(--kd-textarea-min-width))`, because a plain
+  `min-width` outranks `max-width` and would let a narrow column overflow.
+
+## Form fonts
+
+Form controls do not inherit typography by default, so the reset sets `font: inherit` on
+`input`, `button`, `textarea` and `select`. Nothing else about them is styled here.
+
+<Canvas of={ResetStories.FormFonts} />
+
+> These are unstyled on purpose. For a real form control use
+> [Field](?path=/docs/forms-field--docs), which supplies the border, padding, states
+> and validation styling.
+
+## Focus
+
+`:focus` outlines are removed and re-applied on `:focus-visible` only, so a pointer click
+does not leave a ring but keyboard navigation does. The ring is the dashed accent outline
+built from the focus-ring tokens.
+
+<Canvas of={ResetStories.Focus} />
+
+> Because this is a single `:focus-visible` rule at low specificity, any component that
+> sets `outline: none` later in the cascade removes it and must supply its own
+> indicator.
+
+## Selection
+
+Text selection uses its own theme roles rather than the browser default.
+
+<Canvas of={ResetStories.Selection} />
+
+## Scrollbars
+
+WebKit scrollbars are restyled to a 12px track in the page background with a rounded
+thumb in the scrollbar-thumb role, inset by a 3px border so it reads as floating.
+
+> This only affects WebKit and Chromium. Firefox keeps its native scrollbar, so do not
+> rely on the styled version as part of a layout.
+
+## Media
+
+<Canvas of={ResetStories.Media} />
+
+## Reduced motion
+
+A `prefers-reduced-motion: reduce` block collapses animation and transition durations to
+0.01ms, caps iteration counts at one, and turns off smooth scrolling. It uses
+`!important` and is the only place in the package that does.
+
+> The guard lives in the reset entry, not in components. A build that loads
+> `./css/components` without `./css/reset` gets the spinner and pill animations with no
+> reduced-motion handling at all.

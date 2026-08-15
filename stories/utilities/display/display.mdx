@@ -1,0 +1,59 @@
+import { Canvas, Meta } from "@storybook/addon-docs/blocks";
+
+import * as DisplayStories from "./display.stories.ts";
+
+<Meta of={DisplayStories} />
+
+# Display
+
+`kd-d-{value}` sets the `display` property. Available values:
+
+`block`, `inline`, `inline-block`, `flex`, `inline-flex`, `grid`, `inline-grid`,
+`contents`, `none`.
+
+## Block
+
+<Canvas of={DisplayStories.Block} />
+
+## Inline
+
+<Canvas of={DisplayStories.Inline} />
+
+## Flex
+
+`kd-d-flex` pairs with the [Flex](?path=/docs/utilities-flex--docs) utilities for
+direction, alignment and wrapping, and with `kd-gap-*` from
+[Spacing](?path=/docs/utilities-spacing--docs) for the gap.
+
+<Canvas of={DisplayStories.Flex} />
+
+## Grid
+
+`kd-d-grid` sets the display only. There are no column utilities, so define the tracks
+with `grid-template-columns` yourself.
+
+<Canvas of={DisplayStories.Grid} />
+
+## Responsive
+
+`kd-d-{breakpoint}-{value}` applies **at and below** that breakpoint, not above it.
+Breakpoints are `xxs`, `xs`, `sm`, `md`, `lg`, `xl`, and each variant compiles to a
+`max-width` query.
+
+<Canvas of={DisplayStories.Responsive} />
+
+> This is the opposite direction from the container tiers, where `kd-container-md` uses
+> `min-width`. Same `-md-` segment, opposite meaning: `kd-d-xl-none` hides content on
+> every viewport up to 1080px rather than only on large ones.
+
+> Only `display` has responsive variants. The full cross-product across every utility
+> group would take the utilities bundle from roughly 27KB to 150KB, so it is deliberate
+> restraint rather than an omission.
+
+## Visually hidden
+
+`kd-visually-hidden` removes an element from the page visually while leaving it in the
+accessibility tree. `kd-visually-hidden-focusable` does the same but reveals the element
+when it or anything inside it takes focus. That is the mechanism behind a skip link.
+
+<Canvas of={DisplayStories.VisuallyHidden} />

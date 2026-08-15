@@ -1,6 +1,7 @@
 import { readFileSync, writeFileSync } from "fs";
 
 import { log } from "./log.ts";
+import { resolve } from "path";
 
 interface Manifest {
   version: string;
@@ -72,7 +73,8 @@ export function writeTokenManifest(
   isSilent = false,
 ): boolean {
   try {
-    const pkg = JSON.parse(readFileSync("package.json", "utf-8")) as { version: string };
+    const pkgJson = readFileSync(resolve(import.meta.dirname, "../package.json"), "utf8");
+    const pkg = JSON.parse(pkgJson) as { version: string };
     const blocks = parse(readFileSync(cssPath, "utf8"), prefix);
 
     const theme = (name: string) => (s: string) =>

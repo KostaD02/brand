@@ -1,0 +1,72 @@
+import { Canvas, Meta } from "@storybook/addon-docs/blocks";
+
+import * as ButtonStories from "./button.stories.ts";
+
+<Meta of={ButtonStories} />
+
+# Button
+
+Trigger an action. Buttons are outlined rather than filled, and lift on hover with an
+offset shadow instead of changing elevation.
+
+## Variations
+
+Add a variation class alongside `kd-btn`. Every variation only reassigns custom
+properties, so the base class carries all of the layout and the variation carries the
+colour.
+
+<Canvas of={ButtonStories.Variations} />
+
+## Outline
+
+`kd-btn--outline` is accent on accent: accent label, accent border, transparent
+background. It stays that way on hover, lifting with the pop shadow instead of
+filling.
+
+It differs from `kd-btn--primary` only in the hover state: primary inverts to a filled
+accent block, outline holds its colour. Use outline where the button repeats or sits in
+running text, and primary where one action should dominate.
+
+<Canvas of={ButtonStories.Outline} />
+
+> An anchor styled as a button still needs `class="kd-btn"`, because the base class removes the
+> underline that the reset gives every `<a>`.
+
+## Sizes
+
+`kd-btn--sm` and `kd-btn--lg` change padding, font size and the size of the hover
+offset. Medium is the default and has no class.
+
+<Canvas of={ButtonStories.Sizes} />
+
+## Block
+
+`kd-btn--block` switches the button to `display: flex` and fills the width of its
+container.
+
+<Canvas of={ButtonStories.Block} />
+
+## With an icon
+
+Wrap an icon in `kd-btn__icon` so it does not shrink when the label wraps. Mark the icon
+`aria-hidden` and give an icon-only button an `aria-label`.
+
+<Canvas of={ButtonStories.Icon} />
+
+## Disabled
+
+Use the native `disabled` attribute on a `<button>`. For an anchor styled as a button,
+use `aria-disabled="true"` instead, because anchors have no disabled state.
+
+<Canvas of={ButtonStories.Disabled} />
+
+> Disabled buttons set `pointer-events: none`, so they will not fire hover or click
+> handlers. An anchor with `aria-disabled` still receives focus, so also remove its
+> `href` if it must not be activated.
+
+## Customising
+
+Rather than writing a new variation, reassign the custom properties on the element. Each
+one resolves on the button itself, so a one-off restyle does not need a new class.
+
+<Canvas of={ButtonStories.Anatomy} />

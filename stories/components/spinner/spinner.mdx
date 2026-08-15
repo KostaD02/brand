@@ -1,0 +1,46 @@
+import { Canvas, Meta } from "@storybook/addon-docs/blocks";
+
+import * as SpinnerStories from "./spinner.stories.ts";
+
+<Meta of={SpinnerStories} />
+
+# Spinner
+
+A rotating ring for indeterminate waits. It is one element: the track is the border and
+the head is a single differently-coloured border edge.
+
+## Example
+
+The spinner has no text of its own, so give it `role="status"` and an `aria-label`.
+
+<Canvas of={SpinnerStories.Example} />
+
+## Sizes
+
+`kd-spinner--sm` and `kd-spinner--lg` change the diameter; the large variant also
+thickens the ring so it stays in proportion.
+
+<Canvas of={SpinnerStories.Sizes} />
+
+## Danger
+
+`kd-spinner--danger` recolours the head for a retrying or failing operation.
+
+<Canvas of={SpinnerStories.Danger} />
+
+## Inside a button
+
+Wrap it in `kd-btn__icon` so it does not shrink, and set
+`--kd-spinner-color: currentcolor` to make it follow the button's text colour through
+hover. Mark the button `aria-busy` while it is working.
+
+<Canvas of={SpinnerStories.InButton} />
+
+> Keep the label in place while loading rather than swapping it for the spinner alone.
+> A button that changes width mid-click moves the pointer target.
+
+## Customising
+
+`--kd-spinner-size`, `--kd-spinner-width`, `--kd-spinner-color`, `--kd-spinner-track`
+and `--kd-spinner-speed` are all declared on the block, so any of them can be reassigned
+inline for a one-off.

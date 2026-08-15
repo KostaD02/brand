@@ -1,0 +1,72 @@
+import { Canvas, Meta } from "@storybook/addon-docs/blocks";
+
+import * as TextStories from "./text.stories.ts";
+
+<Meta of={TextStories} />
+
+# Text
+
+Type utilities. Sizes, weights, line heights and families all resolve to tokens, so they
+follow the theme and any override of the underlying scale.
+
+## Size
+
+`kd-fs-{name}` across the full scale: `micro`, `xxxs`, `xxs`, `xs`, `sm`, `md`, `lg`,
+`xl`, `xxl`, `heading`, `xxxl`, `display`, `hero`.
+
+<Canvas of={TextStories.Size} />
+
+## Weight
+
+`kd-fw-{regular|medium|semibold|bold}`, plus numeric `kd-fw-100` through `kd-fw-900`.
+
+<Canvas of={TextStories.Weight} />
+
+## Family
+
+`kd-font-{primary|secondary|mono}`. Primary is Raleway, secondary is Poppins, mono is
+JetBrains Mono with fallbacks.
+
+<Canvas of={TextStories.Family} />
+
+> `kd-font-*` is also the prefix for font style: `kd-font-normal` and `kd-font-italic`
+> set `font-style`, not the family.
+
+## Colour
+
+`kd-text-{primary|secondary|muted|bright|inverse}` for the text ramp, and
+`kd-text-{accent|success|warning|danger}` for intent.
+
+<Canvas of={TextStories.Roles} />
+
+> `success` is defined as `var(--kd-accent)` in both themes, so `kd-text-success` and
+> `kd-text-accent` render identically. `text-bright` also equals `text-primary` in the
+> light theme, so its emphasis is only visible in dark.
+
+## Alignment
+
+`kd-text-{start|end|center|justify}`.
+
+<Canvas of={TextStories.Align} />
+
+> The `kd-text-` prefix is shared across alignment, transform, decoration and colour.
+> They set different properties and can be combined freely: `kd-text-center` and
+> `kd-text-muted` do not conflict.
+
+## Transform and decoration
+
+`kd-text-{uppercase|lowercase|capitalize}` and
+`kd-text-{underline|line-through}`. `kd-text-none` clears both decoration and transform.
+
+## Wrapping
+
+`kd-whitespace-{normal|nowrap|pre|pre-line|pre-wrap}` and
+`kd-break-{normal|break-all|keep-all}` control wrapping. `kd-text-balance` and
+`kd-text-pretty` set `text-wrap` for headings and body copy respectively.
+
+## Truncation
+
+`kd-text-ellipsis` clips a single line with an ellipsis. It needs a constrained width to
+do anything.
+
+<Canvas of={TextStories.Truncation} />

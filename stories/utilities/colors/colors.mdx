@@ -1,0 +1,48 @@
+import { Canvas, Meta } from "@storybook/addon-docs/blocks";
+
+import * as ColorStories from "./colors.stories.ts";
+
+<Meta of={ColorStories} />
+
+# Colors
+
+Background and border colour utilities. Both come in two kinds that share one prefix, and
+the difference matters.
+
+## Role backgrounds
+
+`kd-bg-{base|alpha|elevated|elevated-hover|accent|accent-soft|warning-soft|danger-soft}`
+plus `kd-bg-transparent`. These resolve to theme roles, so they change when `data-theme`
+changes.
+
+<Canvas of={ColorStories.Roles} />
+
+## Palette backgrounds
+
+The raw palette is also exposed: `kd-bg-navy`, `kd-bg-slate`, `kd-bg-green`,
+`kd-bg-paper` and every other entry in the colour map. These are fixed values and do
+**not** follow the theme.
+
+<Canvas of={ColorStories.Palette} />
+
+> Nothing in the class name distinguishes the two. `kd-bg-base` follows the theme,
+> `kd-bg-navy` does not. There is no matching `kd-text-<palette>` set either, so the
+> two colour utilities are not symmetric. Prefer the role classes unless you specifically
+> want a fixed swatch.
+
+## Border colours
+
+`kd-border-{base|strong|focus|accent|accent-line|danger|warning}` and
+`kd-border-transparent` set `border-color` only. Pair them with a width from
+[Border](?path=/docs/utilities-border--docs), which is what actually draws the line.
+
+<Canvas of={ColorStories.Borders} />
+
+> `kd-border-*` is overloaded three ways: `kd-border-1` sets width, `kd-border-dashed`
+> sets style, `kd-border-accent` sets colour. They compose, but the shared prefix means
+> the class name alone does not tell you which property is being set.
+
+## Text colour
+
+Text colour lives with the type utilities rather than here. See
+[Text](?path=/docs/utilities-text--docs).

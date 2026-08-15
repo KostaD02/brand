@@ -1,0 +1,52 @@
+import { Canvas, Meta } from "@storybook/addon-docs/blocks";
+
+import * as SelectStories from "./select.stories.ts";
+
+<Meta of={SelectStories} />
+
+# Select
+
+A native dropdown. It shares `kd-field__input` with
+[Input](?path=/docs/forms-input--docs) and
+[Textarea](?path=/docs/forms-textarea--docs), and adds a custom arrow.
+
+## Example
+
+<Canvas of={SelectStories.Example} />
+
+The arrow is the one place the package overrides native chrome. `appearance: none` strips
+the platform control, extra right padding reserves the space, and the chevron is drawn
+from two 5px gradients tinted with the accent. There is no image and no icon font.
+
+> Because the arrow is painted with `background-image`, setting a background colour on the
+> select from a utility such as `kd-bg-elevated` replaces it and the arrow disappears.
+> Reassign the colour through `--kd-field-*` or component CSS instead.
+
+## Placeholder
+
+A `<select>` has no placeholder attribute. Use a first option that is `disabled` and
+`selected` with an empty value, so it shows as a prompt but cannot be chosen and fails a
+`required` check.
+
+<Canvas of={SelectStories.Placeholder} />
+
+## Grouped options
+
+`<optgroup>` is unstyled by the package and falls back to platform rendering, which is
+consistent enough to use as-is.
+
+<Canvas of={SelectStories.Grouped} />
+
+## Validation
+
+`kd-valid` and `kd-invalid` work as they do on the other controls.
+
+<Canvas of={SelectStories.Validation} />
+
+## Disabled
+
+<Canvas of={SelectStories.Disabled} />
+
+> The dimming rule for a read-only control is written as `:read-only:not(select)`, because
+> a `<select>` always matches `:read-only` and would otherwise render permanently
+> disabled. Only the `disabled` attribute dims a select.

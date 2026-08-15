@@ -1,0 +1,53 @@
+import { Canvas, Meta } from "@storybook/addon-docs/blocks";
+
+import * as InputStories from "./input.stories.ts";
+
+<Meta of={InputStories} />
+
+# Input
+
+A single-line control. Put `kd-field__input` on the `<input>` and wrap it in a
+[Field](?path=/docs/forms-field--docs) for the label, hint and spacing.
+
+## Example
+
+<Canvas of={InputStories.Example} />
+
+## Types
+
+The class is type-agnostic. `text`, `email`, `password`, `number`, `search` and `url` all
+take the same styling, and the browser keeps its own keyboard and validation behaviour.
+
+<Canvas of={InputStories.Types} />
+
+> Choose the type for the input mode it gives on mobile, not for the styling. `email` and
+> `number` change the on-screen keyboard, which matters more than the desktop appearance.
+
+## Validation
+
+`kd-valid` tints the border to accent. `kd-invalid` tints it to danger and adds a soft
+danger ring, so the state reads without relying on colour alone at a glance.
+
+<Canvas of={InputStories.Validation} />
+
+These are state classes on the control, not modifiers on the wrapper, so they can be
+toggled from script without touching the field. Always pair `kd-invalid` with
+`aria-invalid="true"` and point `aria-describedby` at the error text, or the state is
+visual only.
+
+> The classes style the control; they do not validate it. Native constraint attributes
+> such as `required`, `minlength` and `pattern` are what actually validate, and the
+> package does not style `:invalid` directly. That is deliberate: `:invalid` matches an
+> empty required field before the user has typed anything.
+
+## Disabled and read only
+
+`disabled` removes the control from the tab order and from form submission. `readonly`
+keeps it focusable, selectable and submitted, which is what you want for a value the user
+should be able to copy.
+
+<Canvas of={InputStories.Disabled} />
+
+> Both render identically here. The package styles `:read-only` with the same dimming as
+> `:disabled`, so a read-only input looks unavailable even though it is focusable and
+> submitted. Use `disabled` when the value should not be sent.

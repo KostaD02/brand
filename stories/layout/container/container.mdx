@@ -1,0 +1,59 @@
+import { Canvas, Meta } from "@storybook/addon-docs/blocks";
+
+import * as ContainerStories from "./container.stories.ts";
+
+<Meta of={ContainerStories} />
+
+# Container
+
+Centres content and caps its width. Containers are full width with horizontal padding
+until a breakpoint is reached, then hold a maximum width.
+
+## Example
+
+`kd-container` is the responsive default. It steps up through every tier, so it is
+capped at 320px from the smallest breakpoint and 1250px at the largest.
+
+<Canvas of={ContainerStories.Example} />
+
+## Tiers
+
+`kd-container-{tier}` starts capping at that tier and stays fluid below it. Tiers run
+`xxs`, `xs`, `sm`, `md`, `lg`, `xl`. The cap applies from a `min-width` query, so a
+larger tier stays full width on smaller screens.
+
+<Canvas of={ContainerStories.Tiers} />
+
+> `kd-container-xxs` and `kd-container` produce identical output at every viewport. The
+> tier loop starts at the smallest breakpoint, so the two classes always coincide.
+
+## Fluid
+
+`kd-container--fluid` keeps the padding and centring but never caps the width.
+
+<Canvas of={ContainerStories.Fluid} />
+
+> Use it on its own, not alongside `kd-container`. The cap from `kd-container` wins and
+> the result is not fluid.
+
+## Flush
+
+`kd-container--flush` zeroes the horizontal padding while keeping the width cap. It is a
+dependent modifier and needs a container class alongside it.
+
+<Canvas of={ContainerStories.Flush} />
+
+## Gutters
+
+`kd-gutter-{0-5}` reassigns `--kd-container-padding-x` from the spacer scale, so the
+horizontal padding can be changed without writing a new container.
+
+<Canvas of={ContainerStories.Gutters} />
+
+## Measure
+
+`kd-measure-{size}` caps width for readability rather than layout, running `xxs` through
+`xxxl`. Unlike a container it adds no padding, so use it on a prose column inside a
+container.
+
+<Canvas of={ContainerStories.Measure} />

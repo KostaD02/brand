@@ -1,0 +1,91 @@
+.sbdocs.sbdocs-wrapper,
+.sbdocs.sbdocs-content,
+.sbdocs-wrapper .docs-story,
+.sbdocs-wrapper .sb-story {
+  background-color: var(--kd-bg);
+}
+
+.sbdocs.sbdocs-content {
+  max-width: var(--kd-measure-xxxl);
+}
+
+.sbdocs :is(p, li, dd):not(:where(.docs-story) *) {
+  color: var(--kd-text-secondary);
+}
+
+.sbdocs :is(h1, h2, h3, h4, h5, h6, strong):not(:where(.docs-story) *) {
+  color: var(--kd-text-primary);
+}
+
+.sbdocs :is(h1, h2):not(:where(.docs-story) *) {
+  border-bottom-color: var(--kd-border);
+}
+
+.sbdocs hr:not(:where(.docs-story) *) {
+  border-top-color: var(--kd-border);
+  background-color: var(--kd-border);
+}
+
+.sbdocs a:not(:where(.docs-story) *) {
+  color: var(--kd-accent);
+  text-decoration: none;
+}
+
+.sbdocs code:not(:where(.docs-story) *) {
+  color: var(--kd-code-inline-fg) !important;
+  background-color: var(--kd-bg-elevated) !important;
+  border-color: var(--kd-border) !important;
+}
+
+.sbdocs blockquote:not(:where(.docs-story) *) {
+  color: var(--kd-text-secondary);
+  background-color: var(--kd-bg-surface);
+  border-left: var(--kd-border-width-3) solid var(--kd-accent-line);
+  padding: var(--kd-space-3);
+}
+
+.sbdocs table:not(:where(.docs-story) *) tr,
+.sbdocs table:not(:where(.docs-story) *) tr:nth-of-type(2n) {
+  background-color: transparent;
+}
+
+.sbdocs table:not(:where(.docs-story) *) code {
+  padding: 0;
+  color: var(--kd-text-primary) !important;
+  background-color: transparent !important;
+  border: 0;
+}
+
+.sbdocs table:not(:where(.docs-story) *) th {
+  color: var(--kd-table-head-color) !important;
+}
+
+.sbdocs table:not(:where(.docs-story) *) td {
+  vertical-align: middle;
+}
+
+.sbdocs-wrapper .docs-story,
+.sbdocs .docblock-source {
+  border: var(--kd-border-width-1) solid var(--kd-border);
+  border-radius: var(--kd-radius-sm);
+}
+
+.sbdocs-wrapper .docs-story:has(+ div pre) {
+  border-radius: 0;
+}
+
+.sbdocs .docblock-source,
+.sbdocs .docblock-source pre,
+.sbdocs .docblock-source code {
+  background-color: var(--kd-code-bg) !important;
+}
+
+.sbdocs .docblock-source pre {
+  width: 100%;
+  margin: 0;
+  border-radius: 0;
+}
+
+pre::before {
+  content: none;
+}

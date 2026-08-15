@@ -119,6 +119,10 @@
     --#{$prefix}measure-#{$name}: #{$value};
   }
 
+  --#{$prefix}textarea-min-width: #{$textarea-min-width};
+  --#{$prefix}textarea-min-height: #{$textarea-min-height};
+  --#{$prefix}textarea-max-height: #{$textarea-max-height};
+
   @each $name, $value in $z-indexes {
     --#{$prefix}z-#{$name}: #{$value};
   }

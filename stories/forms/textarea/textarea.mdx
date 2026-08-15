@@ -1,0 +1,57 @@
+import { Canvas, Meta } from "@storybook/addon-docs/blocks";
+
+import * as TextareaStories from "./textarea.stories.ts";
+
+<Meta of={TextareaStories} />
+
+# Textarea
+
+A multi-line control. It shares `kd-field__input` with
+[Input](?path=/docs/forms-input--docs) and [Select](?path=/docs/forms-select--docs), and
+adds one concern the others do not have: it can be resized by the user.
+
+## Example
+
+<Canvas of={TextareaStories.Example} />
+
+## Rows
+
+`rows` sets the starting height, in lines. Use it rather than a fixed height so the
+control scales with the font size.
+
+<Canvas of={TextareaStories.Rows} />
+
+## Bounds
+
+The reset bounds every textarea on both axes from three tokens:
+`--kd-textarea-min-width` (200px), `--kd-textarea-min-height` (120px) and
+`--kd-textarea-max-height` (600px). The width ceiling is the container itself.
+
+<Canvas of={TextareaStories.Bounds} />
+
+The minimum width is written as `min(100%, var(--kd-textarea-min-width))` rather than a
+plain `min-width`, because `min-width` outranks `max-width`: a bare minimum would let the
+control overflow any column narrower than itself.
+
+> `rows` operates inside these bounds. `rows="1"` still renders at the 120px minimum, so
+> reassign `--kd-textarea-min-height` if you genuinely want a one-line box.
+
+## Vertical resize only
+
+Horizontal dragging is already capped at the container, but it still lets the user make
+the control narrower than the layout expects. Set `resize: vertical` to remove the axis.
+
+<Canvas of={TextareaStories.VerticalOnly} />
+
+> Do not set `resize: none` without a good reason. It removes the user's only way to see
+> more of what they have written in a long entry.
+
+## Validation
+
+`kd-valid` and `kd-invalid` behave exactly as they do on an input. Pair the invalid state
+with `aria-invalid="true"` and an error described by `aria-describedby`.
+
+<Canvas of={TextareaStories.Validation} />
+
+> A textarea usually holds the longest answer on a form, so put the error above the fold
+> of the control if it is tall. An error under a 600px box is easy to miss.

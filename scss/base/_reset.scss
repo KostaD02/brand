@@ -37,6 +37,13 @@ select {
   font: inherit;
 }
 
+textarea {
+  min-width: min(100%, var(--#{$prefix}textarea-min-width));
+  max-width: 100%;
+  min-height: var(--#{$prefix}textarea-min-height);
+  max-height: var(--#{$prefix}textarea-max-height);
+}
+
 :focus {
   outline: none;
 }

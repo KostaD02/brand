@@ -1,0 +1,49 @@
+import { Canvas, Meta } from "@storybook/addon-docs/blocks";
+
+import * as TableStories from "./table.stories.ts";
+
+<Meta of={TableStories} />
+
+# Table
+
+Bare `table` is styled, so a plain table needs no classes. Cells get padding and a bottom
+rule, and the header row is uppercase and muted on an elevated background. Every row
+keeps its bottom rule, so the table closes on a line.
+
+## Example
+
+<Canvas of={TableStories.Example} />
+
+## Caption
+
+`caption` is muted, one size down, left aligned and sits above the table.
+
+<Canvas of={TableStories.Caption} />
+
+## Scrolling
+
+Tables are `width: 100%` and will squash rather than overflow. Wrap one in
+`kd-table-scroll` and give the table a `min-width` to get horizontal scrolling instead.
+
+<Canvas of={TableStories.Scroll} />
+
+## Sticky header
+
+`kd-sticky-head` pins the header row while the body scrolls. It is element-qualified as
+`table.kd-sticky-head`, so put it on the table itself, not the wrapper.
+
+<Canvas of={TableStories.StickyHead} />
+
+> Sticky positioning needs a scroll container with a bounded height. The class alone does
+> nothing if the page is what scrolls.
+
+## Fixed layout
+
+`kd-fixed` sets `table-layout: fixed`, so columns divide the width evenly instead of
+sizing to content. Also element-qualified.
+
+## Customising
+
+`--kd-table-padding-y`, `--kd-table-padding-x`, `--kd-table-border-color`,
+`--kd-table-head-bg` and `--kd-table-head-color` are declared on `table`, so a denser or
+recoloured table is a matter of reassigning them on that element.

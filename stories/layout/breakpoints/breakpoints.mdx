@@ -1,0 +1,115 @@
+import { Canvas, Meta } from "@storybook/addon-docs/blocks";
+
+import manifest from "../../../dist/kostad-brand-tokens.json";
+import * as BreakpointStories from "./breakpoints.stories.ts";
+
+<Meta of={BreakpointStories} />
+
+export const Scale = () => (
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Min width</th>
+        <th>Token</th>
+      </tr>
+    </thead>
+    <tbody>
+      {Object.entries(manifest.breakpoint).map(([name, value]) => (
+        <tr key={name}>
+          <td>
+            <code>{name}</code>
+          </td>
+          <td>
+            <code>{value}px</code>
+          </td>
+          <td>
+            <code>
+              --{manifest.prefix}breakpoint-{name}
+            </code>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+);
+
+# Breakpoints
+
+One scale drives the container tiers, the responsive display utilities and the SCSS
+`respond-*` mixins. Values are minimum widths.
+
+<Scale />
+
+There is a seventh breakpoint, `base`, fixed at `0`. It exists so a loop can start from
+"no query at all", and it emits no token and no media query.
+
+## Direction
+
+This is the part worth reading twice. The two consumers of the scale run in opposite
+directions:
+
+- **Container tiers** use `min-width`. `kd-container-md` caps the width from 768px
+  **upward** and stays fluid below.
+- **Responsive display** uses `max-width`. `kd-d-md-none` hides the element at 768px and
+  **below**, and shows it above.
+
+Both write `-md-`. Only the class family tells you which way it goes.
+
+<Canvas of={BreakpointStories.Hiding} />
+
+<Canvas of={BreakpointStories.Tiers} />
+
+## In SCSS
+
+Three mixins are exported through `@kostad02/brand/scss/api`.
+
+`respond-up` is min-width, and matches the container direction:
+
+<pre>
+  <code>{`@use "@kostad02/brand/scss/api" as brand;
+
+.panel {
+  padding: 1rem;
+
+  @include brand.respond-up(md) {
+    padding: 2rem;
+  }
+}`}</code>
+</pre>
+
+`respond-down` is max-width, and matches the display utilities:
+
+<pre>
+  <code>{`.panel {
+  @include brand.respond-down(sm) {
+    display: none;
+  }
+}`}</code>
+</pre>
+
+`respond-between` takes two names and applies within the range.
+
+> `respond-down` uses the tier's own minimum as its `max-width` with no subtraction, so
+> the boundary is inclusive on both sides. At exactly 768px both `respond-up(md)` and
+> `respond-down(md)` apply. Pick tiers that do not meet, or expect the overlap.
+
+> Passing `base` to `respond-up` is legal and emits the content with no media query at
+> all, since its value is `0`. `respond-down(base)` does the same, which is rarely what
+> you want.
+
+## In CSS
+
+The non-zero breakpoints are published as custom properties, so runtime code can read the
+same numbers the stylesheet uses:
+
+<pre>
+  <code>{`const md = getComputedStyle(document.documentElement)
+  .getPropertyValue("--kd-breakpoint-md");`}</code>
+</pre>
+
+They are also in `dist/kostad-brand-tokens.json` under `breakpoint`, already parsed to
+numbers, which is the easier source for a bundler or a script.
+
+> Custom properties cannot be used inside a media query condition. `@media (min-width: var(--kd-breakpoint-md))`
+> does not work in any browser. Use the SCSS mixins at build time, or the JSON at runtime.

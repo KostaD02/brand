@@ -1,0 +1,47 @@
+import { Canvas, Meta } from "@storybook/addon-docs/blocks";
+
+import * as SpacingStories from "./spacing.stories.ts";
+
+<Meta of={SpacingStories} />
+
+# Spacing
+
+Margin, padding and gap, all drawn from one six-step scale. Every class resolves to a
+`--kd-space-*` token rather than a literal, so overriding `$spacer` moves the whole
+system.
+
+Steps: `0` (0), `1` (0.25rem), `2` (0.5rem), `3` (1rem), `4` (1.5rem), `5` (3rem).
+
+## Padding
+
+`kd-p-{0-5}` for all sides, plus `pt`, `pr`, `pb`, `pl` for single sides and `px`, `py`
+for axes.
+
+<Canvas of={SpacingStories.Padding} />
+
+## Margin
+
+`kd-m-{0-5}` with the same `mt`, `mr`, `mb`, `ml`, `mx`, `my` variants.
+
+<Canvas of={SpacingStories.Margin} />
+
+## Single sides and axes
+
+<Canvas of={SpacingStories.Sides} />
+
+## Auto margins
+
+Every margin class also has an `auto` variant: `kd-m-auto`, `kd-mx-auto`, `kd-mt-auto`
+and so on. There is no `auto` for padding, because `padding: auto` is not valid CSS.
+
+<Canvas of={SpacingStories.Auto} />
+
+## Gap
+
+`kd-gap-{0-5}` sets `gap`, with `kd-gap-x-*` for `column-gap` and `kd-gap-y-*` for
+`row-gap`. Gap applies to flex and grid containers only.
+
+<Canvas of={SpacingStories.Gap} />
+
+> Gap is generally a better choice than margins on children: it does not collapse, does
+> not add space at the ends of a row, and does not need a `:last-child` exception.

@@ -30,10 +30,6 @@ table {
     user-select: none;
   }
 
-  tr:last-child td {
-    border-bottom: 0;
-  }
-
   caption {
     padding-bottom: map.get($spacers, 2);
     font-size: var(--#{$prefix}font-size-xxs);

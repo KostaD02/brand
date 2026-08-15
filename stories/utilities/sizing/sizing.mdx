@@ -1,0 +1,39 @@
+import { Canvas, Meta } from "@storybook/addon-docs/blocks";
+
+import * as SizingStories from "./sizing.stories.ts";
+
+<Meta of={SizingStories} />
+
+# Sizing
+
+Width and height on a coarse four-step percentage scale, plus viewport units and a few
+keywords. There is no fine-grained scale on purpose; anything more specific belongs in
+component CSS.
+
+## Percentage
+
+`kd-w-{0|25|50|75|100}` and the same values for `min-w`, `max-w`, `h`, `min-h`, `max-h`.
+
+<Canvas of={SizingStories.Width} />
+
+## Viewport units
+
+`kd-vw-*`, `kd-min-vw-*`, `kd-max-vw-*` and the `vh` equivalents take the same values,
+sized against the viewport instead of the parent.
+
+## Keywords
+
+`kd-w-auto`, `kd-w-fit`, `kd-w-full` and their `h` counterparts, plus `kd-h-screen` and
+`kd-min-h-screen` which use `100dvh` so they account for mobile browser chrome.
+
+<Canvas of={SizingStories.Keywords} />
+
+> `kd-w-full` and `kd-w-100` produce identical output. Both are kept because the two
+> naming idioms are each familiar to different people.
+
+## Height
+
+Percentage heights resolve against the parent, so the parent needs a definite height or
+they collapse.
+
+<Canvas of={SizingStories.Height} />

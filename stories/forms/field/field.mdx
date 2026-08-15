@@ -1,0 +1,63 @@
+import { Canvas, Meta } from "@storybook/addon-docs/blocks";
+
+import * as FieldStories from "./field.stories.ts";
+
+<Meta of={FieldStories} />
+
+# Field
+
+The wrapper that holds a control together with its label, hint and error. It owns the
+spacing and the sizing properties; the control itself is documented separately per type:
+[Input](?path=/docs/forms-input--docs), [Textarea](?path=/docs/forms-textarea--docs) and
+[Select](?path=/docs/forms-select--docs).
+
+## Anatomy
+
+`kd-field` is a flex column. Five elements are available, all optional except the control:
+
+- `kd-field__label` the label, uppercase and tracked
+- `kd-field__icon` a small marker inside the label
+- `kd-field__input` the control, shared by input, textarea and select
+- `kd-field__hint` muted helper text
+- `kd-field__error` the same slot in the danger colour
+
+Connect the label and control with `for` and `id`.
+
+<Canvas of={FieldStories.Example} />
+
+> `kd-field__input` reads its padding from properties declared on `kd-field`. Used outside
+> the wrapper it inherits nothing and falls back to no padding, so keep the two together.
+
+## Hint
+
+`kd-field__hint` sits under the control in the muted colour. Point the control at it with
+`aria-describedby` so it is announced rather than just seen.
+
+<Canvas of={FieldStories.Hint} />
+
+## Error
+
+`kd-field__error` is the same slot in the danger colour. Pair it with `kd-invalid` on the
+control and `aria-invalid="true"`, and describe it the same way.
+
+<Canvas of={FieldStories.Error} />
+
+> Replace the hint with the error rather than showing both. Two lines of guidance under
+> one control competes for attention at the moment the user is trying to recover.
+
+## Label icon
+
+`kd-field__icon` drops to the micro size and the muted colour, so a marker sits inside
+the label without changing its line height. Size an SVG in `em` so it follows.
+
+<Canvas of={FieldStories.WithIcon} />
+
+> If the icon carries meaning, give it a label rather than `aria-hidden`. A decorative
+> one should be hidden so it is not announced as a stray graphic.
+
+## Customising
+
+`--kd-field-gap`, `--kd-field-padding-y` and `--kd-field-padding-x` are declared on the
+wrapper, so reassigning them there resizes the whole field including its control.
+
+<Canvas of={FieldStories.Spacing} />

@@ -1,0 +1,63 @@
+import { Canvas, Meta } from "@storybook/addon-docs/blocks";
+
+import * as FlexStories from "./flex.stories.ts";
+
+<Meta of={FlexStories} />
+
+# Flex
+
+Flexbox utilities. They set flex properties only, so put `kd-d-flex` on the container
+yourself, and use `kd-gap-*` for spacing between items.
+
+## Direction
+
+`kd-flex-{row|row-reverse|column|column-reverse}`.
+
+<Canvas of={FlexStories.Direction} />
+
+## Justify
+
+`kd-justify-{start|end|center|between|around|evenly}` sets `justify-content`. The keys are
+shortened: `between` maps to `space-between`, and `start` to `flex-start`.
+
+<Canvas of={FlexStories.Justify} />
+
+## Align
+
+`kd-items-{start|end|center|baseline|stretch}` sets `align-items` on the container.
+`kd-self-*` takes the same values and sets `align-self` on a single child.
+`kd-content-*` sets `align-content` and adds `between`, `around` and `evenly`.
+
+<Canvas of={FlexStories.Items} />
+
+## Wrap
+
+`kd-flex-{wrap|nowrap|wrap-reverse}`.
+
+<Canvas of={FlexStories.Wrap} />
+
+## Grow and shrink
+
+`kd-grow-{0|1}` and `kd-shrink-{0|1}`. Only the two values are generated; anything
+finer belongs in component CSS.
+
+<Canvas of={FlexStories.GrowShrink} />
+
+## Order
+
+`kd-order-{0-5}` plus `kd-order-first` (`-1`) and `kd-order-last` (`99`).
+
+<Canvas of={FlexStories.Order} />
+
+> Reordering visually does not reorder the DOM, so keyboard and screen-reader users still
+> follow source order. Keep the source in the order the content should be read.
+
+## Center
+
+`kd-flex-center` is the one shorthand: `display: flex` plus centring on both axes.
+
+<Canvas of={FlexStories.Center} />
+
+> Because it sets `display` itself and is emitted after the display utilities, it wins
+> over them. `class="kd-flex-center kd-d-none"` stays visible, and
+> `kd-flex-center kd-d-md-none` is never hidden. Use one or the other, not both.

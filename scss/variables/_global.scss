@@ -204,6 +204,10 @@ $measures: (
   xxxl: 1600px,
 ) !default;
 
+$textarea-min-width: 200px !default;
+$textarea-min-height: 120px !default;
+$textarea-max-height: 600px !default;
+
 $opacities: (
   disabled: 0.5,
   muted: 0.65,
@@ -250,6 +254,14 @@ $button-variations: (
     pop: var(--#{$prefix}accent),
     hover-color: var(--#{$prefix}text-inverse),
     hover-bg: var(--#{$prefix}accent),
+  ),
+  outline: (
+    color: var(--#{$prefix}accent),
+    bg: transparent,
+    border: var(--#{$prefix}accent),
+    pop: var(--#{$prefix}accent),
+    hover-color: var(--#{$prefix}accent),
+    hover-bg: transparent,
   ),
   ghost: (
     color: var(--#{$prefix}text-secondary),

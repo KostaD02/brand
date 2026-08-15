@@ -1,0 +1,48 @@
+import { Canvas, Meta } from "@storybook/addon-docs/blocks";
+
+import * as ToggleStories from "./toggle.stories.ts";
+
+<Meta of={ToggleStories} />
+
+# Toggle
+
+A switch for a setting that applies immediately. It is a real checkbox: the input is
+visually hidden and the track and thumb are drawn as siblings, so keyboard behaviour,
+form submission and the checked state all come from the browser.
+
+## Example
+
+The markup order matters: the input must come immediately before the track, because the
+checked and focus styles are sibling selectors.
+
+<Canvas of={ToggleStories.Example} />
+
+## Checked
+
+Set the native `checked` attribute. The track fills with the accent and the thumb slides
+by a distance computed from the track and thumb sizes.
+
+<Canvas of={ToggleStories.Checked} />
+
+## Disabled
+
+`kd-toggle--disabled` dims the control and blocks pointer events.
+
+<Canvas of={ToggleStories.Disabled} />
+
+> The modifier does not disable the input on its own. Set the native `disabled`
+> attribute as well. Without it the hidden checkbox stays in the tab order and can
+> still be operated with Space.
+
+## Without a visible label
+
+`kd-toggle__label` is optional. If you omit it, put an `aria-label` on the wrapping
+`<label>` so the control is still announced.
+
+<Canvas of={ToggleStories.WithoutLabel} />
+
+## Customising
+
+`--kd-toggle-track-width`, `--kd-toggle-track-height`, `--kd-toggle-thumb-size` and
+`--kd-toggle-inset` drive the geometry. The travel distance is derived from them, so
+changing the track width alone keeps the thumb correctly positioned at both ends.

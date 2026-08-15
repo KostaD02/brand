@@ -1,0 +1,49 @@
+import { Canvas, Meta } from "@storybook/addon-docs/blocks";
+
+import * as BorderStories from "./border.stories.ts";
+
+<Meta of={BorderStories} />
+
+# Border
+
+Width, side, style and radius. Width and colour come from tokens, so borders follow the
+theme.
+
+## Width
+
+`kd-border-{1-4}` sets width, style and colour together, so a single class draws a
+complete border, so `kd-border-1` is usable on its own. `kd-border-0` removes it.
+
+<Canvas of={BorderStories.Width} />
+
+## Sides
+
+`kd-border-{t|r|b|l}-{1-4}` draws a single edge, again setting width, style and colour in
+one class.
+
+<Canvas of={BorderStories.Sides} />
+
+## Style
+
+`kd-border-{solid|dashed|dotted|none}` sets `border-style` alone, so it needs a width
+class alongside it to be visible.
+
+<Canvas of={BorderStories.Style} />
+
+> The `kd-border-` prefix covers three properties: width (`kd-border-2`), style
+> (`kd-border-dashed`) and colour (`kd-border-accent`, documented under
+> [Colors](?path=/docs/utilities-colors--docs)). They compose, but the numeric ones are
+> the only ones that stand alone.
+
+## Radius
+
+`kd-radius-{0|sm|md|lg|pill|circle}`, resolving to the radius tokens.
+
+<Canvas of={BorderStories.Radius} />
+
+## Accent hairline
+
+`kd-border-accent-hairline` is the one shorthand: a 1px accent border, the signature
+outline used across the brand.
+
+<Canvas of={BorderStories.Hairline} />

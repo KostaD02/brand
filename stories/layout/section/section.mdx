@@ -1,0 +1,37 @@
+import { Canvas, Meta } from "@storybook/addon-docs/blocks";
+
+import * as SectionStories from "./section.stories.ts";
+
+<Meta of={SectionStories} />
+
+# Section
+
+Vertical rhythm between blocks of a page. Where a container controls width, a section
+controls the space above and below.
+
+## Example
+
+`kd-section` applies symmetric vertical padding and nothing else, so sections stack
+without collapsing margins.
+
+<Canvas of={SectionStories.Example} />
+
+## Spacing
+
+`kd-section--tight` reduces the padding and `kd-section--flush` removes it. Both are
+dependent modifiers and need `kd-section` alongside.
+
+<Canvas of={SectionStories.Spacing} />
+
+## With a container
+
+The two compose: the section owns the vertical space, the container owns the width. Nest
+the container inside the section so the section's background, if it has one, spans the
+full viewport.
+
+<Canvas of={SectionStories.WithContainer} />
+
+## Customising
+
+`--kd-section-padding-y` is declared on the block. Reassign it for a one-off rather than
+reaching for a modifier.

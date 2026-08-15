@@ -1,0 +1,23 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+import manifest from "../dist/kostad-brand-tokens.json";
+
+<Meta title="Introduction" />
+
+<section className="kd-h-100 kd-section kd-section--flush kd-flex-center kd-flex-column kd-gap-2">
+<h1 className="kd-text-center">@kostad02/brand</h1>
+
+<p className="kd-text-center">The design system for KostaD02's projects.</p>
+
+<div className="kd-flex-center">
+  <img src="./logo_500x500_circle.png" alt="Brand Logo" width="128" height="128" />
+</div>
+
+<div className="kd-flex-center kd-gap-2">
+  <span>Version <code>{manifest.version}</code></span>
+  <span>·</span>
+  <a href="https://github.com/KostaD02/brand/blob/main/LICENSE" target="_blank">
+    <span>License</span>
+  </a>
+</div>
+</section>

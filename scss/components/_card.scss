@@ -61,4 +61,8 @@
   &--interactive {
     @include pop;
   }
+
+  &::after {
+    display: none;
+  }
 }

@@ -1,0 +1,204 @@
+import { Canvas, Meta } from "@storybook/addon-docs/blocks";
+
+import manifest from "../../dist/kostad-brand-tokens.json";
+import * as TokenStories from "./tokens.stories.ts";
+
+<Meta of={TokenStories} />
+
+export const p = manifest.prefix;
+
+export const group = (...prefixes) =>
+  Object.entries(manifest.token).filter(([name]) =>
+    prefixes.some((prefix) => name === prefix || name.startsWith(prefix)),
+  );
+
+export const isColor = (value) => /^(#|rgb|hsl)/.test(value);
+
+export const Chip = ({ value }) =>
+  isColor(value) ? (
+    <span
+      style={{
+        display: "inline-block",
+        width: "1.25rem",
+        height: "1.25rem",
+        verticalAlign: "middle",
+        borderRadius: "3px",
+        border: "1px solid var(--kd-border)",
+        background: value,
+      }}
+    />
+  ) : null;
+
+export const Tokens = ({ rows }) => (
+  <table>
+    <thead>
+      <tr>
+        <th>Token</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      {rows.map(([name, value]) => (
+        <tr key={name}>
+          <td>
+            <code>
+              --{p}
+              {name}
+            </code>
+          </td>
+          <td>
+            <Chip value={value} /> <code>{value}</code>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+);
+
+export const Theme = ({ names }) => (
+  <table>
+    <thead>
+      <tr>
+        <th>Token</th>
+        <th>Dark</th>
+        <th>Light</th>
+      </tr>
+    </thead>
+    <tbody>
+      {names.map((name) => (
+        <tr key={name}>
+          <td>
+            <code>
+              --{p}
+              {name}
+            </code>
+          </td>
+          <td>
+            <Chip value={manifest.theme.dark[name]} />{" "}
+            <code>{manifest.theme.dark[name]}</code>
+          </td>
+          <td>
+            <Chip value={manifest.theme.light[name]} />{" "}
+            <code>{manifest.theme.light[name]}</code>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+);
+
+export const themeNames = (test) =>
+  Object.keys(manifest.theme.dark).filter((name) => test.test(name));
+
+# Tokens
+
+Every value in the package is a CSS custom property named `--kd-*`, declared in one
+place: `scss/variables/_root.scss`. Nothing else in the tree declares a global token, so
+this page is the whole surface.
+
+These names are public API. Consumers reference them from stylesheets and from
+JavaScript, where a rename cannot be caught by a compiler, so treat renaming one as a
+breaking change rather than a refactor.
+
+The tables below are generated from `dist/kostad-brand-tokens.json`, which the build
+derives from the compiled CSS. They cannot drift from what actually ships. Current
+version: <code>{manifest.version}</code>.
+
+## How theming works
+
+Dark is the default. The dark values are declared on `:root` itself, so a page that sets
+no attribute at all is already dark.
+
+Adding `data-theme="light"` swaps in the light values, and `data-theme="dark"` puts them
+back. Neither selector is stronger than the other, so the order they appear in the
+stylesheet is what decides: the light block is written last, which is why it takes
+effect.
+
+Everything on this page below the theme tables is theme-independent and lives in a plain
+`:root` block.
+
+## Surfaces
+
+<Theme names={themeNames(/^bg/)} />
+
+## Text
+
+<Theme names={themeNames(/^text-/)} />
+
+## Borders
+
+<Theme names={themeNames(/^border/)} />
+
+## Intent
+
+<Theme names={themeNames(/^(accent|success|warning|danger)/)} />
+
+> `success` resolves to `var(--kd-accent)` in both themes, so it is not an independent
+> colour. Anything using it renders identically to the accent.
+
+## Selection, scrollbar and code
+
+<Theme names={themeNames(/^(selection|scrollbar|code)/)} />
+
+## Shadows
+
+<Theme names={themeNames(/^shadow-/)} />
+
+<Canvas of={TokenStories.Shadow} />
+
+## Palette
+
+The raw palette sits in `:root` and does not change with the theme. The theme roles above
+are built from these, and each also has an `-rgb` triplet for use inside `rgb()`.
+
+<Canvas of={TokenStories.Palette} />
+
+<Tokens rows={group("color-").filter(([name]) => !name.endsWith("-rgb"))} />
+
+## Spacing
+
+<Canvas of={TokenStories.Spacing} />
+
+<Tokens rows={group("space-")} />
+
+## Typography
+
+<Canvas of={TokenStories.TypeScale} />
+
+<Tokens rows={group("font-")} />
+
+### Line height
+
+<Tokens rows={group("line-height-")} />
+
+## Radius and border width
+
+<Canvas of={TokenStories.Radius} />
+
+<Tokens rows={group("radius-", "border-width-")} />
+
+## Motion
+
+<Tokens rows={group("easing", "duration-", "transition")} />
+
+## Focus ring and pop
+
+`--kd-focus-ring-color` and the pop tokens are declared in the theme-independent block,
+so their accent is substituted once at the root. A nested `[data-theme]` island does not
+re-resolve them, unlike the shadow tokens above.
+
+<Tokens rows={group("focus-ring-", "shadow-pop", "translate-pop")} />
+
+## Layout
+
+<Tokens rows={group("breakpoint-", "container-", "measure-", "textarea-")} />
+
+## Z-index
+
+The scale is named rather than numeric so that layering intent survives refactoring.
+
+<Tokens rows={group("z-")} />
+
+## Opacity
+
+<Tokens rows={group("opacity-")} />

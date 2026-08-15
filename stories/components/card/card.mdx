@@ -1,0 +1,55 @@
+import { Canvas, Meta } from "@storybook/addon-docs/blocks";
+
+import * as CardStories from "./card.stories.ts";
+
+<Meta of={CardStories} />
+
+# Card
+
+A bordered surface for grouping related content. The card is a flex column, so its
+children stack and the footer can be pinned to the bottom.
+
+## Example
+
+`kd-card__body` holds the content, `kd-card__title` and `kd-card__text` set the type.
+None of the elements are required; a card with a single child is valid.
+
+<Canvas of={CardStories.Example} />
+
+## Surface
+
+`kd-card--surface` drops the background from `--kd-bg-elevated` to `--kd-bg-surface`.
+Use it when a card sits on top of an already elevated area and needs to read as recessed
+rather than raised.
+
+<Canvas of={CardStories.Surface} />
+
+## Footer
+
+`kd-card__footer` has `margin-top: auto`, so it is pushed to the bottom of the card. In a
+row of cards with unequal text, the footers still line up.
+
+<Canvas of={CardStories.Footer} />
+
+## Media
+
+`kd-card__media` cancels the card padding with a negative margin and rounds its top
+corners to match, so an image meets the border with no gap.
+
+<Canvas of={CardStories.Media} />
+
+> Media only clips correctly as the first child. Placing it mid-card leaves the rounded
+> corners pointing the wrong way.
+
+## Interactive
+
+`kd-card--interactive` applies the pop treatment: the card lifts and casts an offset
+shadow on hover and focus. Use it only when the whole card is a single link or button.
+
+<Canvas of={CardStories.Interactive} />
+
+## Customising
+
+`--kd-card-padding`, `--kd-card-bg`, `--kd-card-border-color` and `--kd-card-radius` are
+declared on the block, so reassigning any of them on the element restyles that one card.
+`kd-card--flush` is the built-in shortcut for zero padding.

@@ -1,0 +1,57 @@
+import { Canvas, Meta } from "@storybook/addon-docs/blocks";
+
+import * as EffectsStories from "./effects.stories.ts";
+
+<Meta of={EffectsStories} />
+
+# Effects
+
+Shadow, the pop treatment, opacity, transition and interaction utilities.
+
+## Shadow
+
+`kd-shadow-{sm|md|lg|side|none}`. The shadow tokens are theme keys, so they soften in the
+light theme rather than keeping the dark values.
+
+<Canvas of={EffectsStories.Shadow} />
+
+## Pop
+
+`kd-pop` and `kd-pop-lg` apply the signature treatment: on hover and focus the element
+lifts by a translate and casts a hard offset shadow with no blur.
+
+<Canvas of={EffectsStories.Pop} />
+
+> The colour comes from `--kd-shadow-pop-color`, which resolves where it is used, so
+> setting it on the element retints the shadow. The flat `--kd-shadow-pop` token does not
+> consult it, so components reading that token directly cannot be retinted the same way.
+
+## Opacity
+
+`kd-opacity-{0|25|50|75|100}`.
+
+<Canvas of={EffectsStories.Opacity} />
+
+> The ladder is hardcoded rather than read from the opacity tokens, so
+> `--kd-opacity-muted` (0.65) has no matching class.
+
+## Transition
+
+`kd-transition` applies the base transition. `kd-transition-fast`, `kd-transition-slow`
+and `kd-transition-none` take the other durations.
+
+## Interaction
+
+`kd-cursor-{pointer|default|not-allowed|wait|text|grab}`,
+`kd-pointer-{none|auto}` and `kd-select-{none|text|all}`.
+
+> `kd-pointer-none` also stops hover and focus styles firing, so pairing it with
+> `kd-cursor-not-allowed` means the cursor never shows, because the element cannot be hovered at
+> all. Use one or the other.
+
+## Focus ring
+
+`kd-focus-ring` applies the dashed accent outline on `:focus-visible`. The reset already
+does this globally; the class is for elements that have opted out and need it back.
+
+<Canvas of={EffectsStories.FocusRing} />

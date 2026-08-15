@@ -21,6 +21,10 @@
   background: var(--#{$prefix}pill-bg);
   transition: var(--#{$prefix}transition);
 
+  &::after {
+    display: none;
+  }
+
   &__dot {
     flex-shrink: 0;
     width: var(--#{$prefix}pill-dot-size);

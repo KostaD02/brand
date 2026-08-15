@@ -38,6 +38,10 @@
     flex-shrink: 0;
   }
 
+  &::after {
+    display: none;
+  }
+
   &--block {
     display: flex;
     width: 100%;

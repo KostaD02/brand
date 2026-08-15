@@ -1,0 +1,64 @@
+import { Canvas, Meta } from "@storybook/addon-docs/blocks";
+
+import * as ContentStories from "./content.stories.ts";
+
+<Meta of={ContentStories} />
+
+# Content
+
+Element defaults for written content: quotes, rules, figures and code. Like typography
+these apply to bare tags and ship in the `elements` layer. The `kd-prose` class at the
+bottom of this page is the opt-in wrapper for a full article.
+
+## Blockquote
+
+An accent left border with the corners rounded on the closing side only.
+
+<Canvas of={ContentStories.Blockquote} />
+
+## Rule
+
+`hr` is drawn as a top border rather than a height, so it stays exactly one border width
+regardless of zoom.
+
+<Canvas of={ContentStories.Rule} />
+
+## Inline code
+
+`code` uses the mono family with the code foreground colour on an elevated background.
+Both are theme roles, so it recolours in light mode.
+
+<Canvas of={ContentStories.InlineCode} />
+
+## Code block
+
+`pre` carries the code background and an accent bar down the left edge, drawn as a
+pseudo-element. A `code` inside a `pre` drops the inline padding and background so the
+two do not double up.
+
+<Canvas of={ContentStories.CodeBlock} />
+
+> `pre` scrolls horizontally rather than wrapping. Give it a bounded width, or it will
+> stretch its container.
+
+## Figure
+
+`figure` gets vertical margin and `figcaption` is muted and one size down.
+
+<Canvas of={ContentStories.Figure} />
+
+## The prose class
+
+`kd-prose` is for a written page rather than an application screen. It raises `p` and
+`li` to the medium size, steps the headings down so `h1` inside an article does not
+compete with the page title, and constrains images.
+
+<Canvas of={ContentStories.Prose} />
+
+> `kd-prose` sets sizes only, not rhythm. Paragraphs still have no margin, so pair it
+> with a flex column and `kd-gap-*`, or add your own margin, or the paragraphs will run
+> together. Plain `ul` and `ol` are also unstyled here, so they keep browser defaults
+> unless you add `kd-list`.
+
+Pair it with `kd-measure-*` from [Container](?path=/docs/layout-container--docs) to cap
+the line length.
