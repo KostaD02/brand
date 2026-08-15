@@ -9,11 +9,10 @@ runs:
     - uses: actions/setup-node@v6
       with:
         node-version: 22
-        cache: pnpm
 
     - name: Cache node_modules
       id: cache-node-modules
-      uses: actions/cache@v4
+      uses: actions/cache@v6
       with:
         path: node_modules
         key: ${{ runner.os }}-node-modules-${{ hashFiles('pnpm-lock.yaml') }}
