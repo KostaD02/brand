@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  format:
+    uses: ./.github/workflows/format.yml
+
+  lint:
+    uses: ./.github/workflows/lint.yml
+
+  typecheck:
+    uses: ./.github/workflows/typecheck.yml
+
+  build:
+    needs: [lint, typecheck]
+    uses: ./.github/workflows/build.yml
+
+  artifact:
+    if: github.event_name == 'pull_request'
+    needs: [build]
+    permissions:
+      contents: read
+      pull-requests: write
+    uses: ./.github/workflows/artifact.yml
+    with:
+      dist-artifact: ${{ needs.build.outputs.dist-artifact }}
+
+  storybook:
+    needs: [build]
+    permissions:
+      contents: write
+      pull-requests: write
+    uses: ./.github/workflows/storybook.yml

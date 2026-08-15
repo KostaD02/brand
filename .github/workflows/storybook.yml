@@ -1,0 +1,55 @@
+name: Storybook
+
+on:
+  workflow_call:
+
+jobs:
+  storybook:
+    name: Storybook
+    runs-on: ubuntu-latest
+    if: >-
+      github.event_name != 'pull_request' ||
+      github.event.pull_request.head.repo.full_name == github.repository
+    permissions:
+      contents: write
+      pull-requests: write
+    concurrency:
+      group: github-pages
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: ./.github/actions/setup
+
+      - name: Resolve base path
+        id: base
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          repo="${GITHUB_REPOSITORY#*/}"
+
+          if [ "$GITHUB_EVENT_NAME" = "pull_request" ]; then
+            echo "value=/$repo/pr-preview/pr-$PR_NUMBER/" >> "$GITHUB_OUTPUT"
+          else
+            echo "value=/$repo/" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Build Storybook
+        env:
+          STORYBOOK_BASE: ${{ steps.base.outputs.value }}
+        run: pnpm run docs:build
+
+      - name: Deploy PR preview
+        if: github.event_name == 'pull_request'
+        uses: rossjrw/pr-preview-action@v1
+        with:
+          source-dir: storybook-static
+          action: deploy
+
+      - name: Deploy to Pages
+        if: github.event_name == 'push'
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: storybook-static
+          clean-exclude: pr-preview/
