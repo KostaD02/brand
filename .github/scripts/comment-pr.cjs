@@ -102,7 +102,6 @@ function renderBody(entries, sizes, preview) {
     `**${latest.sha} · build N${latest.count}** _(${latest.date} UTC)_`,
     ``,
     `⬇️ **[${latest.name}.zip](${latest.url})**`,
-    `🔎 **[Storybook preview](${preview})**`,
   ];
 
   if (sizes.length) {
@@ -116,6 +115,15 @@ function renderBody(entries, sizes, preview) {
       ),
     );
   }
+
+  lines.push(
+    ``,
+    `## 🔎 PR preview`,
+    ``,
+    `**[Storybook for this branch](${preview})**`,
+    ``,
+    `Rebuilt on every push, removed when the PR closes.`,
+  );
 
   if (previous.length) {
     lines.push(
