@@ -108,7 +108,7 @@
   },
   "release-it": {
     "git": {
-      "commitMessage": "chore: release v${version}",
+      "commitMessage": "chore: release v${version} [skip ci]",
       "tagName": "v${version}",
       "requireBranch": "main"
     },
@@ -116,7 +116,7 @@
       "release": false
     },
     "npm": {
-      "publish": false
+      "publish": true
     },
     "hooks": {
       "before:init": [
