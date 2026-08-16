@@ -3,7 +3,7 @@
 </h1>
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/KostaD02/brand/refs/heads/main/public/logo_500x500_circle.png" alt="brand-logo" width="120" height="120" />
+    <img src="https://raw.githubusercontent.com/KostaD02/brand/refs/heads/main/public/logo_500x500.png" alt="brand-logo" width="120" height="120" />
     <br />
     <em>The design system for <a href="https://konstantinedatunishvili.com" target="_blank"> Konstantine Datunishvili's</a> projects.</em>
     <br />

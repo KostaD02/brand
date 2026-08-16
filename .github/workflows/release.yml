@@ -83,6 +83,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      id-token: write
     env:
       SPECIFIER: ${{ needs.check.outputs.specifier }}
     steps:
@@ -98,8 +99,11 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
+      - name: Upgrade npm for trusted publishing
+        run: npm install -g npm@latest
+
       - name: Run release-it
-        run: pnpm exec release-it "$SPECIFIER" --ci
+        run: pnpm exec release-it "$SPECIFIER" --ci --npm.skipChecks
 
       - name: Read new version
         id: v
