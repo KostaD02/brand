@@ -1,0 +1,124 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version bump (auto derives it from conventional commits since the last tag)"
+        type: choice
+        default: auto
+        options:
+          - auto
+          - patch
+          - minor
+          - major
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  check:
+    name: Check permissions and version bump
+    runs-on: ubuntu-latest
+    if: "${{ !startsWith(github.event.head_commit.message, 'chore: release v') }}"
+    outputs:
+      specifier: ${{ steps.bump.outputs.specifier }}
+    steps:
+      - name: Ensure the actor is a repository admin
+        if: github.event_name == 'workflow_dispatch'
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const { data } = await github.rest.repos.getCollaboratorPermissionLevel({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              username: context.actor,
+            });
+
+            if (data.permission !== 'admin') {
+              core.setFailed(`Only repository admins can run a release, '${context.actor}' has '${data.permission}' permission.`);
+            }
+
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Determine version bump
+        id: bump
+        env:
+          REQUESTED: ${{ inputs.version }}
+        run: |
+          if [ -n "$REQUESTED" ] && [ "$REQUESTED" != "auto" ]; then
+            SPECIFIER="$REQUESTED"
+            echo "Using requested bump '${SPECIFIER}'"
+          else
+            LAST_TAG=$(git describe --tags --abbrev=0 --match 'v*' 2>/dev/null || true)
+            if [ -n "$LAST_TAG" ]; then RANGE="$LAST_TAG..HEAD"; else RANGE="HEAD"; fi
+            SUBJECTS=$(git log "$RANGE" --format='%s')
+            BODIES=$(git log "$RANGE" --format='%b')
+            if echo "$SUBJECTS" | grep -qE '^[a-z]+(\([^)]*\))?!:' || echo "$BODIES" | grep -qE 'BREAKING[ -]CHANGE'; then
+              SPECIFIER=major
+            elif echo "$SUBJECTS" | grep -qE '^feat(\([^)]*\))?:'; then
+              SPECIFIER=minor
+            elif echo "$SUBJECTS" | grep -qE '^fix(\([^)]*\))?:'; then
+              SPECIFIER=patch
+            else
+              SPECIFIER=none
+              echo "::notice::No feat/fix/breaking commits since ${LAST_TAG:-start} - nothing to release."
+            fi
+            echo "Range '${RANGE}' -> bump '${SPECIFIER}'"
+          fi
+          echo "specifier=$SPECIFIER" >> "$GITHUB_OUTPUT"
+
+  release:
+    name: Release
+    needs: check
+    if: needs.check.outputs.specifier != 'none'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      SPECIFIER: ${{ needs.check.outputs.specifier }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          ssh-key: ${{ secrets.RELEASE_SSH_KEY }}
+
+      - uses: ./.github/actions/setup
+
+      - name: Configure git author
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Run release-it
+        run: pnpm exec release-it "$SPECIFIER" --ci
+
+      - name: Read new version
+        id: v
+        run: echo "version=$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
+
+      - name: Package stylesheets
+        run: zip -rj "kostad-brand-${{ steps.v.outputs.version }}.zip" dist
+
+      - name: Render release notes
+        run: sed "s/__VERSION__/${{ steps.v.outputs.version }}/g" .github/release-template.md > release-notes.md
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ steps.v.outputs.version }}
+          name: v${{ steps.v.outputs.version }}
+          body_path: release-notes.md
+          generate_release_notes: true
+          make_latest: true
+          files: kostad-brand-${{ steps.v.outputs.version }}.zip

@@ -38,7 +38,7 @@ export const InlineCode: Story = {
 export const CodeBlock: Story = {
   tags: ["!dev"],
   render: () => `
-<pre><code>@use "@kostad02/brand/scss/api" as brand;
+<pre><code>@use "@kostad/brand/scss/api" as brand;
 
 .thing {
   color: var(--kd-accent);

@@ -4,7 +4,7 @@ import { resolve } from "path";
 import { compile } from "sass";
 
 import { withLicenseBanner } from "./banner.ts";
-import { ENTRIES, NAME, PREFIX, STYLES } from "./consts.ts";
+import { ENTRIES, NAME, PREFIX, STYLES, TOKENS_ENTRY } from "./consts.ts";
 import { log } from "./log.ts";
 import { writeTokenManifest } from "./tokens.ts";
 
@@ -21,6 +21,8 @@ const targets = ENTRIES.flatMap(({ entry, name }) =>
     style,
   })),
 );
+
+const tokensEntry = resolve(srcDir, TOKENS_ENTRY);
 
 main(isWatchMode, isSilentMode);
 
@@ -54,12 +56,25 @@ function build(isSilentMode: boolean): boolean {
     }
   }
 
-  return writeTokenManifest(
-    resolve(distDir, `${NAME}-tokens.css`),
-    resolve(distDir, `${NAME}-tokens.json`),
-    PREFIX,
-    isSilentMode,
-  );
+  try {
+    const { css } = compile(tokensEntry, {
+      style: "expanded",
+      sourceMap: false,
+      charset: false,
+    });
+
+    return writeTokenManifest(
+      css,
+      resolve(distDir, `${NAME}-tokens.json`),
+      PREFIX,
+      isSilentMode,
+    );
+  } catch (err) {
+    const error = err instanceof Error ? err.message : String(err);
+    log(`Error while compiling ${tokensEntry}: ${error}`, isSilentMode, true);
+
+    return false;
+  }
 }
 
 function watch(isSilentMode: boolean): void {

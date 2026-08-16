@@ -6,9 +6,9 @@ import * as ResetStories from "./reset.stories.ts";
 
 # Reset
 
-The base layer that everything else assumes. It ships as its own entry
-(`@kostad02/brand/css/reset`) so it can be loaded without the element styles, or skipped
-if you already have a reset you trust.
+The base layer that everything else assumes. It is part of the main stylesheet, and SCSS
+consumers can take it alone with `@use "@kostad/brand/scss/base/reset"` to get it without
+the element styles, or skip it if you already have a reset you trust.
 
 ## What it sets
 

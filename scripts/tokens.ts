@@ -67,7 +67,7 @@ function pick(
 }
 
 export function writeTokenManifest(
-  cssPath: string,
+  css: string,
   jsonPath: string,
   prefix: string,
   isSilent = false,
@@ -75,7 +75,7 @@ export function writeTokenManifest(
   try {
     const pkgJson = readFileSync(resolve(import.meta.dirname, "../package.json"), "utf8");
     const pkg = JSON.parse(pkgJson) as { version: string };
-    const blocks = parse(readFileSync(cssPath, "utf8"), prefix);
+    const blocks = parse(css, prefix);
 
     const theme = (name: string) => (s: string) =>
       new RegExp(`\\[data-theme=["']?${name}["']?\\]`).test(s);
