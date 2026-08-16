@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.0.1](https://github.com/KostaD02/brand/compare/v1.0.0...v1.0.1) (2026-08-16)
+
+### Bug Fixes
+
+* **ci:** publish to npm from github actions ([#3](https://github.com/KostaD02/brand/issues/3)) ([9bdf9cd](https://github.com/KostaD02/brand/commit/9bdf9cdecc91462087a2506b3f83ade4743e4e32))
+
 ## 1.0.0 (2026-08-16)
 
 ### ⚠ BREAKING CHANGES
