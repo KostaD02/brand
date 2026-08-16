@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.1.0](https://github.com/KostaD02/brand/compare/v1.0.1...v1.1.0) (2026-08-16)
+
+### Features
+
+* **docs:** readme update ([2fc53ca](https://github.com/KostaD02/brand/commit/2fc53ca1877c2d5c3bd950638476ca61bc0e5e5a))
+
 ## [1.0.1](https://github.com/KostaD02/brand/compare/v1.0.0...v1.0.1) (2026-08-16)
 
 ### Bug Fixes
