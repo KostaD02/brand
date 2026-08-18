@@ -17,6 +17,9 @@ type Story = StoryObj<SizingArgs>;
 const bar = (classes: string, label: string) =>
   `<div style="background: var(--kd-bg-surface); border: 1px dashed var(--kd-border-strong); margin-bottom: var(--kd-space-2);"><div class="${classes}" style="padding: var(--kd-space-1); background: var(--kd-accent-soft); border: 1px solid var(--kd-accent-line); font-family: var(--kd-font-mono); font-size: var(--kd-font-size-xxs);">${label}</div></div>`;
 
+const column = (classes: string, label: string) =>
+  `<div class="${classes}" style="flex: 1; display: flex; flex-direction: column; justify-content: space-between; padding: var(--kd-space-1); background: var(--kd-accent-soft); border: 1px solid var(--kd-accent-line); font-family: var(--kd-font-mono); font-size: var(--kd-font-size-xxs);"><span>${label}</span><span>ends here</span></div>`;
+
 export const Width: Story = {
   tags: ["!dev"],
   render: () =>
@@ -40,6 +43,18 @@ export const Height: Story = {
   <div class="kd-h-25" style="padding: var(--kd-space-1); background: var(--kd-accent-soft); border: 1px solid var(--kd-accent-line); font-family: var(--kd-font-mono); font-size: var(--kd-font-size-xxs);">.kd-h-25</div>
   <div class="kd-h-50" style="padding: var(--kd-space-1); background: var(--kd-accent-soft); border: 1px solid var(--kd-accent-line); font-family: var(--kd-font-mono); font-size: var(--kd-font-size-xxs);">.kd-h-50</div>
   <div class="kd-h-100" style="padding: var(--kd-space-1); background: var(--kd-accent-soft); border: 1px solid var(--kd-accent-line); font-family: var(--kd-font-mono); font-size: var(--kd-font-size-xxs);">.kd-h-100</div>
+</div>
+`,
+};
+
+export const ViewportHeight: Story = {
+  tags: ["!dev"],
+  render: () => `
+<div style="height: 14rem; overflow: auto; padding: var(--kd-space-2); background: var(--kd-bg-surface); border: 1px dashed var(--kd-border-strong);">
+  <div class="kd-d-flex kd-gap-2">
+    ${column("kd-h-viewport", ".kd-h-viewport")}
+    ${column("kd-h-screen", ".kd-h-screen")}
+  </div>
 </div>
 `,
 };

@@ -63,3 +63,7 @@ $sizing-zero-values: (
 .#{$prefix}min-h-screen {
   min-height: 100dvh;
 }
+
+.#{$prefix}h-viewport {
+  height: calc(100dvh - var(--#{$prefix}scroll-offset));
+}

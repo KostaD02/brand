@@ -45,10 +45,32 @@ dependent modifier and needs a container class alongside it.
 
 ## Gutters
 
-`kd-gutter-{0-5}` reassigns `--kd-container-padding-x` from the spacer scale, so the
-horizontal padding can be changed without writing a new container.
+`kd-gutter-{0-7}` reassigns `--kd-container-padding-x` from the spacer scale, so the
+horizontal padding can be changed without writing a new container. It runs the whole
+scale, so a 90px page shell at step 7 is still a container.
 
 <Canvas of={ContainerStories.Gutters} />
+
+> The gutter classes are emitted after `kd-container--flush`, so putting the two together
+> gives you the gutter rather than zero. Drop the flush class instead of fighting it.
+
+## Responsive gutters
+
+`kd-gutter-{tier}-{0-7}` sets the same variable inside a `max-width` query, so it applies
+at that tier and every width below it. Tiers run `xxs`, `xs`, `sm`, `md`, `lg`, `xl`, and
+they are emitted widest first, so where two of them overlap the narrower one wins.
+
+<Canvas of={ContainerStories.ResponsiveGutters} />
+
+> A bare `kd-container` drops its own gutter to 1rem at 600px and below. The moment you add
+> any `kd-gutter-*` class you have opted out of that drop: both set
+> `--kd-container-padding-x` at the same specificity and the utility is emitted later, so
+> your flat value holds all the way down to zero width.
+
+> The responsive gutters are how you re-express it.
+> `kd-container kd-gutter-7 kd-gutter-md-5 kd-gutter-xs-4` is a 90px shell that steps
+> down to 48px at 768px and again to 24px at 480px. Pick the tiers that suit the layout;
+> the built-in 600px step is only a default, not something you have to reproduce.
 
 ## Measure
 

@@ -6,7 +6,8 @@ import * as EffectsStories from "./effects.stories.ts";
 
 # Effects
 
-Shadow, the pop treatment, opacity, transition and interaction utilities.
+Shadow, the pop and lift treatments, the accent rail, opacity, transition and interaction
+utilities, plus the animation set: `kd-animate-*`, `kd-stagger` and `kd-typewriter`.
 
 ## Shadow
 
@@ -25,6 +26,15 @@ lifts by a translate and casts a hard offset shadow with no blur.
 > The colour comes from `--kd-shadow-pop-color`, which resolves where it is used, so
 > setting it on the element retints the shadow. The flat `--kd-shadow-pop` token does not
 > consult it, so components reading that token directly cannot be retinted the same way.
+
+## Lift
+
+`kd-lift` is the straight vertical counterpart: 7px up on hover and focus, with the large
+soft shadow instead of the hard offset one. Reach for it on a grid of cards where the
+diagonal drift of `kd-pop` would read as wobble. One or the other, never both on the same
+element.
+
+<Canvas of={EffectsStories.Lift} />
 
 ## Opacity
 
@@ -55,3 +65,92 @@ and `kd-transition-none` take the other durations.
 does this globally; the class is for elements that have opted out and need it back.
 
 <Canvas of={EffectsStories.FocusRing} />
+
+## Rail
+
+`kd-rail` draws the 13px accent bar down the leading edge. It is the same mixin `pre` and
+`kd-teaser` already carry, lifted out so anything else can wear the mark.
+
+<Canvas of={EffectsStories.Rail} />
+
+> The bar is a `::before` sitting on top of the box, not a border, so it does not take up
+> any space. Pad the leading edge past 13px yourself or the first character sits under it.
+
+## Animations
+
+`kd-animate-{fade-in|fade-out|fade-up|drop-in|glow}` each set an animation name on top of
+a shared base. The base declares none of its inputs; it reads `--kd-animate-duration`,
+`--kd-animate-delay`, `--kd-animate-easing` and `--kd-animate-fill` with fallbacks to
+`--kd-duration-base`, `0s`, `--kd-easing` and `both`. The element needs nothing else, no
+`animation` declaration of its own.
+
+<Canvas of={EffectsStories.Animate} />
+
+> The demo slows them to 1.2s to make them readable; the default is `--kd-duration-base`,
+> a quarter of a second. They run once on mount, so reload the page to watch them again,
+> and `kd-animate-fade-out` correctly leaves its cell at zero opacity when it lands.
+
+## Inherited timing
+
+Because the base only reads its inputs, `--kd-animate-duration` and `--kd-animate-delay` can
+be set on an ancestor and inherit down to every animated descendant. One declaration on a
+section wrapper gives the whole section a single duration, with nothing on the children but
+their animate class.
+
+<Canvas of={EffectsStories.InheritedTiming} />
+
+> This is a change in behaviour. The base used to re-declare both variables on the element
+> itself, which meant an ancestor hook was inert. `kd-stagger` leans on the same shape: it
+> writes `--kd-animate-delay` on each child for the base to read, and a duration set once on
+> the `kd-stagger` parent reaches all of them.
+
+## Fill mode
+
+`--kd-animate-fill` defaults to `both`, so a one shot animation latches its final keyframe
+and holds it forever. That is right for an entrance: `kd-animate-fade-up` stays where it
+landed. It is wrong for an attention cycle. `kd-animate-glow` ends on `--kd-text-muted`, so
+under the default fill the text is left muted rather than going back to its own colour.
+Setting `--kd-animate-fill: none` releases it the moment the animation finishes.
+
+<Canvas of={EffectsStories.FillMode} />
+
+## Stagger
+
+`kd-stagger` sets `--kd-stagger-step` to 200ms on the parent and hands each of its first
+eight children a delay one step larger than the last. Put an animate class on the children
+and the list arrives in sequence with no per-item CSS and no loop in the consumer.
+
+<Canvas of={EffectsStories.Stagger} />
+
+> A ninth child gets no rule, so it keeps the 0s default and lands with the first one.
+> Keep staggered lists inside eight items, or accept that the tail arrives together.
+
+## Typewriter
+
+`kd-typewriter` types a line out and blinks a caret after it, driven by
+`--kd-typewriter-steps` and `--kd-typewriter-duration`.
+
+<Canvas of={EffectsStories.Typewriter} />
+
+> The step count has to equal the number of characters in the text. Get it wrong and the
+> animation stops short of the last glyph or overshoots it. Fourteen steps for
+> "Page not found".
+
+> It animates width against `white-space: nowrap`, so it is one line only, and the width
+> runs to 100% of the containing block rather than to the text. Give it a parent no wider
+> than the line, `kd-w-fit` for instance, or the caret finishes far past the last letter.
+
+## Reduced motion
+
+None of these need a guard of their own. The reset already collapses animation and
+transition durations to nothing under `prefers-reduced-motion: reduce`, and that rule
+covers every class on this page.
+
+## Customising
+
+The `kd-animate-*` base reads four hooks and declares none of them:
+`--kd-animate-duration`, `--kd-animate-delay`, `--kd-animate-easing` and
+`--kd-animate-fill`. Set any of them inline for a one-off, or on an ancestor to cover a
+whole subtree. `--kd-stagger-step` sits on the `kd-stagger` parent and retimes the whole
+sequence at once, and `--kd-typewriter-steps` and `--kd-typewriter-duration` are declared on
+`kd-typewriter` itself.

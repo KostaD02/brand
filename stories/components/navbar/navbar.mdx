@@ -1,0 +1,82 @@
+import { Canvas, Meta } from "@storybook/addon-docs/blocks";
+
+import * as NavbarStories from "./navbar.stories.ts";
+
+<Meta of={NavbarStories} />
+
+# Navbar
+
+The page header: brand on one side, navigation on the other, pinned to the top of the
+viewport at `--kd-z-modal`. It sits on the alpha background with a backdrop blur, so
+content scrolling underneath stays visible but unreadable.
+
+> The real bar is `position: fixed`. Every demo below is boxed inside a bordered wrapper
+> and switched to `position: absolute` so it stays inside the canvas instead of floating
+> over this page. The striped ground is there to show the blur.
+
+## Example
+
+`kd-navbar__brand` is the logo slot and does not shrink; `kd-navbar__menu` is the list.
+Both cancel the sliding underline the elements layer puts on a bare anchor, so no reset
+is needed at the call site.
+
+<Canvas of={NavbarStories.Example} />
+
+## Scrolled
+
+`kd-navbar--scrolled` adds `--kd-shadow-md` to lift the bar off the page once it has
+something behind it. Toggle it from a scroll listener at a few pixels of offset; the bar
+already carries `--kd-transition`, so the shadow fades in on its own.
+
+<Canvas of={NavbarStories.Scrolled} />
+
+## Hidden
+
+`kd-navbar--hidden` translates the bar up by exactly `--kd-navbar-height`, so it clears
+the viewport with no sliver left behind. Add it on scroll down, remove it on scroll up,
+and combine it with `--scrolled` for the usual hide-and-reveal header.
+
+<Canvas of={NavbarStories.Hidden} />
+
+## Bare
+
+`kd-navbar--bare` drops the background, the blur and the shadow in one class. It is for a
+hero that should read as full bleed: start bare, and swap the class off at the first
+scroll event.
+
+<Canvas of={NavbarStories.Bare} />
+
+## Menu and burger
+
+The responsive swap costs the consumer nothing. `kd-d-md-none` and `kd-d-md-block` are
+max-width utilities, so at 768px and below the menu hides and the burger appears with no
+media query written anywhere in the project. Put `kd-d-md-none` on the menu,
+`kd-d-none kd-d-md-block` on the burger, and stop there.
+
+<Canvas of={NavbarStories.Responsive} />
+
+> Drag the window narrower to see it happen. The utilities read the viewport, not the
+> canvas, so a docs pane resize will not trigger them on its own.
+
+## Active link
+
+`kd-active` is the current-page state and shares its rule with `:hover` and
+`:focus-visible`, so the active link and a hovered link land on the same accent colour.
+Pair it with `aria-current="page"`.
+
+<Canvas of={NavbarStories.ActiveLink} />
+
+## Height
+
+`--kd-navbar-height` is deliberately a `:root` token rather than a navbar-local property.
+`--kd-scroll-offset` and `kd-h-viewport` both read it, which is only possible if it lives
+above the component: a property declared on `.kd-navbar` is invisible to `html`. A project
+with no fixed header sets `--kd-navbar-height: 0px` and the scroll padding and the
+viewport helper follow with no other change.
+
+## Customising
+
+`--kd-navbar-padding-x`, `--kd-navbar-bg` and `--kd-navbar-blur` are declared on the
+block, so reassigning any of them on the element restyles that one bar. Height is the
+exception: set `--kd-navbar-height` on `:root` so everything downstream of it stays in
+step.

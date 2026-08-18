@@ -1,0 +1,62 @@
+import { Canvas, Meta } from "@storybook/addon-docs/blocks";
+
+import * as HeroStories from "./hero.stories.ts";
+
+<Meta of={HeroStories} />
+
+# Hero
+
+The opening block of a page: an eyebrow, an oversized name, a tagline under it and a
+short lede. It is a flex column that centres its own content, so it sits correctly
+whether it fills the viewport or only the space it needs.
+
+## Example
+
+The four elements are `kd-hero__eyebrow`, `kd-hero__title`, `kd-hero__subtitle` and
+`kd-hero__lede`. Each one sets type, colour and its own margins, nothing structural, so
+the heading levels stay yours to pick: the title is usually the page's `h1`, the subtitle
+an `h2`, and both the eyebrow and the lede are paragraphs.
+
+<Canvas of={HeroStories.Example} />
+
+## Title and subtitle
+
+Both run at `--kd-font-size-fluid-hero`, which is `clamp(40px, 5vw, 60px)`, so the pair
+scales with the viewport between those two sizes without a media query. The token sits in
+the token layer rather than on the block, so reassigning it there restyles every hero at
+once. The two differ in colour alone: the title takes `--kd-text-primary`, the subtitle
+drops to `--kd-text-muted`.
+
+<Canvas of={HeroStories.Titles} />
+
+> The eyebrow is a step down at `--kd-font-size-fluid-h3` in the accent colour, and the
+> lede switches to the secondary font so the long line reads as body copy rather than as
+> a small heading.
+
+## Width
+
+The hero is full width and caps nothing itself. Add `kd-measure-xs` to the same element
+to hold the lede at a readable line length; the title is fluid, so it keeps filling the
+narrower column instead of leaving a gap.
+
+<Canvas of={HeroStories.Width} />
+
+## Entry
+
+`kd-stagger` on the hero and `kd-animate-fade-up` on each child produce the entry with no
+consumer CSS at all. The stagger assigns `--kd-animate-delay` per child from
+`--kd-stagger-step`, so the lines arrive 200ms apart in DOM order. Four classes on one
+element, `kd-section kd-measure-xs kd-hero kd-stagger`, cover spacing, width, layout and
+timing.
+
+<Canvas of={HeroStories.Entry} />
+
+> The reduced-motion guard in the reset collapses animation duration to near zero, so a
+> reader who asked for less motion gets the lines in place rather than travelling.
+
+## Customising
+
+The hero declares no custom properties of its own; every value it uses comes straight
+from the token layer. Reassign `--kd-font-size-fluid-hero`, `--kd-font-size-fluid-h3` or
+`--kd-font-size-md` on the block for a one-off, and `--kd-stagger-step` on the same
+element to change the pace of the entry.

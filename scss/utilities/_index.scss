@@ -1,9 +1,10 @@
-@use "./display";
 @use "./position";
 @use "./sizing";
 @use "./spacing";
 @use "./flex";
+@use "./grid";
 @use "./border";
 @use "./text";
 @use "./colors";
 @use "./effects";
+@use "./display";

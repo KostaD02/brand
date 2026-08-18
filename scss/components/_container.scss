@@ -62,6 +62,12 @@ $gutter-values: ();
 
 @include apply-variables("gutter", "container-padding-x", $gutter-values);
 
+@each $name in $responsive-breakpoints {
+  @include respond-down($name) {
+    @include apply-variables("gutter-#{$name}", "container-padding-x", $gutter-values);
+  }
+}
+
 @each $size, $width in $measures {
   .#{$prefix}measure-#{$size} {
     width: 100%;

@@ -38,6 +38,30 @@ export const SectionHeading: Story = {
 `,
 };
 
+export const SectionHeadingVariations: Story = {
+  tags: ["!dev"],
+  render: () => `
+<div style="max-width: 22rem;">
+  <h2 class="kd-heading kd-heading--bare kd-heading--center">Selected work</h2>
+  <h2 class="kd-heading kd-heading--wrap">A section title long enough to need two lines</h2>
+  <h2 class="kd-heading">A section title long enough to need two lines</h2>
+</div>
+`,
+};
+
+export const SectionHeadingCustom: Story = {
+  tags: ["!dev"],
+  render: () => `
+<h2 class="kd-heading" style="--kd-heading-font-size: var(--kd-font-size-lg);">Recent posts</h2>
+<h2
+  class="kd-heading"
+  style="--kd-heading-rule-width: 100%; --kd-heading-rule-gap: 0.75rem; --kd-heading-rule-color: var(--kd-border-strong);"
+>
+  Archive
+</h2>
+`,
+};
+
 export const Mono: Story = {
   tags: ["!dev"],
   render: () => `
@@ -53,6 +77,37 @@ export const List: Story = {
   <li>Angular, TypeScript, RxJS</li>
   <li>SCSS and design tokens</li>
   <li>Node, NestJS, PostgreSQL</li>
+</ul>
+`,
+};
+
+export const ListColumns: Story = {
+  tags: ["!dev"],
+  render: () => `
+<ul class="kd-list" style="--kd-list-columns: repeat(2, minmax(100px, 200px));">
+  <li>Angular</li>
+  <li>TypeScript</li>
+  <li>RxJS</li>
+  <li>SCSS</li>
+  <li>NestJS</li>
+  <li>PostgreSQL</li>
+</ul>
+`,
+};
+
+export const ListPlain: Story = {
+  tags: ["!dev"],
+  render: () => `
+<ul class="kd-list-plain kd-d-flex kd-flex-wrap kd-gap-2">
+  <li><span class="kd-chip">TypeScript</span></li>
+  <li><span class="kd-chip">Sass</span></li>
+  <li><span class="kd-chip">Vite</span></li>
+  <li><span class="kd-chip">Storybook</span></li>
+</ul>
+<ul class="kd-list-plain kd-d-flex kd-flex-wrap kd-gap-4 kd-mt-4">
+  <li><a class="kd-link" href="#work">Work</a></li>
+  <li><a class="kd-link" href="#writing">Writing</a></li>
+  <li><a class="kd-link" href="#contact">Contact</a></li>
 </ul>
 `,
 };

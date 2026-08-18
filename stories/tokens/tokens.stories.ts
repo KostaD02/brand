@@ -47,18 +47,20 @@ export const Palette: Story = {
 `,
 };
 
-export const Spacing: Story = {
-  tags: ["!dev"],
-  render: () =>
-    ["0", "1", "2", "3", "4", "5"]
-      .map(
-        (step) => `
+const spacer = (step: string) => `
 <div class="kd-d-flex kd-items-center kd-gap-3" style="margin-bottom: var(--kd-space-1);">
   <div style="width: 9rem;">${label(`--kd-space-${step}`)}</div>
   <div style="height: 1rem; width: var(--kd-space-${step}); background: var(--kd-accent); border-radius: 2px;"></div>
-</div>`,
-      )
-      .join(""),
+</div>`;
+
+export const Spacing: Story = {
+  tags: ["!dev"],
+  render: () => ["0", "1", "2", "3", "4", "5"].map(spacer).join(""),
+};
+
+export const SpacingLarge: Story = {
+  tags: ["!dev"],
+  render: () => ["5", "6", "7"].map(spacer).join(""),
 };
 
 export const Radius: Story = {

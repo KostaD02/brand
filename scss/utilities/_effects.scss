@@ -1,9 +1,14 @@
-@use "../variables/global" as *;
+@use "../animations";
 @use "../mixins/apply-utility" as *;
 @use "../mixins/focus-ring" as *;
+@use "../mixins/lift" as *;
 @use "../mixins/pop" as *;
+@use "../mixins/rail" as *;
+@use "../variables/global" as *;
 
 $opacity-values: 0, 25, 50, 75, 100;
+$animation-values: fade-in, fade-out, fade-up, drop-in, glow;
+$stagger-steps: 8;
 $cursor-values: pointer, default, not-allowed, wait, text, grab;
 $pointer-events-values: none, auto;
 $user-select-values: none, text, all;
@@ -32,6 +37,14 @@ $transition-values: (
   @include pop(lg);
 }
 
+.#{$prefix}lift {
+  @include lift;
+}
+
+.#{$prefix}rail {
+  @include rail;
+}
+
 @include apply-utility("opacity", opacity, $opacity-values, "%");
 
 .#{$prefix}transition {
@@ -47,4 +60,44 @@ $transition-values: (
   &:focus-visible {
     @include focus-ring;
   }
+}
+
+%animate-base {
+  animation-duration: var(--#{$prefix}animate-duration, var(--#{$prefix}duration-base));
+  animation-delay: var(--#{$prefix}animate-delay, 0s);
+  animation-timing-function: var(--#{$prefix}animate-easing, var(--#{$prefix}easing));
+  animation-fill-mode: var(--#{$prefix}animate-fill, both);
+}
+
+@each $name in $animation-values {
+  .#{$prefix}animate-#{$name} {
+    @extend %animate-base;
+
+    animation-name: #{$prefix}#{$name};
+  }
+}
+
+.#{$prefix}stagger {
+  --#{$prefix}stagger-step: 200ms;
+}
+
+@for $i from 1 through $stagger-steps {
+  .#{$prefix}stagger > :nth-child(#{$i}) {
+    --#{$prefix}animate-delay: calc(var(--#{$prefix}stagger-step) * #{$i - 1});
+  }
+}
+
+.#{$prefix}typewriter {
+  --#{$prefix}typewriter-steps: 30;
+  --#{$prefix}typewriter-duration: 3.5s;
+
+  display: inline-block;
+  border-inline-end: 0.15em solid var(--#{$prefix}accent);
+  overflow: hidden;
+  letter-spacing: 0.15em;
+  white-space: nowrap;
+  animation:
+    #{$prefix}typing var(--#{$prefix}typewriter-duration)
+      steps(var(--#{$prefix}typewriter-steps), end),
+    #{$prefix}caret 0.5s step-end infinite;
 }

@@ -1,0 +1,46 @@
+@use "sass:map";
+@use "../animations";
+@use "../variables/global" as *;
+
+.#{$prefix}drawer {
+  --#{$prefix}drawer-width: min(65vw, 300px);
+  --#{$prefix}drawer-bg: var(--#{$prefix}bg-elevated);
+  --#{$prefix}drawer-scrim: var(--#{$prefix}bg-alpha);
+  --#{$prefix}drawer-blur: 3px;
+
+  position: fixed;
+  inset: 0;
+  z-index: var(--#{$prefix}z-overlay);
+  overflow: hidden;
+  background-color: var(--#{$prefix}drawer-scrim);
+  backdrop-filter: blur(var(--#{$prefix}drawer-blur));
+  animation: #{$prefix}fade-in var(--#{$prefix}duration-slow) var(--#{$prefix}easing)
+    forwards;
+
+  &__panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: map.get($spacers, 2);
+    width: var(--#{$prefix}drawer-width);
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    background-color: var(--#{$prefix}drawer-bg);
+    animation: #{$prefix}slide-in-end var(--#{$prefix}duration-slow)
+      var(--#{$prefix}easing) forwards;
+  }
+
+  &--closing {
+    animation-name: #{$prefix}fade-out;
+
+    .#{$prefix}drawer__panel {
+      animation-name: #{$prefix}slide-out-end;
+    }
+  }
+}

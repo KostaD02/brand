@@ -46,9 +46,12 @@ Breakpoints are `xxs`, `xs`, `sm`, `md`, `lg`, `xl`, and each variant compiles t
 > `min-width`. Same `-md-` segment, opposite meaning: `kd-d-xl-none` hides content on
 > every viewport up to 1080px rather than only on large ones.
 
-> Only `display` has responsive variants. The full cross-product across every utility
-> group would take the utilities bundle from roughly 27KB to 150KB, so it is deliberate
-> restraint rather than an omission.
+> Among the utilities only `display` and `kd-gutter-*` have responsive variants. The full
+> cross-product across every group would multiply the utilities bundle several times over,
+> so it is deliberate restraint rather than an omission.
+
+> The display utilities are emitted last in the utility layer, so they beat any other
+> utility that also sets `display`, including `kd-flex-center` and `kd-grid-auto`.
 
 ## Visually hidden
 

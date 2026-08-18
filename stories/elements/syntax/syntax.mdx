@@ -1,0 +1,72 @@
+import { Canvas, Meta } from "@storybook/addon-docs/blocks";
+
+import * as SyntaxStories from "./syntax.stories.ts";
+
+<Meta of={SyntaxStories} />
+
+# Syntax
+
+The colour theme for highlighted code. It highlights nothing itself: run highlight.js, or
+anything else that emits the same `hljs-*` class names, and this layer paints the result.
+Every `hljs-*` rule resolves to a `--kd-code-token-*` custom property, so a project
+recolours the whole theme by reassigning properties and never by rewriting selectors.
+
+## Example
+
+`.hljs` sets the same code background and foreground that `pre` already carries, so the
+highlighter's wrapper lands on styling that is right before a single token is coloured.
+Keywords and comments are italic; everything else differs by colour alone.
+
+<Canvas of={SyntaxStories.Example} />
+
+## Stylesheets
+
+Selectors, properties and values each land on their own token, which is why a stylesheet
+reads as three colours rather than one. `.hljs-selector-class` shares the entity colour
+with built-ins, and `var()` counts as a built-in.
+
+<Canvas of={SyntaxStories.Stylesheet} />
+
+## Markup
+
+A tag is two nested spans: the brackets take the link colour and the element name inside
+them takes the type colour. Attribute names and their values are separate tokens again.
+
+<Canvas of={SyntaxStories.Markup} />
+
+## Retinting
+
+Assign a token anywhere at or above the block and every rule that reads it follows, in
+this case on the `pre` itself. Do it at `:root` for a project-wide change, or on one
+element for a single figure.
+
+<Canvas of={SyntaxStories.Retint} />
+
+> The token values are declared once on `:root`, not per theme, so the same palette is
+> used in light mode while `--kd-code-bg` and `--kd-code-fg` flip with the theme. A light
+> code theme means reassigning the tokens under `[data-theme="light"]` yourself.
+
+## On its own
+
+The palette is part of the main bundle, so a project that already loads
+`@kostad/brand` has it. It is also an entry of its own,
+`@use "@kostad/brand/scss/entries/syntax"`, for a project that wants the theme and none
+of the rest. That entry emits the `hljs` rules only, so pair it with
+`@kostad/brand/scss/entries/tokens` unless the page already declares the custom
+properties.
+
+## Customising
+
+Twenty properties carry the theme, each prefixed `--kd-code-token-`: `keyword`, `entity`,
+`type`, `section`, `literal`, `number`, `regexp`, `string`, `subst`, `class`, `title`,
+`attr`, `attribute`, `comment`, `bullet`, `link`, `quote`, `selector-tag`, `selector-id`
+and `deletion`. `--kd-code-bg` and `--kd-code-fg` come from the theme roles and set the
+surface the tokens sit on.
+
+`--kd-code-token-selector-tag` points at `--kd-danger`, so it follows the theme. Being
+declared on `:root`, it resolves there: a nested `[data-theme]` island will not re-tint
+it.
+
+`.hljs-emphasis` and `.hljs-strong` are the exception: they set italic and the bold
+weight and take no colour, so emphasis inside a doc comment keeps whatever token it is
+already wearing.

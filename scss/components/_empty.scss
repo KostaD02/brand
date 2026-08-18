@@ -1,0 +1,22 @@
+@use "sass:map";
+@use "../variables/global" as *;
+
+.#{$prefix}empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: map.get($spacers, 2);
+  text-align: center;
+
+  &__code {
+    margin: 0;
+    font-size: var(--#{$prefix}font-size-xl);
+    color: var(--#{$prefix}accent);
+  }
+
+  &__title {
+    margin: map.get($spacers, 2) 0 map.get($spacers, 4);
+    line-height: var(--#{$prefix}line-height-xl);
+  }
+}

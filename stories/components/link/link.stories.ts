@@ -14,6 +14,15 @@ export default meta;
 
 type Story = StoryObj<LinkArgs>;
 
+const article = (label: string, classes: string) => `
+<div style="position: relative; height: 12rem; padding: var(--kd-space-3); border: 1px solid var(--kd-border); background: var(--kd-bg-surface);">
+  <p style="font-family: var(--kd-font-mono); font-size: var(--kd-font-size-xxs); color: var(--kd-text-muted);">${label}</p>
+  <p>Installing the package is the short part of the job.</p>
+  <a href="#done" class="${classes}">Skip the configuration</a>
+  <p style="margin-top: var(--kd-space-5);">Configuring the build is the long part.</p>
+</div>
+`;
+
 export const Example: Story = {
   tags: ["!dev"],
   render: () => `
@@ -46,6 +55,16 @@ export const Skip: Story = {
   <p style="color: var(--kd-text-muted);">
     Tab into this frame. The skip link is off-screen until it receives focus.
   </p>
+</div>
+`,
+};
+
+export const SkipInline: Story = {
+  tags: ["!dev"],
+  render: () => `
+<div class="kd-d-grid kd-gap-4" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
+  ${article(".kd-skip", "kd-skip")}
+  ${article(".kd-skip.kd-skip--inline", "kd-skip kd-skip--inline")}
 </div>
 `,
 };

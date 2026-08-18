@@ -26,6 +26,10 @@
     --#{$prefix}color-#{"" + $name}-rgb: #{to-rgb($value)};
   }
 
+  @each $name, $value in $code-tokens {
+    --#{$prefix}code-token-#{$name}: #{$value};
+  }
+
   @each $name, $value in $font-families {
     --#{$prefix}font-#{$name}: #{meta.inspect($value)};
   }
@@ -109,6 +113,10 @@
     }
   }
 
+  --#{$prefix}navbar-height: #{$navbar-height};
+  --#{$prefix}scroll-offset: calc(
+    var(--#{$prefix}navbar-height) + #{map.get($spacers, 3)}
+  );
   --#{$prefix}container-padding-x: #{$container-padding-x};
 
   @each $name, $value in $container-max-widths {

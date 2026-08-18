@@ -6,22 +6,23 @@ import * as SpacingStories from "./spacing.stories.ts";
 
 # Spacing
 
-Margin, padding and gap, all drawn from one six-step scale. Every class resolves to a
+Margin, padding and gap, all drawn from one eight-step scale. Every class resolves to a
 `--kd-space-*` token rather than a literal, so overriding `$spacer` moves the whole
 system.
 
-Steps: `0` (0), `1` (0.25rem), `2` (0.5rem), `3` (1rem), `4` (1.5rem), `5` (3rem).
+Steps: `0` (0), `1` (0.25rem), `2` (0.5rem), `3` (1rem), `4` (1.5rem), `5` (3rem),
+`6` (4rem), `7` (5.625rem).
 
 ## Padding
 
-`kd-p-{0-5}` for all sides, plus `pt`, `pr`, `pb`, `pl` for single sides and `px`, `py`
+`kd-p-{0-7}` for all sides, plus `pt`, `pr`, `pb`, `pl` for single sides and `px`, `py`
 for axes.
 
 <Canvas of={SpacingStories.Padding} />
 
 ## Margin
 
-`kd-m-{0-5}` with the same `mt`, `mr`, `mb`, `ml`, `mx`, `my` variants.
+`kd-m-{0-7}` with the same `mt`, `mr`, `mb`, `ml`, `mx`, `my` variants.
 
 <Canvas of={SpacingStories.Margin} />
 
@@ -38,7 +39,7 @@ and so on. There is no `auto` for padding, because `padding: auto` is not valid 
 
 ## Gap
 
-`kd-gap-{0-5}` sets `gap`, with `kd-gap-x-*` for `column-gap` and `kd-gap-y-*` for
+`kd-gap-{0-7}` sets `gap`, with `kd-gap-x-*` for `column-gap` and `kd-gap-y-*` for
 `row-gap`. Gap applies to flex and grid containers only.
 
 <Canvas of={SpacingStories.Gap} />

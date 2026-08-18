@@ -6,9 +6,9 @@ import * as SizingStories from "./sizing.stories.ts";
 
 # Sizing
 
-Width and height on a coarse four-step percentage scale, plus viewport units and a few
-keywords. There is no fine-grained scale on purpose; anything more specific belongs in
-component CSS.
+Width and height on a coarse four-step percentage scale, plus viewport units, a few
+keywords and a full-height class that allows for the fixed header. There is no
+fine-grained scale on purpose; anything more specific belongs in component CSS.
 
 ## Percentage
 
@@ -37,3 +37,22 @@ Percentage heights resolve against the parent, so the parent needs a definite he
 they collapse.
 
 <Canvas of={SizingStories.Height} />
+
+## Viewport height
+
+`kd-h-viewport` is `100dvh` less `--kd-scroll-offset`, which is the height of the fixed
+header plus one space step. It is what a full-height landing section or a 404 page wants:
+the box ends at the bottom of the window instead of starting underneath the chrome and
+pushing an equal amount off the end. `kd-h-screen` is a flat `100dvh`, which is always
+that offset too tall on any page with a fixed header.
+
+<Canvas of={SizingStories.ViewportHeight} />
+
+> Scroll the frame to the bottom. Both columns start level and `kd-h-screen` keeps going
+> past `kd-h-viewport` by exactly the offset.
+
+> A project with no fixed chrome sets `--kd-navbar-height: 0px` and the class collapses to
+> the whole window less the one remaining space step, so it is safe to use everywhere.
+> Set that override on `:root`, not on the header: `--kd-scroll-offset` already resolved
+> the navbar height where it was declared, so a value set further down the tree never
+> reaches it.

@@ -1,5 +1,6 @@
 @use "./variables/root";
 @use "./base/reset";
+@use "./animations";
 @use "./base/index" as elements;
 @use "./components/index" as components;
 @use "./utilities/index" as utilities;

@@ -1,0 +1,82 @@
+import { Canvas, Meta } from "@storybook/addon-docs/blocks";
+
+import * as FeatureStories from "./feature.stories.ts";
+
+<Meta of={FeatureStories} />
+
+# Feature
+
+The alternating project showcase: a bleed image on one side, a block of copy overlapping
+it from the other. The block is a flex row with a single in-flow child, the media, and the
+content is absolutely positioned on top of it, so the two halves never compete for width.
+
+## Example
+
+`kd-feature__media` carries the image as a `background-image`, which is what lets it bleed
+and crop under `background-size: cover` instead of being sized by an `<img>`.
+`kd-feature__content` is pinned to the top right of the block and overlaps the media from
+the opposite side. Both the media and the title are anchors, and both switch off the
+sliding underline the elements layer puts on a bare `<a>`.
+
+<Canvas of={FeatureStories.Example} />
+
+> The demo uses a gradient in place of a photograph. Anything valid in `background-image`
+> works, `url()` included.
+
+## Tags
+
+`kd-feature__tags` is a wrapping flex row for the technologies behind the project. It is end
+aligned to sit under the rest of `kd-feature__content`, flips to the start under
+`kd-feature--reverse` and centres in the stacked layout, so it follows the block without
+being told which way round it is. It brings its own margin, padding and `list-style` reset,
+which means it can be a real `<ul>` of `kd-chip--bare` items and still line up.
+
+<Canvas of={FeatureStories.Tags} />
+
+> A list of technologies is a list, so mark it up as one. Put `kd-chip kd-chip--bare` on the
+> `<li>` itself rather than wrapping a `<span>` in each row.
+
+## The scrim
+
+`kd-feature__media::before` lays `--kd-bg` over the image at `--kd-feature-scrim-opacity`,
+and hover or focus takes that to 0 so the image comes up to full strength. Only `opacity`
+animates, one composited property, so the change never flashes the way swapping
+`background-color` to `transparent` does.
+
+<Canvas of={FeatureStories.Scrim} />
+
+## Reverse
+
+`kd-feature--reverse` sends the media to the end of the row and moves the content to the
+left edge, `text-align` included. The markup is identical either way, so alternating a
+list of projects is a matter of adding the class to every second one.
+
+<Canvas of={FeatureStories.Reverse} />
+
+## Below 945px
+
+The media drops its max width, fills the row and moves behind the content on
+`--kd-z-behind`, and its scrim rises to 0.8 so the copy stays legible over the image. The
+content resets to `inset: auto` and centres, tags included: it keeps its absolute
+positioning and stays overlaid rather than reflowing into a second row. Narrow the browser
+under 945px to watch it happen in the canvases above; the switch is a viewport media query,
+not a container one.
+
+That rise to 0.8 is a reassignment of `--kd-feature-scrim-opacity`, not a literal
+`opacity`, so the stacked layout honours the property the same way the wide one does and
+dimming or clearing the scrim is one value at either width.
+
+> The narrow rule declares the property on `kd-feature__media` itself, and a declaration on
+> the element always beats a value inherited from an ancestor. A scrim override written on
+> `kd-feature` therefore holds above 945px only. Set it on `kd-feature__media` when it has
+> to hold everywhere.
+
+## Customising
+
+`--kd-feature-media-width`, `--kd-feature-media-height`, `--kd-feature-content-width`,
+`--kd-feature-content-gap` and `--kd-feature-scrim-opacity` are declared on the block, so
+one feature in a list can be retuned inline without a new class. The content gap defaults
+to `0.625rem` and is the `row-gap` between the eyebrow, the title, the card and the tags,
+which is the dial to reach for when a feature runs long or short. The narrow layout sets
+the media's `max-width` directly, so a custom `--kd-feature-media-width` applies to the wide
+layout only.

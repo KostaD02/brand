@@ -1,0 +1,57 @@
+import { Canvas, Meta } from "@storybook/addon-docs/blocks";
+
+import * as IconLinkStories from "./icon-link.stories.ts";
+
+<Meta of={IconLinkStories} />
+
+# Icon Link
+
+An anchor whose whole content is an icon: muted at rest, accent on hover and focus. It turns
+up wherever a link has no words of its own, so it is a component rather than seven declarations
+copied into three files.
+
+## Example
+
+The elements layer draws a sliding underline on every bare `<a>`, which under an icon reads as
+a stray bar. `kd-icon-link` sets `::after { display: none }` to cancel it. Since there is no
+text to name the link, give the anchor an `aria-label` and hide the SVG with `aria-hidden`.
+
+<Canvas of={IconLinkStories.Example} />
+
+## In a row
+
+The block is `inline-flex` and centres its own icon, with `flex-shrink: 0` so it keeps its
+size inside a flex parent. The padding is the hit area: grow that rather than the icon when
+the target feels small on touch.
+
+<Canvas of={IconLinkStories.Row} />
+
+## currentColor
+
+The component animates `color`, never `fill`. Your SVG has to opt in with
+`fill="currentColor"` or `stroke="currentColor"`, otherwise the hover does nothing visible.
+The second icon below hard-codes the dark theme's muted grey; hover both and only the first
+one responds, and switching the theme leaves it stranded at the wrong colour as well.
+
+<Canvas of={IconLinkStories.CurrentColor} />
+
+> This is the single easiest thing to get wrong here, and it fails quietly. An icon set
+> exported with baked-in hex colours will look right and be dead on hover.
+
+## In a dock
+
+`kd-dock` is the fixed vertical rail these links were built for: a list pinned to a page
+gutter with `kd-dock--start` or `kd-dock--end`, closed off by the hairline tail its `::after`
+draws. The icon links are the `<li>` contents, not an element of the dock, because the same
+treatment is wanted in table cells and on cards.
+
+<Canvas of={IconLinkStories.InDock} />
+
+> The real dock is fixed to the viewport. The demo above is boxed and switched to
+> `position: absolute` so it stays inside the canvas.
+
+## Customising
+
+`--kd-icon-link-size` sets the SVG's width and height, `--kd-icon-link-padding` sets the ring
+of space around it. Both are declared on the block, so a single dense row can shrink its
+padding inline without a variation class.

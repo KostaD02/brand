@@ -6,7 +6,7 @@ import * as PositionStories from "./position.stories.ts";
 
 # Position
 
-Positioning, edge anchoring, stacking order and overflow.
+Positioning, edge anchoring, stacking order, the stretch overlay and overflow.
 
 ## Position
 
@@ -37,6 +37,24 @@ parent.
 > The names encode the intended layering order. Reach for the name that matches what the
 > element _is_ rather than picking a number that happens to work. That is what keeps the
 > scale from drifting into arbitrary values.
+
+## Stretch
+
+`kd-stretch` draws a `::before` on the element, pinned to `inset: 0` at `--kd-z-base`, so
+an inline link becomes a target the size of the area behind it. Two things have to hold.
+The ancestor that should be covered must be positioned:
+[Card](?path=/docs/components-card--docs) already sets `position: relative` for exactly
+this, and anything else takes `kd-pos-relative`. And any sibling control that must keep
+working has to be raised above the overlay, `kd-z-raised` being the step straight up from
+the `kd-z-base` the overlay sits on. Below, the card title covers the whole card while the
+icon link in the footer stays separately clickable.
+
+<Canvas of={PositionStories.Stretch} />
+
+> Anchors are `position: relative` in the reset, so their underline can sweep in from the
+> left edge, which would leave a stretched link resolving against its own text. Add
+> `kd-pos-static` to the link to hand the overlay back to the card, and `kd-link--anchor`
+> to drop the underline that would otherwise run the full width of it.
 
 ## Overflow
 

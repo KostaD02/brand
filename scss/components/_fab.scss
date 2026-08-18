@@ -1,0 +1,47 @@
+@use "sass:map";
+@use "../variables/global" as *;
+
+.#{$prefix}fab {
+  --#{$prefix}fab-size: 2.5rem;
+  --#{$prefix}fab-offset: #{map.get($spacers, 4)};
+  --#{$prefix}fab-offset-inline-end: var(--#{$prefix}fab-offset);
+  --#{$prefix}fab-offset-block-end: var(--#{$prefix}fab-offset);
+
+  position: fixed;
+  right: var(--#{$prefix}fab-offset-inline-end);
+  bottom: var(--#{$prefix}fab-offset-block-end);
+  z-index: var(--#{$prefix}z-toast);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--#{$prefix}fab-size);
+  height: var(--#{$prefix}fab-size);
+  padding: 0;
+  border: none;
+  border-radius: var(--#{$prefix}radius-circle);
+  background: transparent;
+  color: var(--#{$prefix}text-muted);
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: var(--#{$prefix}transition);
+
+  &::after {
+    display: none;
+  }
+
+  &.#{$prefix}active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  &:hover,
+  &:focus-visible {
+    color: var(--#{$prefix}accent);
+  }
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+}

@@ -1,0 +1,81 @@
+@use "sass:map";
+@use "../mixins/breakpoints" as *;
+@use "../variables/global" as *;
+
+@mixin flow {
+  position: static;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+
+  &::after {
+    display: none;
+  }
+
+  .#{$prefix}dock__text {
+    writing-mode: horizontal-tb;
+  }
+}
+
+.#{$prefix}dock {
+  --#{$prefix}dock-gap: #{map.get($spacers, 1)};
+  --#{$prefix}dock-line: 90px;
+  --#{$prefix}dock-z: var(--#{$prefix}z-dropdown);
+
+  position: fixed;
+  bottom: 0;
+  z-index: var(--#{$prefix}dock-z);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--#{$prefix}dock-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  &::after {
+    content: "";
+    display: block;
+    width: 1px;
+    height: var(--#{$prefix}dock-line);
+    margin-top: var(--#{$prefix}dock-gap);
+    background-color: var(--#{$prefix}text-secondary);
+  }
+
+  &--start {
+    left: map.get($spacers, 5);
+  }
+
+  &--end {
+    right: map.get($spacers, 5);
+  }
+
+  &--flow {
+    @include flow;
+  }
+
+  &__text {
+    writing-mode: vertical-rl;
+    font-size: var(--#{$prefix}font-size-xxs);
+    letter-spacing: 0.1rem;
+    color: var(--#{$prefix}text-secondary);
+    transition: var(--#{$prefix}transition);
+
+    &::after {
+      display: none;
+    }
+
+    &:hover,
+    &:focus-visible {
+      color: var(--#{$prefix}accent);
+    }
+  }
+}
+
+@each $name in $responsive-breakpoints {
+  @include respond-down($name) {
+    .#{$prefix}dock--#{$name}-flow {
+      @include flow;
+    }
+  }
+}

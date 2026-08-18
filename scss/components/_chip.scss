@@ -1,0 +1,39 @@
+@use "sass:map";
+@use "../variables/global" as *;
+
+.#{$prefix}chip {
+  --#{$prefix}chip-color: var(--#{$prefix}text-muted);
+  --#{$prefix}chip-bg: transparent;
+  --#{$prefix}chip-border: var(--#{$prefix}border);
+  --#{$prefix}chip-radius: var(--#{$prefix}radius-md);
+
+  display: inline-flex;
+  align-items: center;
+  gap: map.get($spacers, 1);
+  padding: 3px map.get($spacers, 2);
+  border: var(--#{$prefix}border-width-1) solid var(--#{$prefix}chip-border);
+  border-radius: var(--#{$prefix}chip-radius);
+  font-size: var(--#{$prefix}font-size-xxs);
+  line-height: var(--#{$prefix}line-height-lg);
+  color: var(--#{$prefix}chip-color);
+  background: var(--#{$prefix}chip-bg);
+  white-space: nowrap;
+
+  &::after {
+    display: none;
+  }
+
+  &--accent {
+    --#{$prefix}chip-color: var(--#{$prefix}accent);
+    --#{$prefix}chip-bg: var(--#{$prefix}accent-soft);
+    --#{$prefix}chip-border: var(--#{$prefix}accent-line);
+  }
+
+  &--pill {
+    --#{$prefix}chip-radius: var(--#{$prefix}radius-pill);
+  }
+
+  &--bare {
+    --#{$prefix}chip-border: transparent;
+  }
+}

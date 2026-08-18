@@ -8,7 +8,8 @@ import * as ResetStories from "./reset.stories.ts";
 
 The base layer that everything else assumes. It is part of the main stylesheet, and SCSS
 consumers can take it alone with `@use "@kostad/brand/scss/base/reset"` to get it without
-the element styles, or skip it if you already have a reset you trust.
+the element styles, or skip it if you already have a reset you trust. That drops the
+reduced-motion guard, which ships here and nowhere else.
 
 ## What it sets
 
@@ -17,8 +18,8 @@ the element styles, or skip it if you already have a reset you trust.
 - `body` gets the secondary family, the body size and line height, the primary text
   colour and the page background, with a transition on colour and background so theme
   switching fades rather than snaps.
-- `html` gets `scroll-behavior: smooth` and a scroll padding equal to the largest spacer,
-  so anchor targets are not hidden under a fixed header.
+- `html` gets `scroll-behavior: smooth` and a scroll padding of `--kd-scroll-offset`, the
+  navbar height plus one space step, so anchor targets are not hidden under a fixed header.
 - `img`, `svg` and `video` become `display: block` with `max-width: 100%`.
 - `textarea` is bounded on both axes from `--kd-textarea-*`: it starts at least 200px wide
   and 120px tall, and cannot be dragged wider than its container or taller than 600px. The

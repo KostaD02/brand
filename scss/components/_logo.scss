@@ -1,0 +1,58 @@
+@use "../variables/global" as *;
+
+.#{$prefix}logo {
+  --#{$prefix}logo-width: 45px;
+  --#{$prefix}logo-bar: 4px;
+  --#{$prefix}logo-color: var(--#{$prefix}accent);
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--#{$prefix}logo-width);
+  height: calc(var(--#{$prefix}logo-width) * 7 / 6);
+
+  &::after {
+    display: none;
+  }
+
+  &__initial {
+    font-family: var(--#{$prefix}font-secondary);
+    font-size: var(--#{$prefix}font-size-lg);
+    font-weight: var(--#{$prefix}font-weight-bold);
+    color: var(--#{$prefix}logo-color);
+    user-select: none;
+  }
+
+  &__side {
+    position: absolute;
+    width: var(--#{$prefix}logo-width);
+    height: calc(var(--#{$prefix}logo-width) * 17 / 30);
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      width: var(--#{$prefix}logo-bar);
+      height: 100%;
+      background-color: var(--#{$prefix}logo-color);
+    }
+
+    &::before {
+      left: 0;
+    }
+
+    &::after {
+      right: 0;
+    }
+
+    &:nth-of-type(2) {
+      transform: rotate(60deg);
+    }
+
+    &:nth-of-type(3) {
+      transform: rotate(-60deg);
+    }
+  }
+}

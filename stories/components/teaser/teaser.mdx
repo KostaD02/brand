@@ -1,0 +1,59 @@
+import { Canvas, Meta } from "@storybook/addon-docs/blocks";
+
+import * as TeaserStories from "./teaser.stories.ts";
+
+<Meta of={TeaserStories} />
+
+# Teaser
+
+A one line summary of an article: an accent rail, a linked heading, a description, its
+tags and its date. It is the blog index row, and it holds up anywhere a page lists recent
+writing.
+
+## Example
+
+The block is a grid, so its elements stack in source order on a 4px row gap. All four are
+optional; a title and a date is still a teaser. The title is an anchor wrapping the
+heading, which makes the whole line the target, and `kd-link` on that same anchor supplies
+the sliding underline.
+
+<Canvas of={TeaserStories.Example} />
+
+## The rail
+
+The bar down the left is the shared `rail` mixin, the same 13px accent edge the prose
+layer draws on a `<pre>`. It is a `::before` at `height: 100%`, so it tracks the teaser
+however tall the text grows. For the same bar on something that is not a teaser, reach for
+the `kd-rail` utility.
+
+<Canvas of={TeaserStories.Rail} />
+
+## Tags
+
+`kd-teaser__tags` is a wrapping flex row; put `kd-chip` elements straight into it. It sets
+its own vertical margin rather than riding the grid's row gap, so the tag row reads as a
+band of its own between the text and the date.
+
+<Canvas of={TeaserStories.Tags} />
+
+## Date
+
+`kd-teaser__meta` is muted and one step down in size. Put it on a `<time>` with a machine
+readable `datetime`, then write the visible text in whatever format the page reads best.
+
+<Canvas of={TeaserStories.Published} />
+
+## A list of them
+
+Stack teasers in a grid and the rails line up down the page. The list itself needs nothing
+but a gap.
+
+<Canvas of={TeaserStories.List} />
+
+## Customising
+
+The teaser declares no local custom properties: everything it uses comes straight from the
+token layer. The rail takes its colour from `--kd-accent`, the description from
+`--kd-text-bright` and the date from `--kd-text-muted`, so reassigning any of those on the
+block or on an ancestor restyles it. The 13px rail width is an argument to the Sass mixin,
+not a runtime property, so it is fixed once the CSS is built.

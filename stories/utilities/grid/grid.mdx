@@ -1,0 +1,67 @@
+import { Canvas, Meta } from "@storybook/addon-docs/blocks";
+
+import * as GridStories from "./grid.stories.ts";
+
+<Meta of={GridStories} />
+
+# Grid
+
+One class. `kd-grid-auto` is
+`grid-template-columns: repeat(auto-fill, minmax(var(--kd-grid-min), 1fr))` plus a gap,
+which covers the shape most pages actually want: as many equal columns as fit, none of
+them narrower than a set minimum.
+
+## Example
+
+Put it on the parent and stop. The children take no classes, and there is no column count
+anywhere to keep in step with the number of items.
+
+<Canvas of={GridStories.Example} />
+
+## The minimum is the responsive story
+
+`--kd-grid-min` is the floor of a track, and it is the only number worth touching. Lower
+it and more columns fit at the same width; raise it and fewer do. There are no
+`kd-grid-auto-md` style variants because a breakpoint has nothing to say here that the
+minimum does not already say.
+
+<Canvas of={GridStories.Minimum} />
+
+## Reflow
+
+`auto-fill` measures the container, not the viewport, so the same markup settles at the
+right number of columns in a full width section and in a narrow aside without a media
+query written anywhere. This is the whole point of the class: a consumer that used to
+redeclare `grid-template-columns` at two or three breakpoints deletes all of them.
+
+<Canvas of={GridStories.Reflow} />
+
+> The minimum is a floor, not a preference. In a container narrower than
+> `--kd-grid-min` the single track keeps its width and overflows the parent, so set the
+> minimum below the narrowest place the grid appears and every width above it takes care
+> of itself.
+
+> `auto-fill` keeps the empty tracks it created, so three cards in a six column row stay
+> card width and line up with the row above. `auto-fit` would collapse those tracks and
+> stretch the three across the full width, which is rarely what a card list wants.
+
+## Gap
+
+`--kd-grid-gap` is `1rem` out of the box, the same value as `--kd-space-3`. It takes any
+length, so point it at a space token rather than a literal and the grid stays on the
+scale.
+
+<Canvas of={GridStories.Gap} />
+
+## Customising
+
+`--kd-grid-min` (250px) and `--kd-grid-gap` (1rem) are both declared on the class, so
+reassign either inline for a one-off, or in a project rule that targets the grid element.
+
+> Setting them on an ancestor does nothing. The class declares both on the element itself,
+> and a declaration on the element beats an inherited value, so the override has to land on
+> the same element that carries `kd-grid-auto`.
+
+For a fixed two column shape that collapses, reach for `kd-split` instead. For a template
+you want to write out by hand, `kd-d-grid` and `kd-gap-*` give you the container without
+the column rule.

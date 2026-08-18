@@ -1,0 +1,61 @@
+import { Canvas, Meta } from "@storybook/addon-docs/blocks";
+
+import * as ChipStories from "./chip.stories.ts";
+
+<Meta of={ChipStories} />
+
+# Chip
+
+A neutral label for tags and stack lists. It is one element with no states: no hover, no
+transition, nothing to keep in sync. A chip names something, it does not report anything.
+
+## Example
+
+The default is muted text on a hairline border over a transparent background, set two
+steps below body copy at `--kd-font-size-xxs`. The box is `inline-flex` with a gap, so a
+leading icon can go inside it without any extra element.
+
+<Canvas of={ChipStories.Example} />
+
+## Accent
+
+`kd-chip--accent` repoints the colour, background and border at the accent trio in one
+step. Use it for the one label in a row that should be picked out, not for the row.
+
+<Canvas of={ChipStories.Accent} />
+
+## Pill
+
+`kd-chip--pill` changes the radius and nothing else, so it stacks with any other
+variation. Reach for it when the chips sit next to round shapes; the default `md` radius
+is the better match for a card grid.
+
+<Canvas of={ChipStories.Pill} />
+
+## Bare
+
+`kd-chip--bare` makes the border transparent rather than removing it, so a bare chip keeps
+the exact box of a bordered one and still lines up in a mixed row. This is the shape for a
+stack list under a project, where one border per technology would be a wall of boxes.
+
+<Canvas of={ChipStories.Bare} />
+
+## Chip or status pill
+
+`kd-status-pill` is the nearest thing in the system and it is a different job. The pill
+carries status semantics: a dot slot, a pulsing halo on its `active` variation, semibold
+type a step smaller than the chip with its tracking opened up, and a closed set of state
+variations. A blog tag or a technology label is a noun, not a condition, and wants none
+of that.
+
+<Canvas of={ChipStories.AgainstStatusPill} />
+
+> The chip cancels the sliding underline the elements layer puts on every bare `<a>`, so a
+> tag can link to its archive page and still read as a label. It gets no hover treatment
+> in exchange, so add one yourself if the link needs to feel clickable.
+
+## Customising
+
+`--kd-chip-color`, `--kd-chip-bg`, `--kd-chip-border` and `--kd-chip-radius` are declared
+on the block, and all three variations are nothing but reassignments of them. A one-off
+colour is an inline style on the element, not a new class.

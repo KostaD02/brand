@@ -69,6 +69,29 @@ $colors: (
   code-paper: $kd-code-paper,
 ) !default;
 
+$code-tokens: (
+  keyword: #c792ea,
+  entity: $kd-code-green,
+  type: #82aaff,
+  section: #82b1ff,
+  literal: #ff5874,
+  number: #f78c6c,
+  regexp: #5ca7e4,
+  string: #ecc48d,
+  subst: #d3423e,
+  class: #ffcb8b,
+  title: #dcdcaa,
+  attr: #7fdbca,
+  attribute: #80cbc4,
+  comment: #637777,
+  bullet: #d9f5dd,
+  link: #ff869a,
+  quote: #697098,
+  selector-tag: var(--#{$prefix}danger),
+  selector-id: #fad430,
+  deletion: #ef535090,
+) !default;
+
 $easing: cubic-bezier(0.645, 0.045, 0.355, 1) !default;
 
 $durations: (
@@ -138,6 +161,8 @@ $spacers: (
   3: $spacer,
   4: $spacer * 1.5,
   5: $spacer * 3,
+  6: $spacer * 4,
+  7: $spacer * 5.625,
 ) !default;
 
 $radii: (
@@ -181,6 +206,10 @@ $breakpoints: (
   lg: 945px,
   xl: 1080px,
 ) !default;
+
+$responsive-breakpoints: xl, lg, md, sm, xs, xxs !default;
+
+$navbar-height: 80px !default;
 
 $container-padding-x: map.get($spacers, 4) !default;
 

@@ -1,0 +1,119 @@
+@use "../variables/global" as *;
+
+.hljs {
+  color: var(--#{$prefix}code-fg);
+  background: var(--#{$prefix}code-bg);
+}
+
+.hljs-keyword,
+.hljs-emphasis,
+.hljs-formula,
+.hljs-template-tag,
+.hljs-selector-attr,
+.hljs-selector-pseudo {
+  color: var(--#{$prefix}code-token-keyword);
+  font-style: italic;
+}
+
+.hljs-built_in,
+.hljs-selector-class,
+.hljs-addition {
+  color: var(--#{$prefix}code-token-entity);
+  font-style: italic;
+}
+
+.hljs-variable,
+.hljs-template-variable {
+  color: var(--#{$prefix}code-token-entity);
+}
+
+.hljs-strong {
+  color: var(--#{$prefix}code-token-entity);
+  font-weight: var(--#{$prefix}font-weight-bold);
+}
+
+.hljs-type,
+.hljs-symbol,
+.hljs-function,
+.hljs-meta,
+.hljs-meta .hljs-keyword {
+  color: var(--#{$prefix}code-token-type);
+}
+
+.hljs-section {
+  color: var(--#{$prefix}code-token-section);
+}
+
+.hljs-literal {
+  color: var(--#{$prefix}code-token-literal);
+}
+
+.hljs-number {
+  color: var(--#{$prefix}code-token-number);
+}
+
+.hljs-regexp {
+  color: var(--#{$prefix}code-token-regexp);
+}
+
+.hljs-string,
+.hljs-meta .hljs-string {
+  color: var(--#{$prefix}code-token-string);
+}
+
+.hljs-subst {
+  color: var(--#{$prefix}code-token-subst);
+}
+
+.hljs-class {
+  color: var(--#{$prefix}code-token-class);
+}
+
+.hljs-title {
+  color: var(--#{$prefix}code-token-title);
+  font-style: italic;
+}
+
+.hljs-params,
+.hljs-doctag,
+.hljs-tag,
+.hljs-name,
+.hljs-attr {
+  color: var(--#{$prefix}code-token-attr);
+}
+
+.hljs-attribute,
+.hljs-code {
+  color: var(--#{$prefix}code-token-attribute);
+}
+
+.hljs-comment {
+  color: var(--#{$prefix}code-token-comment);
+  font-style: italic;
+}
+
+.hljs-bullet {
+  color: var(--#{$prefix}code-token-bullet);
+}
+
+.hljs-link {
+  color: var(--#{$prefix}code-token-link);
+}
+
+.hljs-quote {
+  color: var(--#{$prefix}code-token-quote);
+  font-style: italic;
+}
+
+.hljs-selector-tag {
+  color: var(--#{$prefix}code-token-selector-tag);
+}
+
+.hljs-selector-id {
+  color: var(--#{$prefix}code-token-selector-id);
+}
+
+.hljs-deletion {
+  color: var(--#{$prefix}code-token-deletion);
+  font-style: italic;
+}

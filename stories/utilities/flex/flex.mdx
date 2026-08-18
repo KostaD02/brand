@@ -58,6 +58,6 @@ finer belongs in component CSS.
 
 <Canvas of={FlexStories.Center} />
 
-> Because it sets `display` itself and is emitted after the display utilities, it wins
-> over them. `class="kd-flex-center kd-d-none"` stays visible, and
-> `kd-flex-center kd-d-md-none` is never hidden. Use one or the other, not both.
+> It sets `display` itself, but the display utilities are emitted last, so they win.
+> `class="kd-flex-center kd-d-none"` hides, and `kd-flex-center kd-d-md-none` hides at
+> 768px and below, so the centred and hidden pair compose the way you would expect.

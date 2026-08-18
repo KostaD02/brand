@@ -11,15 +11,20 @@
 }
 
 .#{$prefix}skip {
+  --#{$prefix}skip-top: 0;
+  --#{$prefix}skip-inline-start: 0;
+  --#{$prefix}skip-hidden-inline-start: -200%;
+  --#{$prefix}skip-overflow: hidden;
+
   position: absolute;
-  top: 0;
-  left: -200%;
+  top: var(--#{$prefix}skip-top);
+  left: var(--#{$prefix}skip-hidden-inline-start);
   width: 1px;
   height: 1px;
   padding: 1.25rem 1.75rem;
   border: var(--#{$prefix}border-width-1) solid var(--#{$prefix}accent);
   border-radius: var(--#{$prefix}radius-sm);
-  overflow: hidden;
+  overflow: var(--#{$prefix}skip-overflow);
   font-family: var(--#{$prefix}font-secondary);
   font-size: var(--#{$prefix}font-size-xs);
   font-weight: var(--#{$prefix}font-weight-medium);
@@ -41,13 +46,19 @@
     transform: var(--#{$prefix}translate-pop-lg);
   }
 
+  &--inline {
+    --#{$prefix}skip-top: auto;
+    --#{$prefix}skip-inline-start: auto;
+    --#{$prefix}skip-overflow: visible;
+  }
+
   &:hover,
   &:focus {
-    top: 0;
-    left: 0;
+    top: var(--#{$prefix}skip-top);
+    left: var(--#{$prefix}skip-inline-start);
     width: auto;
     height: auto;
-    overflow: auto;
+    overflow: visible;
     color: var(--#{$prefix}text-inverse);
     background-color: var(--#{$prefix}accent);
     opacity: 1;

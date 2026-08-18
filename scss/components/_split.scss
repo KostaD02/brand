@@ -1,0 +1,26 @@
+@use "sass:map";
+@use "../mixins/breakpoints" as *;
+@use "../variables/global" as *;
+
+.#{$prefix}split {
+  --#{$prefix}split-columns: 3fr 2fr;
+  --#{$prefix}split-gap: #{map.get($spacers, 5)};
+  --#{$prefix}split-align: center;
+
+  display: grid;
+  grid-template-columns: var(--#{$prefix}split-columns);
+  place-items: var(--#{$prefix}split-align);
+  gap: var(--#{$prefix}split-gap);
+
+  &--reverse > :first-child {
+    order: 1;
+  }
+}
+
+@each $name in $responsive-breakpoints {
+  @include respond-down($name) {
+    .#{$prefix}split--#{$name} {
+      --#{$prefix}split-columns: 1fr;
+    }
+  }
+}
