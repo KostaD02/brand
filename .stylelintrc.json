@@ -3,5 +3,13 @@
   "ignoreFiles": ["node_modules/**", "dist/**"],
   "rules": {
     "scss/dollar-variable-empty-line-before": null
-  }
+  },
+  "overrides": [
+    {
+      "files": ["scss/base/_syntax.scss"],
+      "rules": {
+        "selector-class-pattern": null
+      }
+    }
+  ]
 }

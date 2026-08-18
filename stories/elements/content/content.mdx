@@ -55,10 +55,41 @@ compete with the page title, and constrains images.
 
 <Canvas of={ContentStories.Prose} />
 
-> `kd-prose` sets sizes only, not rhythm. Paragraphs still have no margin, so pair it
-> with a flex column and `kd-gap-*`, or add your own margin, or the paragraphs will run
-> together. Plain `ul` and `ol` are also unstyled here, so they keep browser defaults
-> unless you add `kd-list`.
+> Outside `kd-prose` paragraphs still have no margin of their own. An application screen
+> sets its own rhythm with a flex column and `kd-gap-*`, or the paragraphs run together.
 
 Pair it with `kd-measure-*` from [Container](?path=/docs/layout-container--docs) to cap
 the line length.
+
+## Vertical rhythm
+
+The reset sets `p { margin: 0 }` because spacing a page is the container's job, and for a
+written page `kd-prose` is that container. It gives `p` and `ol` a bottom margin of one
+space step, so a multi paragraph article reads correctly with no wrapper doing the
+spacing.
+
+<Canvas of={ContentStories.ProseRhythm} />
+
+## Lists in prose
+
+A `ul` that never passed through an author, the kind a markdown pipeline emits, picks up
+the same accent triangle as `ul.kd-list` through `::marker`. The rule is written as
+`ul:not(.kd-list)` on purpose: `kd-list` draws its marker with a pseudo-element, so
+without the guard an authored list would carry both at once and every item would show two
+markers.
+
+<Canvas of={ContentStories.ProseLists} />
+
+## Overflow
+
+Grid and flex items default to `min-width: auto`, which means their minimum size is the
+width of their content, so one long line in a `pre` widens the track and pushes the
+layout out sideways. `kd-prose` sets `min-width: 0` on itself and caps `pre` and
+`kd-table-scroll` at `100%`, which holds the code block inside its column and lets it
+scroll on its own.
+
+<Canvas of={ContentStories.ProseOverflow} />
+
+> This is a container-level fix, so it works at any width. A viewport-relative
+> `max-width` on `pre` looks correct on the page it was measured against and nowhere
+> else.

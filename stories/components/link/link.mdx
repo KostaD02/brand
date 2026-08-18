@@ -8,7 +8,8 @@ import * as LinkStories from "./link.stories.ts";
 
 Links draw their own underline as a pseudo-element rather than using
 `text-decoration`, so it can be animated. The rule sweeps in from the left on hover and
-retracts to the right on leave.
+retracts to the right on leave. `kd-skip` is here as well: an off-screen link revealed on
+focus, with an inline variation for jump links inside a page.
 
 ## Example
 
@@ -42,3 +43,32 @@ focused. Put it first in the document and point it at your main landmark.
 
 > The skip link is only reachable by keyboard. Verify it by pressing Tab as the first
 > action on a fresh page load. A mouse will never reveal it.
+
+## Inline jump links
+
+The base `kd-skip` is built for one placement: pinned to the top left of its positioned
+ancestor, which is what a page level skip link wants. `--kd-skip-top` is `0` and it is read
+in both states, so the link sits at the top of that ancestor while it is hidden and stays
+there once it is revealed. Reuse the same class for a jump link written between two
+paragraphs of an article and that `0` drags the revealed link to the top of the article
+instead of leaving it where the reader is.
+
+`kd-skip--inline` reassigns three of the four properties: `--kd-skip-top` and
+`--kd-skip-inline-start` become `auto`, `--kd-skip-overflow` becomes `visible`. The hiding is
+untouched, since `--kd-skip-hidden-inline-start` still parks the link off canvas, so it is
+just as invisible until focus; it simply comes back at its static position in the flow.
+
+<Canvas of={LinkStories.SkipInline} />
+
+> It is still `position: absolute`, so it reserves no space and will overlap whatever follows
+> it. Leave a gap after the line it interrupts, or give the link a block of its own.
+
+## Customising the skip link
+
+`--kd-skip-top`, `--kd-skip-inline-start`, `--kd-skip-hidden-inline-start` and
+`--kd-skip-overflow` are all declared on `kd-skip`, so a one-off placement needs no variation
+class. The two horizontal properties split the states between them: the resting link is at
+`--kd-skip-hidden-inline-start`, the revealed one at `--kd-skip-inline-start`. Widen the
+parking distance if `-200%` of the ancestor is not far enough to clear the viewport.
+`--kd-skip-overflow` applies to the resting state only, because the reveal always sets
+`overflow: visible` to let the label out of the 1px box.

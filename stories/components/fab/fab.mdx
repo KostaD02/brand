@@ -1,0 +1,83 @@
+import { Canvas, Meta } from "@storybook/addon-docs/blocks";
+
+import * as FabStories from "./fab.stories.ts";
+
+<Meta of={FabStories} />
+
+# Fab
+
+A round icon button that floats over the page at the bottom right. Scroll back to top is
+the usual job, and it is deliberately quiet: no background, no border, just the icon.
+
+## Example
+
+The real component is `position: fixed` against the viewport at `--kd-z-toast`, so the
+demos on this page are boxed. Each one wraps it in a `position: relative` frame and
+switches the button to `position: absolute`, which keeps `--kd-fab-offset` measuring from
+the corner of the box instead of the corner of the window.
+
+<Canvas of={FabStories.Example} />
+
+## Visibility
+
+The fab ships hidden: `opacity: 0` together with `pointer-events: none`. Adding `kd-active`
+restores both, through the base transition, so it fades in. The pointer-events half is the
+part that matters. An invisible button that still accepted clicks would sit over the bottom
+right corner of every page and swallow whatever is underneath it.
+
+<Canvas of={FabStories.Visibility} />
+
+> Drive it by toggling `kd-active` from your scroll handler rather than writing to
+> `element.style.opacity`. Setting the opacity inline reveals the button but leaves it
+> untouchable, since the inline style says nothing about pointer events.
+
+## Holding an icon
+
+Drop an inline `<svg>` straight in: the block sizes any `svg` inside it to 20 by 20, so the
+icon needs no wrapper and no dimensions of its own. Draw it with `currentColor` on `stroke`
+or `fill`, because the fab is `--kd-text-muted` at rest and `--kd-accent` on hover and
+focus, and only `currentColor` follows that. The button has no text, so it needs an
+`aria-label`.
+
+<Canvas of={FabStories.Icon} />
+
+## Attention cycle
+
+Pair it with the `kd-animate-glow` utility to pull the eye once the button appears. The
+keyframes run `color` from muted to accent and back twice, which is why the icon has to use
+`currentColor` for this to show at all. Two things to set: the utility inherits
+`--kd-animate-duration` from `--kd-duration-base`, which at 0.25s is far too quick to read
+as a cycle, and it declares no iteration count, so it plays once.
+
+<Canvas of={FabStories.Glow} />
+
+> The demo above loops on purpose. On a real page prefer a single pass, or a slow one, and
+> remember the loop keeps animating forever otherwise. The reduced-motion guard in the reset
+> entry covers it; if you load `./css/components` without `./css/reset`, add your own
+> `prefers-reduced-motion` rule.
+
+## Offsets
+
+`--kd-fab-offset` is still the one value to reach for, but it is now a default rather than the
+property the layout reads. `--kd-fab-offset-inline-end` feeds `right`,
+`--kd-fab-offset-block-end` feeds `bottom`, and each of them falls back to
+`--kd-fab-offset`. Set the shorthand on its own and both edges move together, exactly as
+before.
+
+Set the two separately when the button has to line up with something already pinned to an
+edge. A bar docked across the bottom is the usual case: the fab keeps the same gutter from the
+right as the bar's own padding so the two agree on a vertical line, and takes a larger
+distance from the bottom so it clears the bar.
+
+<Canvas of={FabStories.Offsets} />
+
+> Pin the edge that is shared and let the other one absorb the obstacle. Raising
+> `--kd-fab-offset` until the button clears the bar pushes it off the gutter as well, and the
+> alignment you were matching is the first thing to go.
+
+## Customising
+
+`--kd-fab-size` is declared on the block alongside the three offset properties above. Colour is
+not behind a local property: it reads the text and accent tokens directly, so set `color` on
+the element for a one-off. The radius is already `--kd-radius-circle`, so giving it a
+`background` is all it takes to turn the quiet icon into a filled floating button.

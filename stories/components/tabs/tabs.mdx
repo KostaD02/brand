@@ -1,0 +1,80 @@
+import { Canvas, Meta } from "@storybook/addon-docs/blocks";
+
+import * as TabsStories from "./tabs.stories.ts";
+
+<Meta of={TabsStories} />
+
+# Tabs
+
+A strip of buttons with an accent rule marking the current one. The component styles the
+strip and nothing else: panels, click handling and focus order stay with you.
+
+## Example
+
+The default strip is a column sized to its widest label. Every tab carries a rule on its
+inline start in `--kd-tabs-line`, so the strip reads as one continuous edge; the current
+tab turns that rule accent and lifts its background to `--kd-bg-elevated`.
+
+<Canvas of={TabsStories.Example} />
+
+## Horizontal
+
+`kd-tabs--horizontal` turns the column into a row and moves the rule from the inline start
+to the block end, so the same marker now sits under the label. Tabs never shrink and never
+wrap: a strip wider than its container scrolls sideways instead of stacking. Each tab is
+also set to the full width of the strip in this mode, so how many you see at once is
+decided entirely by how wide you let the strip be.
+
+<Canvas of={TabsStories.Horizontal} />
+
+> The demo is capped at 22rem so the sideways scroll is visible. At full width you would
+> see one tab and swipe to the next.
+
+## Horizontal at a breakpoint
+
+The column and the scrolling row are the desktop and phone halves of the same strip, so
+pairing them is the common case rather than a special one. `kd-tabs kd-tabs--sm-horizontal`
+does it in two classes: a column above 600px, the row at 600px and below, no media query of
+your own. The full set is `kd-tabs--xxs-horizontal` through `kd-tabs--xl-horizontal`, from
+the same loop that produces the `kd-d-{bp}-*` display utilities.
+
+<Canvas of={TabsStories.HorizontalAtBreakpoint} />
+
+> Read the direction the way you read the display utilities: these respond down, so
+> `kd-tabs--md-horizontal` means horizontal at 768px and below, not above. The widths are
+> 350px for `xxs`, 480px for `xs`, 600px for `sm`, 768px for `md`, 945px for `lg` and 1080px
+> for `xl`. Narrow the browser past 600px to watch this one turn.
+
+Do not carry `kd-tabs--horizontal` alongside one of these. Below the breakpoint the two set
+the same properties, and above it the unconditional class is the only one left applying, so
+the strip is a row at every width and the responsive class has bought you nothing.
+
+## The ARIA contract
+
+The strip is a row of plain buttons, so nothing about it announces itself as a tab set
+until you say so. The root takes `role="tablist"` and an `aria-orientation` matching the
+variation you used. Each button takes `role="tab"` and `aria-selected`, and points at its
+panel with `aria-controls`. The panel is any element you like with `role="tabpanel"`,
+labelled back by `aria-labelledby`.
+
+<Canvas of={TabsStories.WithPanel} />
+
+> `.kd-active` carries the whole visual state: nothing in the CSS reads `aria-selected`.
+> The two are separate switches and you have to move them together, or a sighted reader
+> and a screen reader will be told different things.
+
+The hover, focus and active rule ends in `outline: none`, so a focused tab is marked by
+the accent rule rather than a focus ring. That is deliberate, and it is the second reason
+`.kd-active` has to stay accurate: it is the only mark left once focus moves elsewhere.
+
+A responsive variation puts one attribute against two layouts, since `aria-orientation` is
+markup and cannot follow a media query. Either set it to the layout the strip lives in most
+of the time and leave it, or move it from a `matchMedia` listener next to the rest of your
+tab wiring. The `kd-tabs--sm-horizontal` demo further up declares `vertical`, matching the
+wide layout it starts in.
+
+## Customising
+
+`--kd-tabs-line`, `--kd-tabs-line-active`, `--kd-tab-height` and `--kd-tab-padding-x` are
+declared on the block. Note the split in the names: the two colours belong to the strip,
+the height and padding belong to a tab. Both spellings are public API.

@@ -6,7 +6,7 @@ import * as TableStories from "./table.stories.ts";
 
 # Table
 
-Bare `table` is styled, so a plain table needs no classes. Cells get padding and a bottom
+Bare `table` is styled, so a data table needs no classes. Cells get padding and a bottom
 rule, and the header row is uppercase and muted on an elevated background. Every row
 keeps its bottom rule, so the table closes on a line.
 
@@ -42,8 +42,38 @@ Tables are `width: 100%` and will squash rather than overflow. Wrap one in
 `kd-fixed` sets `table-layout: fixed`, so columns divide the width evenly instead of
 sizing to content. Also element-qualified.
 
+## Plain
+
+`kd-plain` turns the data table into a listing: the head loses its uppercase tracking and
+its background, and the row rules go. It gets there by re-pointing
+`--kd-table-head-bg`, `--kd-table-head-color` and `--kd-table-border-color` rather than
+unsetting declarations, so the rules are still in the box model and the rows keep their
+rhythm; only the lines are invisible.
+
+<Canvas of={TableStories.Plain} />
+
+## Row hover
+
+`kd-rows` lifts each `tbody` row to `--kd-bg-elevated` on hover, through the shared
+transition. Use it when the rows are targets, not when the table is a static readout.
+
+<Canvas of={TableStories.Rows} />
+
+## Archive listing
+
+The two go together: an archive wants the borderless treatment and the hover, so it takes
+both classes. The link column is a `kd-icon-link`, which sits at the muted text colour,
+drops the underline every other link carries, and turns accent on its own hover and focus.
+
+<Canvas of={TableStories.Archive} />
+
+> `kd-plain` and `kd-rows` are element-qualified like `kd-fixed` and `kd-sticky-head`.
+> On anything that is not a `table` they do nothing at all, so they are safe names to
+> carry on a wrapper by mistake but useless there.
+
 ## Customising
 
 `--kd-table-padding-y`, `--kd-table-padding-x`, `--kd-table-border-color`,
 `--kd-table-head-bg` and `--kd-table-head-color` are declared on `table`, so a denser or
-recoloured table is a matter of reassigning them on that element.
+recoloured table is a matter of reassigning them on that element. `kd-plain` is the
+built-in shortcut for three of those five.

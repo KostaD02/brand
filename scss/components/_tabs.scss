@@ -1,0 +1,79 @@
+@use "sass:map";
+@use "../mixins/breakpoints" as *;
+@use "../variables/global" as *;
+
+@mixin horizontal {
+  flex-direction: row;
+  width: 100%;
+  padding-bottom: map.get($spacers, 2);
+  overflow-x: auto;
+
+  .#{$prefix}tabs__tab {
+    justify-content: center;
+    width: 100%;
+    border-inline-start: 0;
+    border-block-end: var(--#{$prefix}border-width-2) solid var(--#{$prefix}tabs-line);
+    text-align: center;
+
+    &:hover,
+    &:focus-visible,
+    &.#{$prefix}active {
+      border-block-end-color: var(--#{$prefix}tabs-line-active);
+    }
+  }
+}
+
+.#{$prefix}tabs {
+  --#{$prefix}tabs-line: var(--#{$prefix}bg-elevated);
+  --#{$prefix}tabs-line-active: var(--#{$prefix}accent);
+  --#{$prefix}tab-height: 42px;
+  --#{$prefix}tab-padding-x: 1.25rem;
+
+  display: flex;
+  flex-direction: column;
+  width: max-content;
+
+  &--horizontal {
+    @include horizontal;
+  }
+
+  &__tab {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    height: var(--#{$prefix}tab-height);
+    padding: 0 var(--#{$prefix}tab-padding-x);
+    border: 0;
+    border-inline-start: var(--#{$prefix}border-width-2) solid var(--#{$prefix}tabs-line);
+    border-radius: 0;
+    background: transparent;
+    font-family: var(--#{$prefix}font-secondary);
+    font-size: var(--#{$prefix}font-size-xs);
+    color: var(--#{$prefix}text-muted);
+    text-align: start;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: var(--#{$prefix}transition);
+
+    &::after {
+      display: none;
+    }
+
+    &:hover,
+    &:focus-visible,
+    &.#{$prefix}active {
+      border-inline-start-color: var(--#{$prefix}tabs-line-active);
+      background-color: var(--#{$prefix}bg-elevated);
+      color: var(--#{$prefix}accent);
+      outline: none;
+    }
+  }
+}
+
+@each $name in $responsive-breakpoints {
+  @include respond-down($name) {
+    .#{$prefix}tabs--#{$name}-horizontal {
+      @include horizontal;
+    }
+  }
+}

@@ -9,7 +9,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: var(--#{$prefix}space-5);
+  scroll-padding-top: var(--#{$prefix}scroll-offset);
 }
 
 html,

@@ -1,0 +1,55 @@
+import { Canvas, Meta } from "@storybook/addon-docs/blocks";
+
+import * as FrameStories from "./frame.stories.ts";
+
+<Meta of={FrameStories} />
+
+# Frame
+
+The portrait treatment: an accent border sitting behind the content and offset from it, with
+a thin accent wash laid over the top. Both halves are pseudo-elements, so the markup is one
+element wrapping one image.
+
+## Example
+
+`::after` draws the border, drops to `--kd-z-behind` and pushes itself down and right by
+`--kd-frame-offset`. `::before` paints `--kd-frame-tint` over the content. The block also
+zeroes its own margin, so a bare `<figure>` is a valid wrapper.
+
+<Canvas of={FrameStories.Example} />
+
+> The demo uses a plain coloured block in place of a photograph. In real markup the child is
+> an `<img>`, which the component sets to `display: block` and rounds to match.
+
+## Hover
+
+Hover the frame. Three things move together on one shared `--kd-transition`: the frame pops
+up and left, the tint fades to nothing so the content shows in its own colours, and the
+border travels out to twice its offset. `:focus-visible` runs the same gesture, but only
+where the block sits on something focusable such as a link; a bare `<figure>` never takes
+focus.
+
+<Canvas of={FrameStories.Hover} />
+
+## Fitting the content
+
+Both pseudo-elements are `inset: 0`, and the border is displaced with `translate` rather than
+with `top` and `left`. The frame is therefore exactly the size of whatever it wraps, at any
+width, and needs no breakpoint overrides. Hard-coded offsets are what force a component like
+this to be re-declared at every breakpoint.
+
+<Canvas of={FrameStories.FitsContent} />
+
+## Tint
+
+The wash is the one part you will want to turn off. Set `--kd-frame-tint: transparent` when
+the content is already brand-coloured and the tint only muddies it; the offset border and the
+hover behaviour are unaffected.
+
+<Canvas of={FrameStories.Tint} />
+
+## Customising
+
+`--kd-frame-offset`, `--kd-frame-radius` and `--kd-frame-tint` are declared on the block. The
+offset feeds the hover distance through a `calc()`, so changing that one value rescales the
+whole gesture.

@@ -1,0 +1,41 @@
+@use "sass:map";
+@use "../mixins/rail" as *;
+@use "../variables/global" as *;
+
+.#{$prefix}teaser {
+  @include rail;
+
+  display: grid;
+  row-gap: map.get($spacers, 1);
+  padding: map.get($spacers, 1) map.get($spacers, 3);
+  border-radius: var(--#{$prefix}radius-sm);
+
+  &__title {
+    width: fit-content;
+    margin: 0;
+
+    :is(h1, h2, h3, h4, h5, h6) {
+      margin: 0;
+      color: inherit;
+    }
+  }
+
+  &__text {
+    margin: 0;
+    font-size: var(--#{$prefix}font-size-lg);
+    color: var(--#{$prefix}text-bright);
+  }
+
+  &__meta {
+    font-size: var(--#{$prefix}font-size-md);
+    color: var(--#{$prefix}text-muted);
+  }
+
+  &__tags {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: map.get($spacers, 1);
+    margin: map.get($spacers, 2) 0;
+  }
+}

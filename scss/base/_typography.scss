@@ -41,22 +41,40 @@ small,
 }
 
 .#{$prefix}heading {
+  --#{$prefix}heading-font-size: var(--#{$prefix}font-size-fluid-section);
+  --#{$prefix}heading-margin: 0.625rem 0 2.5rem;
+  --#{$prefix}heading-rule-width: 300px;
+  --#{$prefix}heading-rule-gap: 1.25rem;
+  --#{$prefix}heading-rule-color: var(--#{$prefix}bg-elevated);
+
   display: flex;
   align-items: center;
   width: 100%;
-  margin: 0.625rem 0 2.5rem;
+  margin: var(--#{$prefix}heading-margin);
   font-family: var(--#{$prefix}font-primary);
-  font-size: var(--#{$prefix}font-size-fluid-section);
+  font-size: var(--#{$prefix}heading-font-size);
   white-space: nowrap;
 
   &::after {
     content: "";
     display: block;
     width: 100%;
-    max-width: 300px;
+    max-width: var(--#{$prefix}heading-rule-width);
     height: 1px;
-    margin-left: 1.25rem;
-    background-color: var(--#{$prefix}bg-elevated);
+    margin-left: var(--#{$prefix}heading-rule-gap);
+    background-color: var(--#{$prefix}heading-rule-color);
+  }
+
+  &--center {
+    justify-content: center;
+  }
+
+  &--wrap {
+    white-space: normal;
+  }
+
+  &--bare::after {
+    display: none;
   }
 }
 
@@ -65,9 +83,19 @@ small,
   font-feature-settings: "tnum" 1;
 }
 
+.#{$prefix}list-plain {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
 ul.#{$prefix}list {
+  --#{$prefix}list-columns: 1fr;
+  --#{$prefix}list-gap-x: 0.625rem;
+
   display: grid;
-  gap: 0 0.625rem;
+  grid-template-columns: var(--#{$prefix}list-columns);
+  gap: 0 var(--#{$prefix}list-gap-x);
   margin: 1.25rem 0 0;
   padding: 0;
   overflow: hidden;

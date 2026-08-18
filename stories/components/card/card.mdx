@@ -7,7 +7,8 @@ import * as CardStories from "./card.stories.ts";
 # Card
 
 A bordered surface for grouping related content. The card is a flex column, so its
-children stack and the footer can be pinned to the bottom.
+children stack and the footer can be pinned to the bottom. It is also
+`position: relative`, so an absolutely positioned child resolves against the card.
 
 ## Example
 
@@ -23,6 +24,14 @@ Use it when a card sits on top of an already elevated area and needs to read as 
 rather than raised.
 
 <Canvas of={CardStories.Surface} />
+
+## Header
+
+`kd-card__header` is the third slot alongside `__body` and `__footer`: a full width row
+with the label on the left and whatever acts on it on the right. It aligns its children
+to the top, so a two line title does not drag the pill or the icon link down with it.
+
+<Canvas of={CardStories.Header} />
 
 ## Footer
 
@@ -48,8 +57,52 @@ shadow on hover and focus. Use it only when the whole card is a single link or b
 
 <Canvas of={CardStories.Interactive} />
 
+## Lift
+
+`kd-card--lift` raises the card straight up and puts a soft shadow under it, where
+`kd-card--interactive` moves it diagonally onto a hard offset shadow. Reach for `--lift`
+in a grid of project cards, where several cards move under the same pointer sweep and a
+diagonal shift reads as noise; reach for `--interactive` on a single card that is the
+call to action.
+
+<Canvas of={CardStories.Lift} />
+
+> Neither variation sets `outline: none`, unlike the button. A keyboard focused card
+> shows the dashed focus ring on top of the movement, which is the behaviour you want.
+
+## Title colour
+
+`--kd-card-title-color` and `--kd-card-title-hover-color` drive `kd-card__title`, and the
+title carries the shared transition so it fades rather than snaps. Both
+`kd-card--interactive` and `kd-card--lift` move the title to the hover colour on `:hover`,
+`:focus-visible` and `:focus-within`, so the surface and its heading change together and
+the card reads as one target rather than a box with a link somewhere inside it.
+`:focus-within` is the case that matters when the card is a plain element wrapping a link:
+tabbing to the link still tints the title. Both properties are declared on the block, so
+one card can take a different hover colour without a new modifier.
+
+<Canvas of={CardStories.TitleColor} />
+
+## Covering the card
+
+`kd-card` sets `position: relative`, which makes it the containing block for an absolutely
+positioned descendant. That is what the `kd-stretch` utility on
+[Position](?path=/docs/utilities-position--docs) needs: put `kd-stretch` on the title link
+and its `::before` fills the card, so the whole surface follows that one link. Anchors are
+relative themselves for the underline sweep, so add `kd-pos-static` to the link; anything
+that has to stay separately clickable, such as the icon link in the footer, takes
+`kd-z-raised`.
+
+<Canvas of={CardStories.Stretched} />
+
+> Without `position: relative` on the card the overlay would resolve against whichever
+> ancestor happened to be positioned. In a grid of cards that is usually the grid itself,
+> so every card's overlay covers the whole grid, the overlays pile up on each other, and
+> only the last card in the DOM stays clickable.
+
 ## Customising
 
-`--kd-card-padding`, `--kd-card-bg`, `--kd-card-border-color` and `--kd-card-radius` are
-declared on the block, so reassigning any of them on the element restyles that one card.
-`kd-card--flush` is the built-in shortcut for zero padding.
+`--kd-card-padding`, `--kd-card-bg`, `--kd-card-border-color`, `--kd-card-radius`,
+`--kd-card-title-color` and `--kd-card-title-hover-color` are declared on the block, so
+reassigning any of them on the element restyles that one card. `kd-card--flush` is the
+built-in shortcut for zero padding.

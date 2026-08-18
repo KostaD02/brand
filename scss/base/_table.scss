@@ -53,3 +53,24 @@ table.#{$prefix}sticky-head th {
   top: 0;
   z-index: var(--#{$prefix}z-raised);
 }
+
+table.#{$prefix}plain {
+  --#{$prefix}table-head-bg: transparent;
+  --#{$prefix}table-head-color: var(--#{$prefix}text-primary);
+  --#{$prefix}table-border-color: transparent;
+
+  th {
+    font-size: var(--#{$prefix}font-size-md);
+    font-weight: var(--#{$prefix}font-weight-medium);
+    letter-spacing: normal;
+    text-transform: none;
+  }
+}
+
+table.#{$prefix}rows tbody tr {
+  transition: var(--#{$prefix}transition);
+
+  &:hover {
+    background-color: var(--#{$prefix}bg-elevated);
+  }
+}

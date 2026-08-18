@@ -92,9 +92,9 @@ export const themeNames = (test) =>
 
 # Tokens
 
-Every value in the package is a CSS custom property named `--kd-*`, declared in one
-place: `scss/variables/_root.scss`. Nothing else in the tree declares a global token, so
-this page is the whole surface.
+Every global value in the package is a CSS custom property named `--kd-*`, declared in
+one place: `scss/variables/_root.scss`. Nothing else in the tree declares a global token,
+so this page is the whole surface.
 
 These names are public API. Consumers reference them from stylesheets and from
 JavaScript, where a rename cannot be caught by a compiler, so treat renaming one as a
@@ -155,11 +155,46 @@ are built from these, and each also has an `-rgb` triplet for use inside `rgb()`
 
 <Tokens rows={group("color-").filter(([name]) => !name.endsWith("-rgb"))} />
 
+## Syntax tokens
+
+The `--kd-code-token-*` block is the highlighter palette. It sits with the raw colours
+rather than in the theme, because the code surface carries its own contrast through the
+`code-bg` and `code-fg` roles: the tokens painted on that surface read the same in either
+theme and do not need a second set of values.
+
+Twenty names cover what a highlighter actually distinguishes. They are read in one
+place, [Syntax](?path=/docs/elements-syntax--docs), which maps them onto the `hljs-*`
+classes. Repoint one here and every code block in the build follows.
+
+<Tokens rows={group("code-token-")} />
+
 ## Spacing
+
+One scale, and every margin, padding, gap and gutter utility is generated from it. A step
+is added to the Sass map once and arrives as a token plus the whole family of utilities
+that read it, which is why the scale is the only place a distance gets decided.
 
 <Canvas of={TokenStories.Spacing} />
 
 <Tokens rows={group("space-")} />
+
+### The top of the scale
+
+The swatches above stop at `--kd-space-5`, which used to be the end of the scale. 3rem is
+48px, and because `.kd-gutter-*` is generated from the same map, 48px was also the widest
+gutter a container could be given. A page shell with a wider gutter than that could not
+use `.kd-container` at all and had to be hand rolled alongside the package instead of out
+of it.
+
+`--kd-space-6` is 4rem, filling the jump from 48px to the next doubling at 96px.
+`--kd-space-7` is 5.625rem, which is 90px: the page shell gutter the scale was extended
+for, now reachable as `.kd-gutter-7` and as every other utility at step 7.
+
+<Canvas of={TokenStories.SpacingLarge} />
+
+> 5.625rem is a measurement rather than a ratio. It is on the scale so a real shell can be
+> expressed in the same vocabulary as everything else, not because it continues the
+> progression.
 
 ## Typography
 
@@ -192,6 +227,30 @@ re-resolve them, unlike the shadow tokens above.
 ## Layout
 
 <Tokens rows={group("breakpoint-", "container-", "measure-", "textarea-")} />
+
+## Page shell
+
+<Tokens rows={group("navbar-", "scroll-")} />
+
+`--kd-navbar-height` is the declared height of the fixed chrome at the top of the page.
+`--kd-scroll-offset` is that height plus one space step, so an anchor target lands clear of
+the header rather than under it.
+
+The reset applies it as `scroll-padding-top` on `html`, where it used to read
+`--kd-space-5`: a spacer that had nothing to do with header height, so every site with
+fixed chrome overrode it. `.kd-h-viewport` reads it too, as
+`calc(100dvh - var(--kd-scroll-offset))`, and `.kd-navbar` takes its height from the same
+token. Set `--kd-navbar-height` once and all three follow. A project with no fixed header
+sets `--kd-navbar-height: 0px`: the offset collapses to the space step alone, so anchors
+land one step clear and `.kd-h-viewport` is `100dvh` less that step.
+
+> These have to be on `:root`. Custom properties inherit down the tree, so one declared on
+> `.kd-navbar` would be invisible to the `html` element that needs it, no matter how the
+> selectors were ordered.
+
+> The space step inside `--kd-scroll-offset` is baked in as a literal `1rem` at build time,
+> not as `var(--kd-space-3)`. Reassigning the spacer at runtime moves the utilities but not
+> this offset.
 
 ## Z-index
 

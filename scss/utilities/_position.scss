@@ -23,6 +23,13 @@ $z-index-values: ();
   @include apply-utility($side, $side, $edge-values);
 }
 
+.#{$prefix}stretch::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: var(--#{$prefix}z-base);
+}
+
 @include apply-utility("z", z-index, $z-index-values);
 @include apply-utility("overflow", overflow, $overflow-values);
 @include apply-utility("overflow-x", overflow-x, $overflow-values);

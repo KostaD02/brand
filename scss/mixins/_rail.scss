@@ -1,0 +1,16 @@
+@use "../variables/global" as *;
+
+@mixin rail($width: 13px) {
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: $width;
+    height: 100%;
+    border-inline-start: var(--#{$prefix}border-width-2) solid var(--#{$prefix}accent);
+    border-radius: var(--#{$prefix}radius-sm) 0 0 var(--#{$prefix}radius-sm);
+  }
+}

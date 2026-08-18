@@ -1,13 +1,17 @@
 @use "sass:map";
-@use "../variables/global" as *;
+@use "../mixins/lift" as *;
 @use "../mixins/pop" as *;
+@use "../variables/global" as *;
 
 .#{$prefix}card {
   --#{$prefix}card-padding: 1.25rem;
   --#{$prefix}card-bg: var(--#{$prefix}bg-elevated);
   --#{$prefix}card-border-color: var(--#{$prefix}border);
   --#{$prefix}card-radius: var(--#{$prefix}radius-md);
+  --#{$prefix}card-title-color: var(--#{$prefix}text-primary);
+  --#{$prefix}card-title-hover-color: var(--#{$prefix}accent);
 
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
@@ -23,6 +27,14 @@
     overflow: hidden;
   }
 
+  &__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: map.get($spacers, 2);
+    width: 100%;
+  }
+
   &__body {
     display: flex;
     flex-direction: column;
@@ -34,7 +46,8 @@
     font-family: var(--#{$prefix}font-primary);
     font-size: var(--#{$prefix}font-size-lg);
     font-weight: var(--#{$prefix}font-weight-semibold);
-    color: var(--#{$prefix}text-primary);
+    color: var(--#{$prefix}card-title-color);
+    transition: var(--#{$prefix}transition);
   }
 
   &__text {
@@ -60,6 +73,21 @@
 
   &--interactive {
     @include pop;
+  }
+
+  &--lift {
+    @include lift;
+  }
+
+  &--interactive,
+  &--lift {
+    &:hover,
+    &:focus-visible,
+    &:focus-within {
+      .#{$prefix}card__title {
+        color: var(--#{$prefix}card-title-hover-color);
+      }
+    }
   }
 
   &::after {

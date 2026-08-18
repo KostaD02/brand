@@ -14,11 +14,9 @@ $display-values: (
   none
 );
 
-$display-breakpoints: xl, lg, md, sm, xs, xxs;
-
 @include apply-utility("d", display, $display-values);
 
-@each $name in $display-breakpoints {
+@each $name in $responsive-breakpoints {
   @include respond-down($name) {
     @include apply-utility("d-#{$name}", display, $display-values);
   }

@@ -1,0 +1,55 @@
+@use "sass:map";
+@use "../variables/global" as *;
+
+.#{$prefix}frame {
+  --#{$prefix}frame-offset: #{map.get($spacers, 2)};
+  --#{$prefix}frame-radius: var(--#{$prefix}radius-sm);
+  --#{$prefix}frame-tint: var(--#{$prefix}accent-line);
+
+  position: relative;
+  z-index: var(--#{$prefix}z-raised);
+  display: inline-block;
+  width: fit-content;
+  margin: 0;
+  border-radius: var(--#{$prefix}frame-radius);
+  transition: var(--#{$prefix}transition);
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: var(--#{$prefix}frame-radius);
+    transition: var(--#{$prefix}transition);
+  }
+
+  &::before {
+    background-color: var(--#{$prefix}frame-tint);
+  }
+
+  &::after {
+    z-index: var(--#{$prefix}z-behind);
+    border: var(--#{$prefix}border-width-2) solid var(--#{$prefix}accent);
+    translate: var(--#{$prefix}frame-offset) var(--#{$prefix}frame-offset);
+  }
+
+  &:hover,
+  &:focus-visible {
+    box-shadow: var(--#{$prefix}shadow-lg);
+    transform: var(--#{$prefix}translate-pop);
+
+    &::before {
+      opacity: 0;
+    }
+
+    &::after {
+      translate: calc(var(--#{$prefix}frame-offset) * 2)
+        calc(var(--#{$prefix}frame-offset) * 2);
+    }
+  }
+
+  img {
+    display: block;
+    border-radius: var(--#{$prefix}frame-radius);
+  }
+}

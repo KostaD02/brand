@@ -1,10 +1,16 @@
 import type { Meta, StoryObj } from "@storybook/html-vite";
 
+type GutterStep = "none" | "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7";
+
 interface ContainerArgs {
   tier: "container" | "container-xxs" | "container-xs" | "container-sm" | "container-md";
   flush: boolean;
-  gutter: "none" | "0" | "1" | "2" | "3" | "4" | "5";
+  gutter: GutterStep;
+  gutterMd: GutterStep;
+  gutterXs: GutterStep;
 }
+
+const gutterSteps: GutterStep[] = ["none", "0", "1", "2", "3", "4", "5", "6", "7"];
 
 const meta: Meta<ContainerArgs> = {
   title: "Layout/Container",
@@ -66,6 +72,19 @@ export const Gutters: Story = {
       .join(""),
 };
 
+export const ResponsiveGutters: Story = {
+  tags: ["!dev"],
+  render: () =>
+    rail(
+      `<div class="kd-container">${box(".kd-container (drops to 1rem at 600px)")}</div>`,
+    ) +
+    rail(
+      `<div class="kd-container kd-gutter-7 kd-gutter-md-5 kd-gutter-xs-4">${box(
+        ".kd-gutter-7 .kd-gutter-md-5 .kd-gutter-xs-4",
+      )}</div>`,
+    ),
+};
+
 export const Measure: Story = {
   tags: ["!dev"],
   render: () =>
@@ -81,6 +100,8 @@ export const Container: Story = {
     tier: "container",
     flush: false,
     gutter: "none",
+    gutterMd: "none",
+    gutterXs: "none",
   },
   argTypes: {
     tier: {
@@ -94,9 +115,11 @@ export const Container: Story = {
       ],
     },
     flush: { control: "boolean" },
-    gutter: { control: "select", options: ["none", "0", "1", "2", "3", "4", "5"] },
+    gutter: { control: "select", options: gutterSteps },
+    gutterMd: { control: "select", options: gutterSteps },
+    gutterXs: { control: "select", options: gutterSteps },
   },
-  render: ({ tier, flush, gutter }) => {
+  render: ({ tier, flush, gutter, gutterMd, gutterXs }) => {
     const classes = [`kd-${tier}`];
 
     if (flush) {
@@ -105,6 +128,14 @@ export const Container: Story = {
 
     if (gutter !== "none") {
       classes.push(`kd-gutter-${gutter}`);
+    }
+
+    if (gutterMd !== "none") {
+      classes.push(`kd-gutter-md-${gutterMd}`);
+    }
+
+    if (gutterXs !== "none") {
+      classes.push(`kd-gutter-xs-${gutterXs}`);
     }
 
     return rail(

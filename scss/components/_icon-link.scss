@@ -1,0 +1,28 @@
+@use "../variables/global" as *;
+
+.#{$prefix}icon-link {
+  --#{$prefix}icon-link-size: 20px;
+  --#{$prefix}icon-link-padding: 0.625rem;
+
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  padding: var(--#{$prefix}icon-link-padding);
+  color: var(--#{$prefix}text-muted);
+  transition: var(--#{$prefix}transition);
+
+  &::after {
+    display: none;
+  }
+
+  &:hover,
+  &:focus-visible {
+    color: var(--#{$prefix}accent);
+  }
+
+  svg {
+    width: var(--#{$prefix}icon-link-size);
+    height: var(--#{$prefix}icon-link-size);
+  }
+}

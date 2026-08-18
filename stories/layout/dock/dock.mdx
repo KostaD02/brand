@@ -1,0 +1,104 @@
+import { Canvas, Meta } from "@storybook/addon-docs/blocks";
+
+import * as DockStories from "./dock.stories.ts";
+
+<Meta of={DockStories} />
+
+# Dock
+
+A rail of icon links pinned to the bottom of one side of the viewport, with a hairline
+running from the last item down to the edge of the page.
+
+## Example
+
+The items are `kd-icon-link` anchors. There is deliberately no `__link` element on the
+dock: the same muted icon that turns accent on hover also appears in tables and on cards,
+so the treatment lives on its own class instead. Author the icons with
+`fill="currentColor"` or `stroke="currentColor"`, otherwise the hover colour never reaches
+them and the dock looks dead.
+
+The real dock is `position: fixed`, so every demo here sits in a box carrying a `transform`.
+That makes the box the containing block for anything fixed inside it and keeps the rail on
+the docs page instead of on your screen, with the shipped `position` left alone.
+
+<Canvas of={DockStories.Example} />
+
+## Anchoring
+
+The block only sets `bottom: 0`, so it needs `kd-dock--start` or `kd-dock--end` to pick an
+inline edge. Both sit a `--kd-space-5` gutter in from the side. The tail is drawn by
+`::after` rather than an extra list item, which keeps the markup to exactly the links you
+have.
+
+<Canvas of={DockStories.Anchoring} />
+
+## Text
+
+`kd-dock__text` is for the item that is words rather than an icon, usually an address on
+the opposite rail. `writing-mode: vertical-rl` turns the line on its side so it runs down
+the edge, and the tracking is opened up because rotated text at that size closes in on
+itself.
+
+It is also complete on its own anchor now, which matters because the thing in this slot is
+almost always a `mailto:` link. It cancels the sliding underline the elements layer draws
+under every bare `<a>`, carries `--kd-transition`, and goes accent on `:hover` and
+`:focus-visible`. So `class="kd-dock__text"` is the whole class list.
+
+<Canvas of={DockStories.Text} />
+
+> Adding `kd-icon-link` alongside it is still fine, but the only thing left for it to give a
+> text item is the padded hit area that matches the icons. The colour, the transition and the
+> cancelled underline all belong to `kd-dock__text`.
+
+## Flow
+
+`kd-dock--flow` is the mobile fallback. It goes `position: static`, turns the column into a
+centred row, takes full width and hides the tail, so the rail rejoins the document flow at
+the bottom of the page. `__text` flips back to `horizontal-tb` under it as well. On its
+own it is unconditional: the rail is in flow at every width.
+
+<Canvas of={DockStories.Flow} />
+
+## Flow at a breakpoint
+
+`kd-dock--md-flow` is the same fallback with the media query already attached. Put it on
+the rail next to `kd-dock` and you get the fixed column on wide screens and the static
+centred row at 768px and below, with nothing to write on your side. The full set is
+`kd-dock--xxs-flow` through `kd-dock--xl-flow`, from the same loop that produces the
+`kd-d-{bp}-*` display utilities, so they respond down: the breakpoint in the name is the
+width at which the class switches on, going smaller. `xxs` is 350px, `xs` 480px, `sm` 600px,
+`md` 768px, `lg` 945px and `xl` 1080px.
+
+<Canvas of={DockStories.FlowAtBreakpoint} />
+
+> Narrow the browser past 768px to watch this one drop into flow. Leave the anchoring class
+> on when you pair the two: `left` and `right` go inert the moment the rail is `static`, so
+> there is nothing to undo.
+
+This is the part worth knowing rather than working out: a variation class cannot be swapped
+in by a media query from your side, because CSS has no way to add or remove a class. Before
+these existed the only honest option was to re-declare the whole `--flow` rule set under
+your own breakpoint, which is why they exist.
+
+## Stacking
+
+`--kd-dock-z` sets the rail's `z-index` and defaults to `var(--kd-z-dropdown)`, which is
+`10`. It matters more than a fixed element's z-index usually does. The rail is pinned to
+the viewport, so it is stacked against the whole page rather than against the section it
+happens to sit next to in the markup: give your own main content a higher `z-index` and it
+paints over the rail and swallows every click aimed at it. The rail looks fine in a
+screenshot and does nothing when you use it.
+
+<Canvas of={DockStories.Stacking} />
+
+The two frames are the same markup twice, both with a panel above the rail at
+`var(--kd-z-overlay)`. Only the second rail sets `--kd-dock-z`. Raising it past whatever
+the page put on top is the fix, not moving the markup, and the z scale is there so you can
+say which layer you mean: `var(--kd-z-sticky)`, `var(--kd-z-overlay)` and
+`var(--kd-z-modal)` all read better at a glance than a hand-picked number.
+
+## Customising
+
+`--kd-dock-gap`, `--kd-dock-line` and `--kd-dock-z` are declared on the block. The gap
+spaces the items and the tail's top margin together, so one value keeps the rhythm even.
+The line is the tail's height; set it to `0px` for a fixed rail with no tail at all.

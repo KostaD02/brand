@@ -1,0 +1,47 @@
+import { Canvas, Meta } from "@storybook/addon-docs/blocks";
+
+import * as BurgerStories from "./burger.stories.ts";
+
+<Meta of={BurgerStories} />
+
+# Burger
+
+The menu button that folds into an X. No SVG, no icon font, no state class: three lines
+drawn out of two elements, and the fold is a transform on their pseudo elements.
+
+## Closed
+
+The structure is fixed at exactly two `kd-burger__bar` children. One is pinned to the
+left of the button box, the other to the right, and each draws the middle line itself
+while its `::before` and `::after` draw the line above and the line below. Two elements,
+six segments, three visual lines.
+
+<Canvas of={BurgerStories.Example} />
+
+## Open
+
+The open state keys off `aria-expanded="true"` on the button rather than a class. The
+toggle needs that attribute to be accessible at all, so wiring the visual state to it
+means the two can never drift apart: flip the attribute and the icon follows. The middle
+pair goes transparent and the four pseudo segments rotate into the X.
+
+<Canvas of={BurgerStories.Open} />
+
+> Give the button an `aria-label`, and `aria-controls` pointing at the id of whatever it
+> opens. Those are the only two things the consumer has to remember.
+
+## In a navbar
+
+It sits at the end of the bar as the mobile counterpart to `kd-navbar__menu`. In real
+markup it carries `kd-d-none kd-d-md-block` so it only appears at 768px and below; the
+demo drops those utilities so the button is visible here.
+
+<Canvas of={BurgerStories.InNavbar} />
+
+## Customising
+
+`--kd-burger-size` is the button box, which is the tap target rather than the drawing:
+growing it alone gives you more room to hit around the same icon. The glyph itself comes
+from `--kd-burger-bar-width`, `--kd-burger-bar-height` and `--kd-burger-bar-gap`, and
+`--kd-burger-color` paints all six segments at once. Scale the box and the bars together
+if you want a genuinely larger icon.

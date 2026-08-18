@@ -1,0 +1,11 @@
+@use "../variables/global" as *;
+
+@mixin lift($distance: 7px) {
+  transition: var(--#{$prefix}transition);
+
+  &:hover,
+  &:focus-visible {
+    box-shadow: var(--#{$prefix}shadow-lg);
+    transform: translateY(-$distance);
+  }
+}

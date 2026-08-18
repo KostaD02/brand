@@ -1,0 +1,77 @@
+@use "../variables/global" as *;
+
+.#{$prefix}burger {
+  --#{$prefix}burger-size: 30px;
+  --#{$prefix}burger-bar-width: 15px;
+  --#{$prefix}burger-bar-height: 4px;
+  --#{$prefix}burger-bar-gap: 10px;
+  --#{$prefix}burger-color: var(--#{$prefix}accent);
+
+  position: relative;
+  width: var(--#{$prefix}burger-size);
+  height: var(--#{$prefix}burger-size);
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+
+  &__bar {
+    position: absolute;
+    top: 50%;
+    width: var(--#{$prefix}burger-bar-width);
+    height: var(--#{$prefix}burger-bar-height);
+    background-color: var(--#{$prefix}burger-color);
+    transition: var(--#{$prefix}transition);
+
+    &:first-of-type {
+      left: 0;
+    }
+
+    &:last-of-type {
+      right: 0;
+    }
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: var(--#{$prefix}burger-color);
+      transition: var(--#{$prefix}transition);
+    }
+
+    &::before {
+      top: calc(var(--#{$prefix}burger-bar-gap) * -1);
+    }
+
+    &::after {
+      top: var(--#{$prefix}burger-bar-gap);
+    }
+  }
+
+  &[aria-expanded="true"] &__bar {
+    background-color: transparent;
+
+    &:first-of-type {
+      &::before {
+        transform: rotate(45deg) scaleX(1.05) translate(6px, 2px);
+      }
+
+      &::after {
+        transform: rotate(-45deg) scaleX(1.05) translate(6px, -2px);
+      }
+    }
+
+    &:last-of-type {
+      &::before {
+        transform: rotate(-45deg) scaleX(1.05) translate(-6px, 2px);
+      }
+
+      &::after {
+        transform: rotate(45deg) scaleX(1.05) translate(-6px, -2px);
+      }
+    }
+  }
+}

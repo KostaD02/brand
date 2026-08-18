@@ -48,6 +48,38 @@ export const ZIndex: Story = {
 `,
 };
 
+const externalIcon = `
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+  <path d="M15 3h6v6" />
+  <path d="M10 14 21 3" />
+</svg>
+`;
+
+export const Stretch: Story = {
+  tags: ["!dev"],
+  render: () => `
+<div class="kd-card kd-card--lift" style="max-width: 22rem;">
+  <div class="kd-card__body">
+    <div class="kd-card__title">
+      <a href="#" class="kd-link kd-link--anchor kd-stretch kd-pos-static">Steam Idler</a>
+    </div>
+    <div class="kd-card__text">
+      The title link is stretched, so the card is one hit area. The icon link below it
+      carries .kd-z-raised and keeps its own.
+    </div>
+  </div>
+  <div class="kd-card__footer">
+    <span class="kd-status-pill kd-status-pill--active">
+      <span class="kd-status-pill__dot"></span>
+      Running
+    </span>
+    <a href="#" class="kd-icon-link kd-z-raised" aria-label="Open repository">${externalIcon}</a>
+  </div>
+</div>
+`,
+};
+
 export const Overflow: Story = {
   tags: ["!dev"],
   render: () => `

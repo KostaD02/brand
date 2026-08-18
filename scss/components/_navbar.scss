@@ -1,0 +1,80 @@
+@use "sass:map";
+@use "../variables/global" as *;
+
+.#{$prefix}navbar {
+  --#{$prefix}navbar-padding-x: #{map.get($spacers, 5)};
+  --#{$prefix}navbar-bg: var(--#{$prefix}bg-alpha);
+  --#{$prefix}navbar-blur: 3px;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: var(--#{$prefix}z-modal);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: map.get($spacers, 3);
+  width: 100%;
+  height: var(--#{$prefix}navbar-height);
+  padding-inline: var(--#{$prefix}navbar-padding-x);
+  background-color: var(--#{$prefix}navbar-bg);
+  backdrop-filter: blur(var(--#{$prefix}navbar-blur));
+  transition: var(--#{$prefix}transition);
+
+  &--scrolled {
+    box-shadow: var(--#{$prefix}shadow-md);
+  }
+
+  &--hidden {
+    transform: translateY(calc(var(--#{$prefix}navbar-height) * -1));
+  }
+
+  &--bare {
+    background-color: transparent;
+    backdrop-filter: none;
+    box-shadow: none;
+  }
+
+  &__brand {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+
+    &::after {
+      display: none;
+    }
+  }
+
+  &__menu {
+    display: flex;
+    align-items: center;
+    gap: map.get($spacers, 1);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__link {
+    display: inline-block;
+    padding: 0.625rem;
+    border: none;
+    background-color: transparent;
+    font-family: var(--#{$prefix}font-secondary);
+    font-size: var(--#{$prefix}font-size-xs);
+    color: var(--#{$prefix}text-primary);
+    text-decoration: none;
+    cursor: pointer;
+    user-select: none;
+    transition: var(--#{$prefix}transition);
+
+    &::after {
+      display: none;
+    }
+
+    &:hover,
+    &:focus-visible,
+    &.#{$prefix}active {
+      color: var(--#{$prefix}accent);
+    }
+  }
+}
