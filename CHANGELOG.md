@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.2.0](https://github.com/KostaD02/brand/compare/v1.1.0...v1.2.0) (2026-08-18)
+
+### Features
+
+* styles for main website ([#4](https://github.com/KostaD02/brand/issues/4)) ([e731b9e](https://github.com/KostaD02/brand/commit/e731b9e81078c20836751eae467debe6bec2b635))
+
 ## [1.1.0](https://github.com/KostaD02/brand/compare/v1.0.1...v1.1.0) (2026-08-16)
 
 ### Features
