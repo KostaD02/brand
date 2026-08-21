@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.3.1](https://github.com/KostaD02/brand/compare/v1.3.0...v1.3.1) (2026-08-21)
+
+### Bug Fixes
+
+* **style:** body text color ([09cce7d](https://github.com/KostaD02/brand/commit/09cce7da41d1affc8b7b42d485ecba0f8f5182bc))
+
 ## [1.3.0](https://github.com/KostaD02/brand/compare/v1.2.0...v1.3.0) (2026-08-21)
 
 ### Features
