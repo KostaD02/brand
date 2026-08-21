@@ -54,19 +54,3 @@ The palette is part of the main bundle, so a project that already loads
 of the rest. That entry emits the `hljs` rules only, so pair it with
 `@kostad/brand/scss/entries/tokens` unless the page already declares the custom
 properties.
-
-## Customising
-
-Twenty properties carry the theme, each prefixed `--kd-code-token-`: `keyword`, `entity`,
-`type`, `section`, `literal`, `number`, `regexp`, `string`, `subst`, `class`, `title`,
-`attr`, `attribute`, `comment`, `bullet`, `link`, `quote`, `selector-tag`, `selector-id`
-and `deletion`. `--kd-code-bg` and `--kd-code-fg` come from the theme roles and set the
-surface the tokens sit on.
-
-`--kd-code-token-selector-tag` points at `--kd-danger`, so it follows the theme. Being
-declared on `:root`, it resolves there: a nested `[data-theme]` island will not re-tint
-it.
-
-`.hljs-emphasis` and `.hljs-strong` are the exception: they set italic and the bold
-weight and take no colour, so emphasis inside a doc comment keeps whatever token it is
-already wearing.

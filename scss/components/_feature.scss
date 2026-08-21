@@ -30,7 +30,7 @@
       content: "";
       position: absolute;
       inset: 0;
-      z-index: var(--#{$prefix}z-overlay);
+      z-index: var(--#{$prefix}z-base);
       background-color: var(--#{$prefix}bg);
       opacity: var(--#{$prefix}feature-scrim-opacity);
       transition: var(--#{$prefix}transition);
@@ -131,6 +131,20 @@
     .#{$prefix}feature__tags,
     &--reverse .#{$prefix}feature__tags {
       justify-content: center;
+    }
+
+    .#{$prefix}feature__content .#{$prefix}card {
+      --#{$prefix}card-bg: transparent;
+      --#{$prefix}card-border-color: transparent;
+      --#{$prefix}card-padding: 0 #{map.get($spacers, 2)};
+
+      box-shadow: none;
+    }
+  }
+
+  @include respond-down(sm) {
+    .#{$prefix}feature__content .#{$prefix}card__text {
+      font-size: var(--#{$prefix}font-size-sm);
     }
   }
 }
