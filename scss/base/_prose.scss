@@ -78,16 +78,6 @@ code {
     max-width: 100%;
   }
 
-  p,
-  li {
-    font-size: var(--#{$prefix}font-size-md);
-  }
-
-  p,
-  ol {
-    margin-block: 0 map.get($spacers, 3);
-  }
-
   ul:not(.#{$prefix}list) {
     margin-block: map.get($spacers, 2) map.get($spacers, 3);
     padding-inline-start: map.get($spacers, 3);
@@ -100,6 +90,18 @@ code {
         color: var(--#{$prefix}accent);
       }
     }
+  }
+}
+
+:where(.#{$prefix}prose) {
+  p,
+  li {
+    font-size: var(--#{$prefix}font-size-md);
+  }
+
+  p,
+  ol {
+    margin-block: 0 map.get($spacers, 3);
   }
 
   h1 {

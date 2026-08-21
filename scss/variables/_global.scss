@@ -15,7 +15,7 @@ $kd-slate-lightest: #ccd6f6 !default;
 $kd-ice: #e6f1ff !default;
 
 $kd-green: #64ffda !default;
-$kd-green-deep: #0baa84 !default;
+$kd-green-deep: #08755b !default;
 
 $kd-paper: #f5f7fb !default;
 $kd-paper-dim: #fafbfd !default;
@@ -25,12 +25,12 @@ $kd-paper-border: #e1e6f0 !default;
 $kd-paper-border-strong: #c3ccdc !default;
 
 $kd-steel: #495670 !default;
-$kd-steel-soft: #6b7891 !default;
+$kd-steel-soft: #636f87 !default;
 
 $kd-amber: #ffd166 !default;
-$kd-amber-deep: #d49100 !default;
+$kd-amber-deep: #895d00 !default;
 $kd-red: #ff6363 !default;
-$kd-red-deep: #d33b3b !default;
+$kd-red-deep: #d03030 !default;
 
 $kd-shadow: #020c1b !default;
 
@@ -87,7 +87,7 @@ $code-tokens: (
   bullet: #d9f5dd,
   link: #ff869a,
   quote: #697098,
-  selector-tag: var(--#{$prefix}danger),
+  selector-tag: $kd-red,
   selector-id: #fad430,
   deletion: #ef535090,
 ) !default;
@@ -408,8 +408,8 @@ $theme-light: (
 
   scrollbar-thumb: $kd-paper-border-strong,
 
-  code-bg: $kd-code-paper,
-  code-fg: $kd-navy,
+  code-bg: $kd-code-navy,
+  code-fg: $kd-code-fg,
   code-inline-fg: $kd-green-deep,
 
   shadow-sm: 0 10px 30px -15px rgba($kd-shadow, 0.12),
