@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.3.2](https://github.com/KostaD02/brand/compare/v1.3.1...v1.3.2) (2026-08-21)
+
+### Bug Fixes
+
+* **style:** adjust coloring for reset & prose ([8b2fe8d](https://github.com/KostaD02/brand/commit/8b2fe8d4763587a6c102faeebb4077be58633998))
+
 ## [1.3.1](https://github.com/KostaD02/brand/compare/v1.3.0...v1.3.1) (2026-08-21)
 
 ### Bug Fixes
