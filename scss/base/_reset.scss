@@ -23,7 +23,7 @@ body {
   font-family: var(--#{$prefix}font-secondary);
   font-size: var(--#{$prefix}font-size-body);
   line-height: var(--#{$prefix}line-height-base);
-  color: var(--#{$prefix}text-primary);
+  color: var(--#{$prefix}text-muted);
   background-color: var(--#{$prefix}bg);
   transition:
     background-color var(--#{$prefix}duration-base) var(--#{$prefix}easing),
