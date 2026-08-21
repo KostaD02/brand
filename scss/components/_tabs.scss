@@ -10,7 +10,6 @@
 
   .#{$prefix}tabs__tab {
     justify-content: center;
-    width: 100%;
     border-inline-start: 0;
     border-block-end: var(--#{$prefix}border-width-2) solid var(--#{$prefix}tabs-line);
     text-align: center;
