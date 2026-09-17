@@ -86,6 +86,10 @@
   border-radius: 0;
 }
 
+.sbdocs pre.prismjs {
+  color: var(--kd-color-code-fg);
+}
+
 pre::before {
   content: none;
 }

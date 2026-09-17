@@ -138,7 +138,24 @@ Everything on this page below the theme tables is theme-independent and lives in
 
 ## Selection, scrollbar and code
 
-<Theme names={themeNames(/^(selection|scrollbar|code)/)} />
+<Theme names={themeNames(/^(selection|scrollbar|code-(bg|fg|inline-fg)$)/)} />
+
+## Syntax roles
+
+The colours of highlighted code are theme roles, set next to `code-bg` and `code-fg`. Most
+colours picked for the dark navy block are too pale for light mode's white one, so each
+theme sets its own value for every role except `code-comment`, which is `#637777` in both.
+
+There are thirteen, grouped the way VS Code's Dark+ theme groups tokens. Plain code takes
+`code-fg` from the table above. [Syntax](?path=/docs/elements-syntax--docs) maps the roles
+onto the `hljs-*` classes. Repoint one in a theme and every code block in that theme
+follows; the two roles in the note below change nothing on the page.
+
+<Theme names={themeNames(/^code-(?!(bg|fg|inline-fg)$)/)} />
+
+> `code-control` and `code-invalid` exist for editor themes only, and no `hljs-*` rule
+> reads either. highlight.js gives every keyword the same class, so `return` and `const`
+> both take `code-storage`; it has no class for invalid code at all.
 
 ## Shadows
 
@@ -149,24 +166,12 @@ Everything on this page below the theme tables is theme-independent and lives in
 ## Palette
 
 The raw palette sits in `:root` and does not change with the theme. The theme roles above
-are built from these, and each also has an `-rgb` triplet for use inside `rgb()`.
+are built from these, except most syntax roles, which use colours of their own. Each
+palette colour also has an `-rgb` triplet for use inside `rgb()`.
 
 <Canvas of={TokenStories.Palette} />
 
 <Tokens rows={group("color-").filter(([name]) => !name.endsWith("-rgb"))} />
-
-## Syntax tokens
-
-The `--kd-code-token-*` block is the highlighter palette. It sits with the raw colours
-rather than in the theme, because the code surface carries its own contrast through the
-`code-bg` and `code-fg` roles: the tokens painted on that surface read the same in either
-theme and do not need a second set of values.
-
-Twenty names cover what a highlighter actually distinguishes. They are read in one
-place, [Syntax](?path=/docs/elements-syntax--docs), which maps them onto the `hljs-*`
-classes. Repoint one here and every code block in the build follows.
-
-<Tokens rows={group("code-token-")} />
 
 ## Spacing
 

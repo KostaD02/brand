@@ -69,29 +69,6 @@ $colors: (
   code-paper: $kd-code-paper,
 ) !default;
 
-$code-tokens: (
-  keyword: #c792ea,
-  entity: $kd-code-green,
-  type: #82aaff,
-  section: #82b1ff,
-  literal: #ff5874,
-  number: #f78c6c,
-  regexp: #5ca7e4,
-  string: #ecc48d,
-  subst: #d3423e,
-  class: #ffcb8b,
-  title: #dcdcaa,
-  attr: #7fdbca,
-  attribute: #80cbc4,
-  comment: #637777,
-  bullet: #d9f5dd,
-  link: #ff869a,
-  quote: #697098,
-  selector-tag: $kd-red,
-  selector-id: #fad430,
-  deletion: #ef535090,
-) !default;
-
 $easing: cubic-bezier(0.645, 0.045, 0.355, 1) !default;
 
 $durations: (
@@ -371,6 +348,19 @@ $theme-dark: (
   code-bg: $kd-code-navy,
   code-fg: $kd-code-fg,
   code-inline-fg: $kd-code-green,
+  code-comment: #637777,
+  code-storage: #82aaff,
+  code-control: #c792ea,
+  code-function: #dcdcaa,
+  code-type: #7fdbca,
+  code-variable: #a3d3eb,
+  code-constant: #4697e4,
+  code-string: #ecc48d,
+  code-number: $kd-code-green,
+  code-regexp: #c6778a,
+  code-escape: $kd-amber,
+  code-punctuation: $kd-slate,
+  code-invalid: $kd-red,
 
   shadow-sm: 0 10px 30px -15px rgba($kd-shadow, 0.5),
   shadow-md: 0 10px 30px -15px rgba($kd-shadow, 0.7),
@@ -408,9 +398,22 @@ $theme-light: (
 
   scrollbar-thumb: $kd-paper-border-strong,
 
-  code-bg: $kd-code-navy,
-  code-fg: $kd-code-fg,
+  code-bg: $kd-paper-elevated,
+  code-fg: $kd-navy,
   code-inline-fg: $kd-green-deep,
+  code-comment: #637777,
+  code-storage: #3968e8,
+  code-control: #955290,
+  code-function: #644f20,
+  code-type: #16556a,
+  code-variable: #3334a0,
+  code-constant: #2477a0,
+  code-string: #6c380d,
+  code-number: $kd-green-deep,
+  code-regexp: #a02d41,
+  code-escape: $kd-amber-deep,
+  code-punctuation: $kd-steel-soft,
+  code-invalid: $kd-red-deep,
 
   shadow-sm: 0 10px 30px -15px rgba($kd-shadow, 0.12),
   shadow-md: 0 10px 30px -15px rgba($kd-shadow, 0.16),

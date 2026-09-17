@@ -56,7 +56,7 @@ SCSS, if you want the functions and mixins. The `pkg:` prefix needs the Dart Sas
 
 Without the package importer, add `node_modules` to your Sass load paths and point at the file directly: `@use "@kostad/brand/scss/main"`.
 
-Palette colors (`--kd-color-*`) and semantic roles (`--kd-accent`, `--kd-bg`, `--kd-text-*`) are all custom properties, so repointing a role at a different brand color is a one liner:
+Palette colors (`--kd-color-*`) and semantic roles (`--kd-accent`, `--kd-bg`, `--kd-text-*`, `--kd-code-*`) are all custom properties, so repointing a role at a different brand color is a one liner:
 
 ```css
 :root {
