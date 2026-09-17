@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.4.0](https://github.com/KostaD02/brand/compare/v1.3.2...v1.4.0) (2026-09-17)
+
+### Features
+
+* syntax highlighting styles and update color tokens ([#8](https://github.com/KostaD02/brand/issues/8)) ([430ce07](https://github.com/KostaD02/brand/commit/430ce073d2dd73418b0cdd5bd5a96e9f3a81f9a5))
+
 ## [1.3.2](https://github.com/KostaD02/brand/compare/v1.3.1...v1.3.2) (2026-08-21)
 
 ### Bug Fixes
