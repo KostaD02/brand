@@ -26,10 +26,6 @@
     --#{$prefix}color-#{"" + $name}-rgb: #{to-rgb($value)};
   }
 
-  @each $name, $value in $code-tokens {
-    --#{$prefix}code-token-#{$name}: #{$value};
-  }
-
   @each $name, $value in $font-families {
     --#{$prefix}font-#{$name}: #{meta.inspect($value)};
   }

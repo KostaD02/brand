@@ -6,114 +6,92 @@
 }
 
 .hljs-keyword,
-.hljs-emphasis,
-.hljs-formula,
+.hljs-literal,
+.hljs-meta,
+.hljs-meta .hljs-keyword,
+.hljs-doctag,
 .hljs-template-tag,
-.hljs-selector-attr,
-.hljs-selector-pseudo {
-  color: var(--#{$prefix}code-token-keyword);
-  font-style: italic;
+.hljs-name,
+.hljs-section,
+.hljs-bullet,
+.hljs-variable.language_ {
+  color: var(--#{$prefix}code-storage);
 }
 
-.hljs-built_in,
-.hljs-selector-class,
-.hljs-addition {
-  color: var(--#{$prefix}code-token-entity);
-  font-style: italic;
-}
-
-.hljs-variable,
-.hljs-template-variable {
-  color: var(--#{$prefix}code-token-entity);
-}
-
-.hljs-strong {
-  color: var(--#{$prefix}code-token-entity);
-  font-weight: var(--#{$prefix}font-weight-bold);
+.hljs-title,
+.hljs-title.function_,
+.hljs-title.function_.invoke__ {
+  color: var(--#{$prefix}code-function);
 }
 
 .hljs-type,
-.hljs-symbol,
-.hljs-function,
-.hljs-meta,
-.hljs-meta .hljs-keyword {
-  color: var(--#{$prefix}code-token-type);
+.hljs-built_in,
+.hljs-title.class_,
+.hljs-title.class_.inherited__ {
+  color: var(--#{$prefix}code-type);
 }
 
-.hljs-section {
-  color: var(--#{$prefix}code-token-section);
+.hljs-variable,
+.hljs-template-variable,
+.hljs-params,
+.hljs-property,
+.hljs-attr,
+.hljs-attribute {
+  color: var(--#{$prefix}code-variable);
 }
 
-.hljs-literal {
-  color: var(--#{$prefix}code-token-literal);
-}
-
-.hljs-number {
-  color: var(--#{$prefix}code-token-number);
-}
-
-.hljs-regexp {
-  color: var(--#{$prefix}code-token-regexp);
+.hljs-variable.constant_,
+.hljs-symbol {
+  color: var(--#{$prefix}code-constant);
 }
 
 .hljs-string,
-.hljs-meta .hljs-string {
-  color: var(--#{$prefix}code-token-string);
-}
-
-.hljs-subst {
-  color: var(--#{$prefix}code-token-subst);
-}
-
-.hljs-class {
-  color: var(--#{$prefix}code-token-class);
-}
-
-.hljs-title {
-  color: var(--#{$prefix}code-token-title);
-  font-style: italic;
-}
-
-.hljs-params,
-.hljs-doctag,
-.hljs-tag,
-.hljs-name,
-.hljs-attr {
-  color: var(--#{$prefix}code-token-attr);
-}
-
-.hljs-attribute,
-.hljs-code {
-  color: var(--#{$prefix}code-token-attribute);
-}
-
-.hljs-comment {
-  color: var(--#{$prefix}code-token-comment);
-  font-style: italic;
-}
-
-.hljs-bullet {
-  color: var(--#{$prefix}code-token-bullet);
-}
-
-.hljs-link {
-  color: var(--#{$prefix}code-token-link);
-}
-
-.hljs-quote {
-  color: var(--#{$prefix}code-token-quote);
-  font-style: italic;
-}
-
-.hljs-selector-tag {
-  color: var(--#{$prefix}code-token-selector-tag);
-}
-
-.hljs-selector-id {
-  color: var(--#{$prefix}code-token-selector-id);
-}
-
+.hljs-meta .hljs-string,
+.hljs-code,
+.hljs-formula,
+.hljs-link,
 .hljs-deletion {
-  color: var(--#{$prefix}code-token-deletion);
+  color: var(--#{$prefix}code-string);
+}
+
+.hljs-number,
+.hljs-addition {
+  color: var(--#{$prefix}code-number);
+}
+
+.hljs-regexp {
+  color: var(--#{$prefix}code-regexp);
+}
+
+.hljs-char.escape_,
+.hljs-selector-tag,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-selector-attr,
+.hljs-selector-pseudo {
+  color: var(--#{$prefix}code-escape);
+}
+
+.hljs-tag {
+  color: var(--#{$prefix}code-punctuation);
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: var(--#{$prefix}code-comment);
+}
+
+.hljs-subst,
+.hljs-operator,
+.hljs-punctuation {
+  color: var(--#{$prefix}code-fg);
+}
+
+.hljs-section,
+.hljs-strong {
+  font-weight: var(--#{$prefix}font-weight-bold);
+}
+
+.hljs-emphasis {
   font-style: italic;
 }
