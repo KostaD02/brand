@@ -67,15 +67,39 @@ Palette colors (`--kd-color-*`) and semantic roles (`--kd-accent`, `--kd-bg`, `-
 
 Raw values live in `@kostad/brand/tokens.json`.
 
+Scroll reveal (`kd-reveal`) and the once-per-session intro (`kd-intro`) need two flags on `<html>` before first paint, and one call once the DOM is parsed:
+
+```html
+<script>
+  if ("IntersectionObserver" in window) {
+    document.documentElement.classList.add("kd-js");
+  }
+  try {
+    if (sessionStorage.getItem("kd-intro")) {
+      document.documentElement.classList.add("kd-no-intro");
+    }
+    sessionStorage.setItem("kd-intro", "1");
+  } catch (error) {}
+</script>
+```
+
+```js
+import { reveal } from "@kostad/brand/js"; // minified: "@kostad/brand/js/min"
+
+reveal();
+```
+
+Without a bundler, serve `dist/kostad-brand.min.js` and import it from a `<script type="module">`. The [Effects](https://kostad02.github.io/brand/?path=/docs/utilities-effects--docs) page documents both.
+
 ## Development
 
-| Command         | Does                          |
-| --------------- | ----------------------------- |
-| `pnpm build`    | Compiles `scss/` into `dist/` |
-| `pnpm watch`    | Same, on change               |
-| `pnpm docs:run` | Storybook on port 2222        |
-| `pnpm lint`     | ESLint and Stylelint          |
-| `pnpm format`   | Prettier                      |
+| Command         | Does                                    |
+| --------------- | --------------------------------------- |
+| `pnpm build`    | Compiles `scss/` and `js/` into `dist/` |
+| `pnpm watch`    | Same, on change                         |
+| `pnpm docs:run` | Storybook on port 2222                  |
+| `pnpm lint`     | ESLint and Stylelint                    |
+| `pnpm format`   | Prettier                                |
 
 ## License
 

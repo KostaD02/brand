@@ -7,7 +7,15 @@
 @use "../variables/global" as *;
 
 $opacity-values: 0, 25, 50, 75, 100;
-$animation-values: fade-in, fade-out, fade-up, drop-in, glow;
+$animation-values: (
+  fade-in,
+  fade-out,
+  fade-up,
+  drop-in,
+  slide-in-start,
+  slide-in-end,
+  glow
+);
 $stagger-steps: 8;
 $cursor-values: pointer, default, not-allowed, wait, text, grab;
 $pointer-events-values: none, auto;
@@ -100,4 +108,18 @@ $transition-values: (
     #{$prefix}typing var(--#{$prefix}typewriter-duration)
       steps(var(--#{$prefix}typewriter-steps), end),
     #{$prefix}caret 0.5s step-end infinite;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .#{$prefix}js .#{$prefix}reveal:not(.#{$prefix}reveal--in) {
+    &[class*="#{$prefix}animate-"],
+    [class*="#{$prefix}animate-"] {
+      pointer-events: none;
+      animation-play-state: paused;
+    }
+  }
+}
+
+.#{$prefix}no-intro .#{$prefix}intro > * {
+  animation: none;
 }

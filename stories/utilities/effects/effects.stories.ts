@@ -1,9 +1,20 @@
 import type { Meta, StoryObj } from "@storybook/html-vite";
 
+import { reveal } from "../../../js/index.ts";
+
+type Animation =
+  | "fade-in"
+  | "fade-out"
+  | "fade-up"
+  | "drop-in"
+  | "slide-in-start"
+  | "slide-in-end"
+  | "glow";
+
 interface EffectsArgs {
   shadow: "sm" | "md" | "lg" | "side" | "none";
   opacity: "0" | "25" | "50" | "75" | "100";
-  animate: "none" | "fade-in" | "fade-out" | "fade-up" | "drop-in" | "glow";
+  animate: "none" | Animation;
   duration: string;
   fill: "both" | "none" | "forwards" | "backwards";
   easing: string;
@@ -20,11 +31,57 @@ export default meta;
 
 type Story = StoryObj<EffectsArgs>;
 
+const animations: Animation[] = [
+  "fade-in",
+  "fade-out",
+  "fade-up",
+  "drop-in",
+  "slide-in-start",
+  "slide-in-end",
+  "glow",
+];
+
 const cell = (classes: string, label: string, extra = "") =>
   `<div class="${classes}" style="padding: var(--kd-space-3); background: var(--kd-bg-elevated); font-family: var(--kd-font-mono); font-size: var(--kd-font-size-xxs); ${extra}">${label}</div>`;
 
 const grid = (inner: string) =>
   `<div class="kd-d-grid kd-gap-4" style="grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));">${inner}</div>`;
+
+const scroller = (inner: string) => `
+<div class="kd-js" data-scroller style="height: 14rem; overflow: auto; border: 1px solid var(--kd-border);">
+  <p class="kd-flex-center" style="height: 14rem; margin: 0; font-family: var(--kd-font-mono); font-size: var(--kd-font-size-xxs); color: var(--kd-text-muted);">scroll down</p>
+  <div class="kd-d-grid kd-gap-3" style="padding: var(--kd-space-3);">${inner}</div>
+  <div style="height: 8rem;"></div>
+</div>
+`;
+
+const observe: Story["play"] = ({ canvasElement }) => {
+  canvasElement
+    .querySelectorAll("[data-scroller]")
+    .forEach((root) => reveal(root, { root }));
+};
+
+const list = (classes: string, items: string[], extra = "") =>
+  `<ul class="${classes} kd-d-grid kd-gap-2" style="list-style: none; margin: 0; padding: 0; ${extra}">${items
+    .map(
+      (item) =>
+        `<li class="kd-animate-fade-up" style="padding: var(--kd-space-2); background: var(--kd-bg-elevated); font-family: var(--kd-font-mono); font-size: var(--kd-font-size-xxs);">${item}</li>`,
+    )
+    .join("")}</ul>`;
+
+const intro = (caption: string) => `
+<div class="kd-d-grid kd-gap-2">
+  <ul class="kd-intro kd-stagger kd-d-grid kd-gap-2" style="--kd-animate-duration: 1.2s; list-style: none; margin: 0; padding: 0;">
+    ${["About", "Work", "Contact"]
+      .map(
+        (item) =>
+          `<li class="kd-animate-drop-in" style="padding: var(--kd-space-2); background: var(--kd-bg-elevated); font-family: var(--kd-font-mono); font-size: var(--kd-font-size-xxs);">${item}</li>`,
+      )
+      .join("")}
+  </ul>
+  <p style="margin: 0; font-family: var(--kd-font-mono); font-size: var(--kd-font-size-xxs); color: var(--kd-text-muted);">${caption}</p>
+</div>
+`;
 
 export const Shadow: Story = {
   tags: ["!dev"],
@@ -88,7 +145,7 @@ export const Animate: Story = {
   tags: ["!dev"],
   render: () =>
     grid(
-      ["fade-in", "fade-out", "fade-up", "drop-in", "glow"]
+      animations
         .map((name) =>
           cell(
             `kd-animate-${name}`,
@@ -130,15 +187,48 @@ export const FillMode: Story = {
 
 export const Stagger: Story = {
   tags: ["!dev"],
+  render: () => list("kd-stagger", ["item 1", "item 2", "item 3", "item 4", "item 5"]),
+};
+
+export const Reveal: Story = {
+  tags: ["!dev"],
+  parameters: { docs: { story: { autoplay: true } } },
+  render: () =>
+    scroller(
+      ["fade-up", "slide-in-start", "fade-in"]
+        .map((name) =>
+          cell(
+            `kd-reveal kd-animate-${name}`,
+            `.kd-reveal .kd-animate-${name}`,
+            "--kd-animate-duration: 1s;",
+          ),
+        )
+        .join(""),
+    ),
+  play: observe,
+};
+
+export const RevealStagger: Story = {
+  tags: ["!dev"],
+  parameters: { docs: { story: { autoplay: true } } },
+  render: () =>
+    scroller(
+      list(
+        "kd-reveal kd-stagger",
+        ["item 1", "item 2", "item 3", "item 4", "item 5"],
+        "--kd-animate-duration: 1s;",
+      ),
+    ),
+  play: observe,
+};
+
+export const Intro: Story = {
+  tags: ["!dev"],
   render: () => `
-<ul class="kd-stagger kd-d-grid kd-gap-2" style="list-style: none; margin: 0; padding: 0;">
-  ${[1, 2, 3, 4, 5]
-    .map(
-      (index) =>
-        `<li class="kd-animate-fade-up" style="padding: var(--kd-space-2); background: var(--kd-bg-elevated); font-family: var(--kd-font-mono); font-size: var(--kd-font-size-xxs);">item ${index}</li>`,
-    )
-    .join("")}
-</ul>
+<div class="kd-d-grid kd-gap-4" style="grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));">
+  ${intro("first visit")}
+  <div class="kd-no-intro">${intro(".kd-no-intro on an ancestor")}</div>
+</div>
 `,
 };
 
@@ -170,7 +260,7 @@ export const Effects: Story = {
     opacity: { control: "inline-radio", options: ["0", "25", "50", "75", "100"] },
     animate: {
       control: "select",
-      options: ["none", "fade-in", "fade-out", "fade-up", "drop-in", "glow"],
+      options: ["none", ...animations],
     },
     duration: { control: "text" },
     fill: {

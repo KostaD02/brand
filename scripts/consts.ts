@@ -10,3 +10,10 @@ export const STYLES = [
   { suffix: "", style: "expanded" },
   { suffix: ".min", style: "compressed" },
 ] as const;
+
+export const SCRIPT_ENTRIES = [{ entry: "index.ts", name: NAME }] as const;
+
+export const SCRIPT_VARIANTS = [
+  { suffix: "", minify: false },
+  { suffix: ".min", minify: true },
+] as const;

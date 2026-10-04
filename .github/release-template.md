@@ -13,10 +13,12 @@
 | --------------------------- | ------------------------------------------------- |
 | `@kostad/brand/css`         | tokens, reset, elements, components and utilities |
 | `@kostad/brand/css/min`     | the same stylesheet, minified                     |
+| `@kostad/brand/js`          | `reveal()`, the scroll reveal observer, as ESM    |
+| `@kostad/brand/js/min`      | the same module, minified                         |
 | `@kostad/brand/tokens.json` | every `--kd-*` token as data                      |
 
-**`kostad-brand-__VERSION__.zip`** attached below holds the same three files, for use
-without a package manager.
+**`kostad-brand-__VERSION__.zip`** attached below holds the same files, for use without a
+package manager.
 
 ## 🛠️ Working from source
 

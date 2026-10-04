@@ -34,6 +34,11 @@
     },
     "./css": "./dist/kostad-brand.css",
     "./css/min": "./dist/kostad-brand.min.css",
+    "./js": {
+      "types": "./dist/kostad-brand.d.ts",
+      "default": "./dist/kostad-brand.js"
+    },
+    "./js/min": "./dist/kostad-brand.min.js",
     "./tokens.json": "./dist/kostad-brand-tokens.json",
     "./scss": "./scss/main.scss",
     "./scss/*": "./scss/*",
@@ -92,6 +97,7 @@
     "@storybook/addon-docs": "^10.6.0",
     "@storybook/html-vite": "^10.6.0",
     "@types/node": "^26.1.2",
+    "esbuild": "^0.28.2",
     "eslint": "^10.8.1",
     "eslint-config-prettier": "^10.1.8",
     "husky": "^9.1.7",
