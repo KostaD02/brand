@@ -7,7 +7,8 @@ import * as EffectsStories from "./effects.stories.ts";
 # Effects
 
 Shadow, the pop and lift treatments, the accent rail, opacity, transition and interaction
-utilities, plus the animation set: `kd-animate-*`, `kd-stagger` and `kd-typewriter`.
+utilities, plus the animation set: `kd-animate-*`, `kd-stagger`, `kd-typewriter`, the
+scroll-driven `kd-reveal` and the once-per-session `kd-intro`.
 
 ## Shadow
 
@@ -78,17 +79,20 @@ does this globally; the class is for elements that have opted out and need it ba
 
 ## Animations
 
-`kd-animate-{fade-in|fade-out|fade-up|drop-in|glow}` each set an animation name on top of
-a shared base. The base declares none of its inputs; it reads `--kd-animate-duration`,
-`--kd-animate-delay`, `--kd-animate-easing` and `--kd-animate-fill` with fallbacks to
-`--kd-duration-base`, `0s`, `--kd-easing` and `both`. The element needs nothing else, no
-`animation` declaration of its own.
+`kd-animate-{fade-in|fade-out|fade-up|drop-in|slide-in-start|slide-in-end|glow}` each set
+an animation name on top of a shared base. The base declares none of its inputs; it reads
+`--kd-animate-duration`, `--kd-animate-delay`, `--kd-animate-easing` and
+`--kd-animate-fill` with fallbacks to `--kd-duration-base`, `0s`, `--kd-easing` and
+`both`. The element needs nothing else, no `animation` declaration of its own.
 
 <Canvas of={EffectsStories.Animate} />
 
 > The demo slows them to 1.2s to make them readable; the default is `--kd-duration-base`,
 > a quarter of a second. They run once on mount, so reload the page to watch them again,
 > and `kd-animate-fade-out` correctly leaves its cell at zero opacity when it lands.
+
+> The slides travel the full width of the element and `kd-animate-fade-up` the full
+> height, so on a short pill they are a nudge and on a whole section they are a sweep.
 
 ## Inherited timing
 
@@ -125,6 +129,92 @@ and the list arrives in sequence with no per-item CSS and no loop in the consume
 > A ninth child gets no rule, so it keeps the 0s default and lands with the first one.
 > Keep staggered lists inside eight items, or accept that the tail arrives together.
 
+## Reveal
+
+`kd-reveal` holds back the `kd-animate-*` animations on an element, and on everything
+inside it, until the element scrolls into view. It is a trigger, not an animation of its
+own: pair it with any animate class, set the timing the usual way, and the first time the
+element enters the viewport it gets `kd-reveal--in` and the held animations run.
+
+<Canvas of={EffectsStories.Reveal} />
+
+It needs two things from the page. A `kd-js` class on `<html>`, set by an inline script in
+`<head>` so it is there before first paint, and one call to `reveal()` once the DOM is
+parsed:
+
+```html
+<script>
+  if ("IntersectionObserver" in window) {
+    document.documentElement.classList.add("kd-js");
+  }
+</script>
+```
+
+```js
+import { reveal } from "@kostad/brand/js";
+
+reveal();
+```
+
+> Without `kd-js` nothing is held back and the animations simply run on load, so a page
+> whose JavaScript never arrives shows all of its content. That is the point of the flag:
+> the stylesheet never hides anything on its own. It also means the flag has to be set
+> synchronously in `<head>`. Set it later and the animations start, then freeze mid-way.
+
+> A held element waits on its first keyframe, which for `kd-animate-fade-up` is invisible
+> and a full height lower than its final spot. It gets `pointer-events: none` for as long
+> as it waits, so it cannot catch clicks meant for the content it overlaps.
+
+> Under `prefers-reduced-motion: reduce` nothing is held back at all. Content never waits
+> for the observer, and the reset collapses the animations as usual.
+
+### Stagger
+
+`kd-stagger` works unchanged: put `kd-reveal` on the parent and the animate class on the
+children, and the sequence starts when the parent enters the viewport.
+
+<Canvas of={EffectsStories.RevealStagger} />
+
+### Options
+
+`reveal(root, options)`. `root` is where to look for `kd-reveal` elements, `document` by
+default; call it again with a subtree for elements added later. `options` goes straight to
+the `IntersectionObserver`, plus a `prefix` for a build compiled with a different
+`$prefix`. The defaults are `threshold` `0` and `rootMargin` `"0px 0px -10% 0px"`, so an
+element counts as in view once its top edge is a tenth of the viewport in. Each element
+fires once, and the observer is returned for anything that needs to disconnect it.
+
+> The trigger is the top edge rather than a visible ratio on purpose. A section several
+> screens tall never reaches a ratio threshold on a phone and would stay hidden.
+
+## Intro
+
+`kd-intro` marks an entrance that should play once per browser session: the navbar
+dropping in, a hero staggering up. When `<html>` carries `kd-no-intro`, every child of a
+`kd-intro` element has its animation removed, and nothing else changes.
+
+<Canvas of={EffectsStories.Intro} />
+
+The flag comes from the same inline script, keyed on `sessionStorage`:
+
+```html
+<script>
+  try {
+    if (sessionStorage.getItem("kd-intro")) {
+      document.documentElement.classList.add("kd-no-intro");
+    }
+    sessionStorage.setItem("kd-intro", "1");
+  } catch (error) {}
+</script>
+```
+
+> `sessionStorage` throws rather than returning `null` in some private modes and sandboxed
+> frames, hence the `try`. When it throws the intro simply plays every time.
+
+> The rule targets the children, not the `kd-intro` element itself, so a container with an
+> entrance of its own, `kd-drawer__panel` for instance, keeps it while its items skip
+> theirs.
+
 ## Typewriter
 
 `kd-typewriter` types a line out and blinks a caret after it, driven by
@@ -144,7 +234,8 @@ and the list arrives in sequence with no per-item CSS and no loop in the consume
 
 None of these need a guard of their own. The reset already collapses animation and
 transition durations to nothing under `prefers-reduced-motion: reduce`, and that rule
-covers every class on this page.
+covers every class on this page. `kd-reveal` goes one step further and stops holding
+anything back, so nothing on the page waits for a scroll.
 
 ## Customising
 
@@ -153,4 +244,5 @@ The `kd-animate-*` base reads four hooks and declares none of them:
 `--kd-animate-fill`. Set any of them inline for a one-off, or on an ancestor to cover a
 whole subtree. `--kd-stagger-step` sits on the `kd-stagger` parent and retimes the whole
 sequence at once, and `--kd-typewriter-steps` and `--kd-typewriter-duration` are declared on
-`kd-typewriter` itself.
+`kd-typewriter` itself. `kd-reveal` adds no hooks of its own; its timing is whatever the
+held animation reads, and its trigger is tuned through the `reveal()` options.
