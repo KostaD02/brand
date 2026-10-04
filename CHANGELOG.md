@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.5.0](https://github.com/KostaD02/brand/compare/v1.4.0...v1.5.0) (2026-10-04)
+
+### Features
+
+* scroll reveal and once per session intro ([#9](https://github.com/KostaD02/brand/issues/9)) ([c83dfcd](https://github.com/KostaD02/brand/commit/c83dfcdf6cfa7269ac1d3b2ebe7d03ecfe5133c9))
+
 ## [1.4.0](https://github.com/KostaD02/brand/compare/v1.3.2...v1.4.0) (2026-09-17)
 
 ### Features
