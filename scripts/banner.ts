@@ -6,7 +6,7 @@ interface Pkg {
   author: string;
 }
 
-export function withLicenseBanner(css: string): string {
+export function withLicenseBanner(code: string): string {
   const pkgJson = resolve(import.meta.dirname, "../package.json");
   const pkg = JSON.parse(readFileSync(pkgJson, "utf-8")) as Pkg;
   const year = new Date().getFullYear();
@@ -18,5 +18,5 @@ export function withLicenseBanner(css: string): string {
 */
 `;
 
-  return `${banner}\n${css}`;
+  return `${banner}\n${code}`;
 }
