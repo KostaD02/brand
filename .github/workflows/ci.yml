@@ -16,7 +16,7 @@ concurrency:
 jobs:
   hub:
     permissions:
-      contents: write
+      contents: read
       pull-requests: write
     uses: KostaD02/ci/.github/workflows/ci.yml@v1
     with:
@@ -30,6 +30,15 @@ jobs:
         **[Storybook for this branch](https://kostad02.github.io/brand/pr-preview/pr-${{ github.event.pull_request.number }}/)**
 
         Rebuilt on every push, removed when the PR closes.
-      pages: pnpm run docs:build
-      pages-folder: storybook-static
-      pages-base-env: STORYBOOK_BASE
+
+  storybook:
+    needs: [hub]
+    permissions:
+      contents: write
+      pull-requests: write
+    uses: KostaD02/ci/.github/workflows/pages-preview.yml@v1
+    with:
+      name: Storybook
+      run: pnpm run docs:build
+      folder: storybook-static
+      base-path-env: STORYBOOK_BASE
