@@ -51,7 +51,7 @@
   &__thumb {
     position: absolute;
     top: 50%;
-    left: var(--#{$prefix}toggle-inset);
+    inset-inline-start: var(--#{$prefix}toggle-inset);
     width: var(--#{$prefix}toggle-thumb-size);
     height: var(--#{$prefix}toggle-thumb-size);
     border-radius: var(--#{$prefix}radius-circle);
@@ -71,7 +71,10 @@
   }
 
   &__input:checked + &__track &__thumb {
-    transform: translate(var(--#{$prefix}toggle-travel), -50%);
+    transform: translate(
+      calc(var(--#{$prefix}toggle-travel) * var(--#{$prefix}direction)),
+      -50%
+    );
   }
 
   &__input:focus-visible + &__track {

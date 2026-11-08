@@ -15,8 +15,10 @@ A native dropdown. It shares `kd-field__input` with
 <Canvas of={SelectStories.Example} />
 
 The arrow is the one place the package overrides native chrome. `appearance: none` strips
-the platform control, extra right padding reserves the space, and the chevron is drawn
-from two 5px gradients tinted with the accent. There is no image and no icon font.
+the platform control, extra inline-end padding reserves the space, and the chevron is drawn
+from two 5px gradients tinted with the accent. There is no image and no icon font. Under
+`dir="rtl"` the padding and the chevron move to the left edge; `background-position` has no
+logical form, so that move is the one `[dir="rtl"]` rule the select carries.
 
 > Because the arrow is painted with `background-image`, setting a background colour on the
 > select from a utility such as `kd-bg-elevated` replaces it and the arrow disappears.

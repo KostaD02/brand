@@ -8,7 +8,7 @@
   --#{$prefix}fab-offset-block-end: var(--#{$prefix}fab-offset);
 
   position: fixed;
-  right: var(--#{$prefix}fab-offset-inline-end);
+  inset-inline-end: var(--#{$prefix}fab-offset-inline-end);
   bottom: var(--#{$prefix}fab-offset-block-end);
   z-index: var(--#{$prefix}z-toast);
   display: inline-flex;

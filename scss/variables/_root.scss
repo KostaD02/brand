@@ -131,3 +131,12 @@
     --#{$prefix}z-#{$name}: #{$value};
   }
 }
+
+:root,
+[dir="ltr"] {
+  --#{$prefix}direction: 1;
+}
+
+[dir="rtl"] {
+  --#{$prefix}direction: -1;
+}

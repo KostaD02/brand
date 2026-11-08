@@ -40,7 +40,7 @@
 .sbdocs blockquote:not(:where(.docs-story) *) {
   color: var(--kd-text-secondary);
   background-color: var(--kd-bg-surface);
-  border-left: var(--kd-border-width-3) solid var(--kd-accent-line);
+  border-inline-start: var(--kd-border-width-3) solid var(--kd-accent-line);
   padding: var(--kd-space-3);
 }
 

@@ -7,10 +7,11 @@
     content: "";
     position: absolute;
     top: 0;
-    left: 0;
+    inset-inline-start: 0;
     width: $width;
     height: 100%;
     border-inline-start: var(--#{$prefix}border-width-2) solid var(--#{$prefix}accent);
-    border-radius: var(--#{$prefix}radius-sm) 0 0 var(--#{$prefix}radius-sm);
+    border-start-start-radius: var(--#{$prefix}radius-sm);
+    border-end-start-radius: var(--#{$prefix}radius-sm);
   }
 }

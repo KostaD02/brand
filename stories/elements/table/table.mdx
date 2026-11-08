@@ -8,7 +8,8 @@ import * as TableStories from "./table.stories.ts";
 
 Bare `table` is styled, so a data table needs no classes. Cells get padding and a bottom
 rule, and the header row is uppercase and muted on an elevated background. Every row
-keeps its bottom rule, so the table closes on a line.
+keeps its bottom rule, so the table closes on a line. Cells and the caption align to
+`start`, so a `dir="rtl"` table reads right to left with no extra rule.
 
 ## Example
 
@@ -16,7 +17,7 @@ keeps its bottom rule, so the table closes on a line.
 
 ## Caption
 
-`caption` is muted, one size down, left aligned and sits above the table.
+`caption` is muted, one size down, start aligned and sits above the table.
 
 <Canvas of={TableStories.Caption} />
 

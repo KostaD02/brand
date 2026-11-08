@@ -34,7 +34,8 @@ element. `small` and `kd-small` drop to the muted colour.
 ## Section heading
 
 `kd-heading` is the page-section treatment: a fluid heading followed by a rule that fills
-the remaining width, capped at 300px.
+the remaining width, capped at 300px. The rule hangs off the inline end, so under
+`dir="rtl"` it runs out to the left of the text.
 
 <Canvas of={TypographyStories.SectionHeading} />
 
@@ -80,7 +81,9 @@ align.
 ## List
 
 `kd-list` replaces the marker with an accent triangle. It is element-qualified as
-`ul.kd-list`, so it applies to unordered lists only.
+`ul.kd-list`, so it applies to unordered lists only. Under `dir="rtl"` the triangle sits
+on the right of the item and points left; the indent is `padding-inline-start`, so it
+follows on its own.
 
 <Canvas of={TypographyStories.List} />
 

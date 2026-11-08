@@ -13,7 +13,9 @@ scroll-driven `kd-reveal` and the once-per-session `kd-intro`.
 ## Shadow
 
 `kd-shadow-{sm|md|lg|side|none}`. The shadow tokens are theme keys, so they soften in the
-light theme rather than keeping the dark values.
+light theme rather than keeping the dark values. `side` is the shadow a panel docked on
+the inline end throws over the page, so it casts toward the inline start and flips under
+`dir="rtl"`.
 
 <Canvas of={EffectsStories.Shadow} />
 
@@ -69,8 +71,9 @@ does this globally; the class is for elements that have opted out and need it ba
 
 ## Rail
 
-`kd-rail` draws the 13px accent bar down the leading edge. It is the same mixin `pre` and
-`kd-teaser` already carry, lifted out so anything else can wear the mark.
+`kd-rail` draws the 13px accent bar down the leading edge, the right edge under `dir="rtl"`.
+It is the same mixin `pre` and `kd-teaser` already carry, lifted out so anything else can
+wear the mark.
 
 <Canvas of={EffectsStories.Rail} />
 
@@ -93,6 +96,9 @@ an animation name on top of a shared base. The base declares none of its inputs;
 
 > The slides travel the full width of the element and `kd-animate-fade-up` the full
 > height, so on a short pill they are a nudge and on a whole section they are a sweep.
+
+> `start` and `end` are inline edges: the slide keyframes multiply their travel by
+> `--kd-direction`, so under `dir="rtl"` `kd-animate-slide-in-start` enters from the right.
 
 ## Inherited timing
 

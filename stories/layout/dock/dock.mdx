@@ -26,7 +26,8 @@ the docs page instead of on your screen, with the shipped `position` left alone.
 ## Anchoring
 
 The block only sets `bottom: 0`, so it needs `kd-dock--start` or `kd-dock--end` to pick an
-inline edge. Both sit a `--kd-space-5` gutter in from the side. The tail is drawn by
+inline edge. Both sit a `--kd-space-5` gutter in from the side, and both are inline edges,
+so under `dir="rtl"` `--start` is the right side. The tail is drawn by
 `::after` rather than an extra list item, which keeps the markup to exactly the links you
 have.
 
@@ -72,8 +73,8 @@ width at which the class switches on, going smaller. `xxs` is 350px, `xs` 480px,
 <Canvas of={DockStories.FlowAtBreakpoint} />
 
 > Narrow the browser past 768px to watch this one drop into flow. Leave the anchoring class
-> on when you pair the two: `left` and `right` go inert the moment the rail is `static`, so
-> there is nothing to undo.
+> on when you pair the two: `inset-inline-start` and `inset-inline-end` go inert the moment
+> the rail is `static`, so there is nothing to undo.
 
 This is the part worth knowing rather than working out: a variation class cannot be swapped
 in by a media query from your side, because CSS has no way to add or remove a class. Before

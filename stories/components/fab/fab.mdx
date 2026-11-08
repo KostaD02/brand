@@ -6,8 +6,9 @@ import * as FabStories from "./fab.stories.ts";
 
 # Fab
 
-A round icon button that floats over the page at the bottom right. Scroll back to top is
-the usual job, and it is deliberately quiet: no background, no border, just the icon.
+A round icon button that floats over the page at the bottom inline-end corner: bottom right
+in `ltr`, bottom left under `dir="rtl"`. Scroll back to top is the usual job, and it is
+deliberately quiet: no background, no border, just the icon.
 
 ## Example
 
@@ -59,7 +60,7 @@ as a cycle, and it declares no iteration count, so it plays once.
 ## Offsets
 
 `--kd-fab-offset` is still the one value to reach for, but it is now a default rather than the
-property the layout reads. `--kd-fab-offset-inline-end` feeds `right`,
+property the layout reads. `--kd-fab-offset-inline-end` feeds `inset-inline-end`,
 `--kd-fab-offset-block-end` feeds `bottom`, and each of them falls back to
 `--kd-fab-offset`. Set the shorthand on its own and both edges move together, exactly as
 before.
