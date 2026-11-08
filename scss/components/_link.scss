@@ -18,7 +18,7 @@
 
   position: absolute;
   top: var(--#{$prefix}skip-top);
-  left: var(--#{$prefix}skip-hidden-inline-start);
+  inset-inline-start: var(--#{$prefix}skip-hidden-inline-start);
   width: 1px;
   height: 1px;
   padding: 1.25rem 1.75rem;
@@ -55,7 +55,7 @@
   &:hover,
   &:focus {
     top: var(--#{$prefix}skip-top);
-    left: var(--#{$prefix}skip-inline-start);
+    inset-inline-start: var(--#{$prefix}skip-inline-start);
     width: auto;
     height: auto;
     overflow: visible;

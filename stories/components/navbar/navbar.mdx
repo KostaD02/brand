@@ -18,7 +18,8 @@ content scrolling underneath stays visible but unreadable.
 
 `kd-navbar__brand` is the logo slot and does not shrink; `kd-navbar__menu` is the list.
 Both cancel the sliding underline the elements layer puts on a bare anchor, so no reset
-is needed at the call site.
+is needed at the call site. The bar is a flex row, so under `dir="rtl"` the brand sits on
+the right and the menu on the left with no extra rule.
 
 <Canvas of={NavbarStories.Example} />
 

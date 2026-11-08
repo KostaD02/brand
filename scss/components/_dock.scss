@@ -43,11 +43,11 @@
   }
 
   &--start {
-    left: map.get($spacers, 5);
+    inset-inline-start: map.get($spacers, 5);
   }
 
   &--end {
-    right: map.get($spacers, 5);
+    inset-inline-end: map.get($spacers, 5);
   }
 
   &--flow {

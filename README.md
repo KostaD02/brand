@@ -67,6 +67,8 @@ Palette colors (`--kd-color-*`) and semantic roles (`--kd-accent`, `--kd-bg`, `-
 
 Raw values live in `@kostad/brand/tokens.json`.
 
+Right-to-left layouts need `dir="rtl"` on `<html>` and nothing else. The stylesheet is written in logical properties, and the handful of places CSS has no logical form (the toggle travel, the select chevron, the list markers, the link underline and the slide animations) read that attribute, so a consumer page mirrors without overrides of its own.
+
 Scroll reveal (`kd-reveal`) and the once-per-session intro (`kd-intro`) need two flags on `<html>` before first paint, and one call once the DOM is parsed:
 
 ```html

@@ -44,7 +44,7 @@
 
 @keyframes #{$prefix}slide-in-start {
   from {
-    transform: translateX(-100%);
+    transform: translateX(calc(-100% * var(--#{$prefix}direction)));
   }
 
   to {
@@ -54,7 +54,7 @@
 
 @keyframes #{$prefix}slide-in-end {
   from {
-    transform: translateX(100%);
+    transform: translateX(calc(100% * var(--#{$prefix}direction)));
   }
 
   to {
@@ -68,7 +68,7 @@
   }
 
   to {
-    transform: translateX(100%);
+    transform: translateX(calc(100% * var(--#{$prefix}direction)));
   }
 }
 

@@ -4,9 +4,11 @@
 
 blockquote {
   margin: map.get($spacers, 3) 0;
-  padding: map.get($spacers, 1) 0 map.get($spacers, 1) map.get($spacers, 3);
-  border-left: var(--#{$prefix}border-width-2) solid var(--#{$prefix}accent);
-  border-radius: 0 var(--#{$prefix}radius-sm) var(--#{$prefix}radius-sm) 0;
+  padding-block: map.get($spacers, 1);
+  padding-inline: map.get($spacers, 3) 0;
+  border-inline-start: var(--#{$prefix}border-width-2) solid var(--#{$prefix}accent);
+  border-start-end-radius: var(--#{$prefix}radius-sm);
+  border-end-end-radius: var(--#{$prefix}radius-sm);
 }
 
 hr {
@@ -87,6 +89,10 @@ code {
       &::marker {
         content: "\25b9  ";
         color: var(--#{$prefix}accent);
+
+        [dir="rtl"] & {
+          content: "\25c3  ";
+        }
       }
     }
   }

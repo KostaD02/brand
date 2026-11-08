@@ -4,8 +4,10 @@ import "../dist/kostad-brand.css";
 import "../stories/stories.css";
 
 const DEFAULT_THEME = "dark";
+const DEFAULT_DIRECTION = "ltr";
 
 document.documentElement.setAttribute("data-theme", DEFAULT_THEME);
+document.documentElement.setAttribute("dir", DEFAULT_DIRECTION);
 
 const preview: Preview = {
   globalTypes: {
@@ -21,16 +23,34 @@ const preview: Preview = {
         dynamicTitle: true,
       },
     },
+    direction: {
+      description: "Writing direction applied to the document root",
+      toolbar: {
+        title: "Direction",
+        icon: "mirror",
+        items: [
+          { value: "ltr", title: "LTR" },
+          { value: "rtl", title: "RTL" },
+        ],
+        dynamicTitle: true,
+      },
+    },
   },
   initialGlobals: {
     theme: DEFAULT_THEME,
+    direction: DEFAULT_DIRECTION,
   },
   decorators: [
     (story, context) => {
       const theme =
         typeof context.globals.theme === "string" ? context.globals.theme : DEFAULT_THEME;
+      const direction =
+        typeof context.globals.direction === "string"
+          ? context.globals.direction
+          : DEFAULT_DIRECTION;
 
       document.documentElement.setAttribute("data-theme", theme);
+      document.documentElement.setAttribute("dir", direction);
 
       return story();
     },
@@ -50,6 +70,7 @@ const preview: Preview = {
         order: [
           "Introduction",
           "Tokens",
+          "Right-to-left",
           "Elements",
           "Components",
           "Forms",

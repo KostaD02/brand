@@ -31,7 +31,8 @@ Connect the label and control with `for` and `id`.
 ## Hint
 
 `kd-field__hint` sits under the control in the muted colour. Point the control at it with
-`aria-describedby` so it is announced rather than just seen.
+`aria-describedby` so it is announced rather than just seen. The hint and the error are
+inset by `padding-inline-start`, so both keep to the leading edge under `dir="rtl"`.
 
 <Canvas of={FieldStories.Hint} />
 

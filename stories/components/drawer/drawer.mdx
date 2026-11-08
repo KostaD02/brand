@@ -12,7 +12,9 @@ inline end. It is two elements, and the block itself is the scrim.
 ## Example
 
 The drawer is `position: fixed` with `inset: 0`, so in a real page it covers the viewport
-and blurs whatever sits behind it. Every demo here is boxed and switched to `absolute` so
+and blurs whatever sits behind it. The inline end is the right edge in `ltr` and the left
+under `dir="rtl"`; the slide keyframes read `--kd-direction`, so the motion mirrors with
+the panel. Every demo here is boxed and switched to `absolute` so
 it stays inside the docs page.
 
 <Canvas of={DrawerStories.Example} />

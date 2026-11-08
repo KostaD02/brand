@@ -7,8 +7,8 @@ import * as LinkStories from "./link.stories.ts";
 # Link
 
 Links draw their own underline as a pseudo-element rather than using
-`text-decoration`, so it can be animated. The rule sweeps in from the left on hover and
-retracts to the right on leave. `kd-skip` is here as well: an off-screen link revealed on
+`text-decoration`, so it can be animated. The rule sweeps in from the inline start on hover
+and retracts to the inline end on leave, so under `dir="rtl"` it enters from the right. `kd-skip` is here as well: an off-screen link revealed on
 focus, with an inline variation for jump links inside a page.
 
 ## Example
@@ -36,8 +36,8 @@ a nav.
 
 ## Skip link
 
-`kd-skip` is positioned off-screen and pulls itself into the top-left corner when
-focused. Put it first in the document and point it at your main landmark.
+`kd-skip` is positioned off-screen and pulls itself into the top inline-start corner when
+focused, the top left in `ltr`. Put it first in the document and point it at your main landmark.
 
 <Canvas of={LinkStories.Skip} />
 
@@ -46,8 +46,8 @@ focused. Put it first in the document and point it at your main landmark.
 
 ## Inline jump links
 
-The base `kd-skip` is built for one placement: pinned to the top left of its positioned
-ancestor, which is what a page level skip link wants. `--kd-skip-top` is `0` and it is read
+The base `kd-skip` is built for one placement: pinned to the top inline start of its
+positioned ancestor, which is what a page level skip link wants. `--kd-skip-top` is `0` and it is read
 in both states, so the link sits at the top of that ancestor while it is hidden and stays
 there once it is revealed. Reuse the same class for a jump link written between two
 paragraphs of an article and that `0` drags the revealed link to the top of the article

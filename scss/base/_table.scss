@@ -17,7 +17,7 @@ table {
     padding: var(--#{$prefix}table-padding-y) var(--#{$prefix}table-padding-x);
     border-bottom: var(--#{$prefix}border-width-1) solid
       var(--#{$prefix}table-border-color);
-    text-align: left;
+    text-align: start;
   }
 
   th {
@@ -33,7 +33,7 @@ table {
   caption {
     padding-bottom: map.get($spacers, 2);
     font-size: var(--#{$prefix}font-size-xxs);
-    text-align: left;
+    text-align: start;
     color: var(--#{$prefix}text-muted);
   }
 }

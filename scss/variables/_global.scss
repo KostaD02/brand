@@ -365,7 +365,7 @@ $theme-dark: (
   shadow-sm: 0 10px 30px -15px rgba($kd-shadow, 0.5),
   shadow-md: 0 10px 30px -15px rgba($kd-shadow, 0.7),
   shadow-lg: 0 20px 30px -15px rgba($kd-shadow, 0.7),
-  shadow-side: -10px 0 30px -15px rgba($kd-shadow, 0.7),
+  shadow-side: calc(-10px * var(--#{$prefix}direction)) 0 30px -15px rgba($kd-shadow, 0.7),
 ) !default;
 
 $theme-light: (
@@ -418,7 +418,8 @@ $theme-light: (
   shadow-sm: 0 10px 30px -15px rgba($kd-shadow, 0.12),
   shadow-md: 0 10px 30px -15px rgba($kd-shadow, 0.16),
   shadow-lg: 0 20px 30px -15px rgba($kd-shadow, 0.2),
-  shadow-side: -10px 0 30px -15px rgba($kd-shadow, 0.16),
+  shadow-side: calc(-10px * var(--#{$prefix}direction)) 0 30px -15px
+    rgba($kd-shadow, 0.16),
 ) !default;
 
 $themes: (

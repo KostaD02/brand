@@ -14,8 +14,8 @@ content is absolutely positioned on top of it, so the two halves never compete f
 
 `kd-feature__media` carries the image as a `background-image`, which is what lets it bleed
 and crop under `background-size: cover` instead of being sized by an `<img>`.
-`kd-feature__content` is pinned to the top right of the block and overlaps the media from
-the opposite side. Both the media and the title are anchors, and both switch off the
+`kd-feature__content` is pinned to the top inline-end corner of the block, the top right in
+`ltr`, and overlaps the media from the opposite side. Both the media and the title are anchors, and both switch off the
 sliding underline the elements layer puts on a bare `<a>`.
 
 <Canvas of={FeatureStories.Example} />
@@ -48,8 +48,10 @@ animates, one composited property, so the change never flashes the way swapping
 ## Reverse
 
 `kd-feature--reverse` sends the media to the end of the row and moves the content to the
-left edge, `text-align` included. The markup is identical either way, so alternating a
-list of projects is a matter of adding the class to every second one.
+inline-start edge, `text-align` included. The markup is identical either way, so
+alternating a list of projects is a matter of adding the class to every second one.
+Positioning and alignment are logical, so under `dir="rtl"` the whole block mirrors and
+`--reverse` still means the other side.
 
 <Canvas of={FeatureStories.Reverse} />
 

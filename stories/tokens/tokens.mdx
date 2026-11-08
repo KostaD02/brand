@@ -159,6 +159,9 @@ follows; the two roles in the note below change nothing on the page.
 
 ## Shadows
 
+`shadow-side` carries `--kd-direction` in its x offset, the `1` or `-1` the root sets from
+the `dir` attribute, so the one directional shadow mirrors under `dir="rtl"`.
+
 <Theme names={themeNames(/^shadow-/)} />
 
 <Canvas of={TokenStories.Shadow} />

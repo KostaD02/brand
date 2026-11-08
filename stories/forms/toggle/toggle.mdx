@@ -20,7 +20,9 @@ checked and focus styles are sibling selectors.
 ## Checked
 
 Set the native `checked` attribute. The track fills with the accent and the thumb slides
-by a distance computed from the track and thumb sizes.
+by a distance computed from the track and thumb sizes. It slides toward the inline end, so
+under `dir="rtl"` it travels left: the distance is multiplied by `--kd-direction`, the `1`
+or `-1` the root sets from the `dir` attribute.
 
 <Canvas of={ToggleStories.Checked} />
 

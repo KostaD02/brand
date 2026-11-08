@@ -49,14 +49,14 @@
   &__content {
     position: absolute;
     top: 0;
-    right: 0;
+    inset-inline-end: 0;
     z-index: var(--#{$prefix}z-dropdown);
     display: grid;
     place-items: end;
     row-gap: var(--#{$prefix}feature-content-gap);
     width: 100%;
     max-width: var(--#{$prefix}feature-content-width);
-    text-align: right;
+    text-align: end;
   }
 
   &__tags {
@@ -100,10 +100,9 @@
     justify-content: flex-end;
 
     .#{$prefix}feature__content {
-      right: auto;
-      left: 0;
+      inset-inline: 0 auto;
       place-items: start;
-      text-align: left;
+      text-align: start;
     }
 
     .#{$prefix}feature__tags {
