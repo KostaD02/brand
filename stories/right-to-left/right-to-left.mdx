@@ -1,0 +1,76 @@
+import { Canvas, Meta } from "@storybook/addon-docs/blocks";
+
+import * as RightToLeftStories from "./right-to-left.stories.ts";
+
+<Meta of={RightToLeftStories} />
+
+# Right-to-left
+
+One attribute, `dir="rtl"` on `<html>`, and nothing else. The stylesheet is written in
+logical properties, so every component mirrors on its own, and the few places CSS has no
+logical form read the attribute. The Direction toolbar above sets it on this preview, so
+any page in these docs can be checked mirrored.
+
+## Example
+
+The same markup twice. The left panel carries `dir="ltr"` and the right one `dir="rtl"`
+on the panel itself, so the comparison holds whatever the toolbar says.
+
+<Canvas of={RightToLeftStories.Mirror} />
+
+## How it mirrors
+
+Three mechanisms, in order of how much they cover.
+
+**Logical properties** do almost all of it. Offsets are `inset-inline-start` and
+`inset-inline-end`, spacing is `padding-inline-start` and `margin-inline-start`, the
+accent bars are `border-inline-start`, rounding is `border-start-start-radius` and its
+siblings, and text aligns to `start` or `end`. Flex and grid already follow the writing
+direction, so the navbar, the tabs, the feature block and the dock need no rule of their
+own.
+
+**`--kd-direction`** is `1` on `:root` and under `[dir="ltr"]`, and `-1` under
+`[dir="rtl"]`. It multiplies the three distances CSS cannot express logically: the thumb
+travel of the toggle, the slide keyframes behind `kd-animate-slide-in-start`,
+`kd-animate-slide-in-end` and the drawer, and the x offset of `--kd-shadow-side`.
+
+**`[dir="rtl"]` rules** cover what is left. The list and prose markers swap `▹` for `◃`,
+the select chevron moves its `background-position` to the other edge, and the link
+underline swaps its `transform-origin` so it still sweeps in from the reading start.
+
+> `--kd-direction` is a switch rather than a design token, so it is not in `tokens.json`.
+> It is there to read, though: `calc(1rem * var(--kd-direction))` is an inline-start
+> offset for a transform of your own.
+
+## Subtrees
+
+`dir` works on any element, not only `<html>`. A block with `dir="ltr"` inside a
+right-to-left page gets its own direction, its own `--kd-direction` and its own markers,
+which is what a code sample or a postal address wants.
+
+<Canvas of={RightToLeftStories.Island} />
+
+> `dir="auto"` is half covered. The browser resolves it from the text and the logical
+> properties follow, but an attribute selector cannot see the result, so the multiplier
+> and the glyph swaps stay as they were. Set `ltr` or `rtl` explicitly where those matter.
+
+## What stays put
+
+Not every `left` became `inline-start`, and that is deliberate.
+
+- `kd-burger` and `kd-logo` are drawings. The burger is symmetric, and mirroring its
+  halves would only break the fold; the logo is the brand mark and is never mirrored.
+- The pop and lift treatments, the frame offset and the `sm`, `md` and `lg` shadows are
+  depth. The light does not move with the writing direction, so the hard shadow stays
+  bottom right and the lift stays up and to the left.
+- `kd-ml-*`, `kd-mr-*`, `kd-pl-*`, `kd-pr-*`, `kd-left-0`, `kd-right-0`,
+  `kd-border-l-*` and `kd-border-r-*` are named after physical sides and keep them. Reach
+  for them when you mean a side of the box, and for the component's own spacing when you
+  mean an edge of the text.
+
+## Checking a page
+
+Flip the Direction toolbar and walk the docs; every canvas follows it. In your own page,
+set the attribute from whatever decides the language, `document.documentElement.dir =
+"rtl"`, and leave the stylesheet alone. The playground below mirrors a single sample
+through its `direction` control instead, for a quick look without touching the toolbar.
