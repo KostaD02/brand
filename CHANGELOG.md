@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.6.0](https://github.com/KostaD02/brand/compare/v1.5.0...v1.6.0) (2026-11-08)
+
+### Features
+
+* rtl support ([#13](https://github.com/KostaD02/brand/issues/13)) ([8982ca9](https://github.com/KostaD02/brand/commit/8982ca9ac10a6a716eb836444bdd42388f26ba1d))
+
 ## [1.5.0](https://github.com/KostaD02/brand/compare/v1.4.0...v1.5.0) (2026-10-04)
 
 ### Features
