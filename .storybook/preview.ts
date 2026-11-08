@@ -69,8 +69,8 @@ const preview: Preview = {
       storySort: {
         order: [
           "Introduction",
-          "Right-to-left",
           "Tokens",
+          "Right-to-left",
           "Elements",
           "Components",
           "Forms",
