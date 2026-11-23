@@ -1,0 +1,128 @@
+import { Canvas, Meta } from "@storybook/addon-docs/blocks";
+
+import * as ScrollProgressStories from "./scroll-progress.stories.ts";
+
+<Meta of={ScrollProgressStories} />
+
+# Scroll progress
+
+A thin bar pinned across the top of the viewport that fills as the page scrolls. It is
+driven entirely by CSS: `animation-timeline` reads the scroller directly, so there is no
+scroll handler, no resize listener and no work on the main thread.
+
+## Example
+
+The real component is `position: fixed` against the viewport at `--kd-z-toast`, so the
+demos on this page are boxed. Each one wraps the bar in a `position: relative` frame,
+switches it to `position: absolute`, and points `--kd-scroll-progress-timeline` at a
+`scroll-timeline-name` on the inner scroller, so the bar measures that box instead of the
+window.
+
+<Canvas of={ScrollProgressStories.Example} />
+
+## What it measures
+
+Out of the box the timeline is `scroll(root block)`, the document scroller, and the range is
+`normal`: empty at the top of the page, full at the very bottom. That is the right default
+for a whole-page indicator and needs no markup beyond the element itself.
+
+```html
+<div class="kd-scroll-progress" aria-hidden="true"></div>
+```
+
+> Give it `aria-hidden="true"`. Scroll position is already conveyed by the scrollbar and by
+> the act of scrolling, so announcing it adds nothing, and the element holds no text to
+> announce in the first place.
+
+## Tracking one element
+
+A whole-page bar reaches full only at the bottom of the footer. For a reading indicator you
+usually want the article instead, which is what `kd-scroll-progress--subject` is for: mark
+the element with `kd-scroll-subject` and the bar switches to that element's view timeline,
+over the range where it covers the scrollport.
+
+```html
+<div class="kd-scroll-progress kd-scroll-progress--subject" aria-hidden="true"></div>
+<article class="kd-scroll-subject">...</article>
+```
+
+The bar sits empty until the subject's top edge reaches the top of the scrollport, fills
+across it, and holds full once its bottom edge has passed.
+
+<Canvas of={ScrollProgressStories.Subject} />
+
+> A named timeline only resolves on the element itself and its ancestors, and the bar is
+> almost never a descendant of what it measures. The reset entry declares
+> `timeline-scope: --kd-scroll-subject` on `body` so the two can find each other anywhere in
+> the document. The cost is that the name has to be unique: give two elements
+> `kd-scroll-subject` on one page and the timeline becomes ambiguous, which leaves the bar
+> collapsed rather than tracking either of them.
+
+## Browser support
+
+Scroll-driven animations are Baseline newly available: Chrome and Edge from 115, Safari from
+26, Firefox from 159. The bar is deliberately `scale: 0 1` at rest, so where
+`animation-timeline` is not understood the declaration is dropped, the animation never runs,
+and the element stays collapsed. Older browsers get no bar rather than a broken one, which is
+why no `@supports` guard is needed.
+
+## Orientation
+
+`kd-scroll-progress--vertical` turns the bar into a column down the inline-start edge that
+fills top to bottom. The timeline is unchanged, so the two orientations read the same
+progress and the modifier composes with `--subject` exactly as the default does.
+
+```html
+<div class="kd-scroll-progress kd-scroll-progress--vertical" aria-hidden="true"></div>
+```
+
+<Canvas of={ScrollProgressStories.Vertical} />
+
+> The bar grows along the block axis in both writing directions, so only the edge it sits on
+> flips under `dir="rtl"`, never the fill. To pin it to the opposite edge instead, set
+> `inset-inline: auto 0` on the element.
+
+## Direction
+
+The default bar fills from the right edge towards the left under `dir="rtl"`, and the
+vertical one moves to the opposite edge while still filling downward. Nothing to set: switch
+the Direction control in the toolbar above and the demos follow.
+
+## Reduced motion
+
+The reset entry clamps `animation-duration` to `0.01ms` for everything under
+`prefers-reduced-motion: reduce`. That clamp is meant for time-driven animation and makes no
+sense for a bar whose progress is the reader's own scrolling, so the entry restores
+`animation-duration: auto` for this block. Chromium ignores the clamp on a scroll-driven
+animation either way; the override is there so a stricter engine cannot collapse the whole
+range into the first scrolled pixel.
+
+## Alongside a drawer
+
+Opening `kd-drawer` locks the page, so the bar would otherwise sit frozen over the overlay
+and read as a stray accent line. The reset entry fades it out for as long as a drawer is in
+the document, through the same `--kd-duration-base` transition, and brings it back on close. No
+JavaScript and nothing to wire up: it keys off the drawer element being present.
+
+## Customising
+
+Five properties are declared on the block. `--kd-scroll-progress-thickness` is the measure
+across the bar, its height when horizontal and its width when vertical, and
+`--kd-scroll-progress-bg` the fill, which defaults to `--kd-accent`.
+`--kd-scroll-progress-inset` is the offset from the edge the bar is pinned to, for clearing
+something already docked there.
+
+<Canvas of={ScrollProgressStories.Customising} />
+
+The remaining two are the wiring: `--kd-scroll-progress-timeline` is the timeline the bar
+reads and `--kd-scroll-progress-range` the slice of it to fill across. Setting them by hand
+covers anything the `--subject` modifier does not, such as a specific inner scroller or a
+range that stops short of the end.
+
+> Override the two together and set them _after_ `animation`, never through the shorthand.
+> The `animation` shorthand resets `animation-timeline` and `animation-range` to their
+> initial values, so a later shorthand silently drops the timeline and the bar stops moving.
+
+> On desktop the bar spans the layout viewport, which excludes a classic scrollbar, so it
+> stops a scrollbar's width short of the window edge at 100%. That gap is the scrollbar
+> gutter and no fixed element can paint over it. Mobile and overlay scrollbars show no gap.
