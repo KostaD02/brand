@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.7.0](https://github.com/KostaD02/brand/compare/v1.6.0...v1.7.0) (2026-11-23)
+
+### Features
+
+* add scroll progress component with styling and documentation ([#14](https://github.com/KostaD02/brand/issues/14)) ([e271d68](https://github.com/KostaD02/brand/commit/e271d68626cc96a03da29aff2fe36e2d992c67c4))
+
 ## [1.6.0](https://github.com/KostaD02/brand/compare/v1.5.0...v1.6.0) (2026-11-08)
 
 ### Features
