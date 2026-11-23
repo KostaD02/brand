@@ -1,0 +1,64 @@
+@use "../variables/global" as *;
+
+.#{$prefix}scroll-progress {
+  --#{$prefix}scroll-progress-thickness: 3px;
+  --#{$prefix}scroll-progress-bg: var(--#{$prefix}accent);
+  --#{$prefix}scroll-progress-inset: 0;
+  --#{$prefix}scroll-progress-timeline: scroll(root block);
+  --#{$prefix}scroll-progress-range: normal;
+
+  position: fixed;
+  inset-block-start: var(--#{$prefix}scroll-progress-inset);
+  inset-inline: 0;
+  z-index: var(--#{$prefix}z-toast);
+  height: var(--#{$prefix}scroll-progress-thickness);
+  background-color: var(--#{$prefix}scroll-progress-bg);
+  transform-origin: 0 50%;
+  transition: opacity var(--#{$prefix}duration-base) var(--#{$prefix}easing);
+
+  // ! Collapsed at rest, so an unsupported or inactive timeline leaves no bar on screen
+  scale: 0 1;
+  animation: #{$prefix}scroll-progress linear both;
+  animation-timeline: var(--#{$prefix}scroll-progress-timeline);
+  animation-range: var(--#{$prefix}scroll-progress-range);
+
+  [dir="rtl"] & {
+    transform-origin: 100% 50%;
+  }
+
+  &--subject {
+    --#{$prefix}scroll-progress-timeline: --#{$prefix}scroll-subject;
+    --#{$prefix}scroll-progress-range: contain 0% contain 100%;
+  }
+
+  &--vertical {
+    inset-block: 0;
+    inset-inline: var(--#{$prefix}scroll-progress-inset) auto;
+    width: var(--#{$prefix}scroll-progress-thickness);
+    height: auto;
+    transform-origin: 50% 0;
+    scale: 1 0;
+
+    // ! The horizontal rtl origin above matches just as tightly, so restate it here
+    [dir="rtl"] & {
+      transform-origin: 50% 0;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .#{$prefix}scroll-progress {
+    // ! Chromium ignores the reset clamp on a scroll driven animation, other engines may not
+    animation-duration: auto !important;
+  }
+}
+
+.#{$prefix}scroll-subject {
+  view-timeline-name: --#{$prefix}scroll-subject;
+}
+
+@keyframes #{$prefix}scroll-progress {
+  to {
+    scale: 1 1;
+  }
+}

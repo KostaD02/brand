@@ -25,9 +25,14 @@ body {
   line-height: var(--#{$prefix}line-height-base);
   color: var(--#{$prefix}text-muted);
   background-color: var(--#{$prefix}bg);
+  timeline-scope: --#{$prefix}scroll-subject;
   transition:
     background-color var(--#{$prefix}duration-base) var(--#{$prefix}easing),
     color var(--#{$prefix}duration-base) var(--#{$prefix}easing);
+
+  &:has(.#{$prefix}drawer) .#{$prefix}scroll-progress {
+    opacity: 0;
+  }
 }
 
 input,
