@@ -8,6 +8,7 @@
   --#{$prefix}card-bg: var(--#{$prefix}bg-elevated);
   --#{$prefix}card-border-color: var(--#{$prefix}border);
   --#{$prefix}card-radius: var(--#{$prefix}radius-md);
+  --#{$prefix}card-corner-shape: var(--#{$prefix}corner-round);
   --#{$prefix}card-title-color: var(--#{$prefix}text-primary);
   --#{$prefix}card-title-hover-color: var(--#{$prefix}accent);
 
@@ -18,12 +19,19 @@
   padding: var(--#{$prefix}card-padding);
   border: var(--#{$prefix}border-width-1) solid var(--#{$prefix}card-border-color);
   border-radius: var(--#{$prefix}card-radius);
+  corner-shape: var(--#{$prefix}card-corner-shape);
   background: var(--#{$prefix}card-bg);
+
+  @supports (corner-shape: squircle) {
+    --#{$prefix}card-radius: var(--#{$prefix}radius-xl);
+    --#{$prefix}card-corner-shape: var(--#{$prefix}corner-squircle);
+  }
 
   &__media {
     margin: calc(var(--#{$prefix}card-padding) * -1);
     margin-bottom: 0;
     border-radius: var(--#{$prefix}card-radius) var(--#{$prefix}card-radius) 0 0;
+    corner-shape: var(--#{$prefix}card-corner-shape);
     overflow: hidden;
   }
 

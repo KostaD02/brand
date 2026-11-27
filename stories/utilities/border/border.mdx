@@ -37,9 +37,23 @@ class alongside it to be visible.
 
 ## Radius
 
-`kd-radius-{0|sm|md|lg|pill|circle}`, resolving to the radius tokens.
+`kd-radius-{0|sm|md|lg|xl|pill|circle}`, resolving to the radius tokens.
 
 <Canvas of={BorderStories.Radius} />
+
+## Corner
+
+`kd-corner-{round|squircle|bevel|scoop|notch|straight}` sets `corner-shape`, which
+reshapes the curve that `border-radius` already reserved. It needs a radius class
+alongside it: with no radius there is no corner to reshape, and the larger the radius
+the more the shape reads, so `kd-radius-xl` is the one to pair it with.
+
+<Canvas of={BorderStories.Corner} />
+
+> `corner-shape` is Chromium only at the time of writing. Browsers without it drop the
+> declaration and keep the plain rounded corner, so the classes are safe to ship as
+> they stand. Keep them off `kd-radius-pill` and `kd-radius-circle`: a reshaped corner
+> at those radii turns a stadium or a circle into a superellipse.
 
 ## Accent hairline
 

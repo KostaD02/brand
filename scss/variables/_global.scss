@@ -146,8 +146,18 @@ $radii: (
   sm: 4px,
   md: 8px,
   lg: 10px,
+  xl: 32px,
   pill: 999px,
   circle: 50%,
+) !default;
+
+$corners: (
+  round: round,
+  squircle: squircle,
+  bevel: bevel,
+  scoop: scoop,
+  notch: notch,
+  straight: straight,
 ) !default;
 
 $border-widths: (
