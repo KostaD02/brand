@@ -67,7 +67,7 @@ export const Radius: Story = {
   tags: ["!dev"],
   render: () =>
     `<div class="kd-d-flex kd-gap-3 kd-flex-wrap">` +
-    ["sm", "md", "lg", "pill", "circle"]
+    ["sm", "md", "lg", "xl", "pill", "circle"]
       .map(
         (name) => `
   <div style="text-align: center;">

@@ -17,6 +17,20 @@ None of the elements are required; a card with a single child is valid.
 
 <Canvas of={CardStories.Example} />
 
+## Corner shape
+
+Where `corner-shape` is supported the card switches to `--kd-radius-xl` and a squircle,
+so the corner is both larger and continuous. Everywhere else the `@supports` block
+never applies and the card keeps `--kd-radius-md` and a plain rounded corner, which is
+the right fallback: a 32px round corner is a different card, a 32px squircle is the
+same card drawn better. `kd-card__media` follows `--kd-card-corner-shape`, so its top
+corners match whichever branch is live.
+
+> The padding stays at `1.25rem` in both branches. A squircle corner sits closer to the
+> edges than a round one of the same radius, so at 32px the text corner still clears
+> the curve by roughly 15px along the diagonal, and nothing needs loosening to make
+> room for it.
+
 ## Surface
 
 `kd-card--surface` drops the background from `--kd-bg-elevated` to `--kd-bg-surface`.
@@ -103,6 +117,6 @@ that has to stay separately clickable, such as the icon link in the footer, take
 ## Customising
 
 `--kd-card-padding`, `--kd-card-bg`, `--kd-card-border-color`, `--kd-card-radius`,
-`--kd-card-title-color` and `--kd-card-title-hover-color` are declared on the block, so
-reassigning any of them on the element restyles that one card. `kd-card--flush` is the
-built-in shortcut for zero padding.
+`--kd-card-corner-shape`, `--kd-card-title-color` and `--kd-card-title-hover-color` are
+declared on the block, so reassigning any of them on the element restyles that one
+card. `kd-card--flush` is the built-in shortcut for zero padding.

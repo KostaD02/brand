@@ -3,7 +3,8 @@ import type { Meta, StoryObj } from "@storybook/html-vite";
 interface BorderArgs {
   width: "0" | "1" | "2" | "3" | "4";
   style: "solid" | "dashed" | "dotted";
-  radius: "0" | "sm" | "md" | "lg" | "pill" | "circle";
+  radius: "0" | "sm" | "md" | "lg" | "xl" | "pill" | "circle";
+  corner: "round" | "squircle" | "bevel" | "scoop" | "notch" | "straight";
 }
 
 const meta: Meta<BorderArgs> = {
@@ -55,8 +56,20 @@ export const Radius: Story = {
   tags: ["!dev"],
   render: () =>
     grid(
-      ["0", "sm", "md", "lg", "pill"]
+      ["0", "sm", "md", "lg", "xl", "pill"]
         .map((key) => cell(`kd-border-1 kd-radius-${key}`, `.kd-radius-${key}`))
+        .join(""),
+    ),
+};
+
+export const Corner: Story = {
+  tags: ["!dev"],
+  render: () =>
+    grid(
+      ["round", "squircle", "bevel", "scoop", "notch", "straight"]
+        .map((key) =>
+          cell(`kd-border-1 kd-radius-xl kd-corner-${key}`, `.kd-corner-${key}`),
+        )
         .join(""),
     ),
 };
@@ -70,19 +83,24 @@ export const Border: Story = {
   args: {
     width: "1",
     style: "solid",
-    radius: "sm",
+    radius: "xl",
+    corner: "round",
   },
   argTypes: {
     width: { control: "inline-radio", options: ["0", "1", "2", "3", "4"] },
     style: { control: "inline-radio", options: ["solid", "dashed", "dotted"] },
     radius: {
       control: "inline-radio",
-      options: ["0", "sm", "md", "lg", "pill", "circle"],
+      options: ["0", "sm", "md", "lg", "xl", "pill", "circle"],
+    },
+    corner: {
+      control: "inline-radio",
+      options: ["round", "squircle", "bevel", "scoop", "notch", "straight"],
     },
   },
-  render: ({ width, style, radius }) =>
+  render: ({ width, style, radius, corner }) =>
     cell(
-      `kd-border-${width} kd-border-${style} kd-radius-${radius}`,
-      `.kd-border-${width} .kd-border-${style} .kd-radius-${radius}`,
+      `kd-border-${width} kd-border-${style} kd-radius-${radius} kd-corner-${corner}`,
+      `.kd-border-${width} .kd-border-${style} .kd-radius-${radius} .kd-corner-${corner}`,
     ),
 };

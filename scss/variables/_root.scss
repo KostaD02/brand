@@ -62,6 +62,10 @@
     --#{$prefix}radius-#{$name}: #{$value};
   }
 
+  @each $name, $value in $corners {
+    --#{$prefix}corner-#{$name}: #{$value};
+  }
+
   @each $step, $value in $border-widths {
     --#{$prefix}border-width-#{$step}: #{$value};
   }

@@ -19,6 +19,12 @@ $radius-values: (
   $radius-values: map.set($radius-values, $name, var(--#{$prefix}radius-#{$name}));
 }
 
+$corner-values: ();
+
+@each $name in map.keys($corners) {
+  $corner-values: map.set($corner-values, $name, var(--#{$prefix}corner-#{$name}));
+}
+
 @each $key in map.keys($border-widths) {
   .#{$prefix}border-#{$key} {
     border-width: var(--#{$prefix}border-width-#{$key});
@@ -43,6 +49,7 @@ $radius-values: (
 
 @include apply-utility("border", border-style, $border-style-values);
 @include apply-utility("radius", border-radius, $radius-values);
+@include apply-utility("corner", corner-shape, $corner-values);
 
 .#{$prefix}border-accent-hairline {
   border: var(--#{$prefix}border-width-1) solid var(--#{$prefix}accent);
