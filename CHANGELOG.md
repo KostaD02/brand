@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.8.0](https://github.com/KostaD02/brand/compare/v1.7.0...v1.8.0) (2026-11-27)
+
+### Features
+
+* add corner shape tokens, utilities and squircle cards ([#16](https://github.com/KostaD02/brand/issues/16)) ([ccc1954](https://github.com/KostaD02/brand/commit/ccc195480c3d347b6dd2e28f5809966392caf387))
+
 ## [1.7.0](https://github.com/KostaD02/brand/compare/v1.6.0...v1.7.0) (2026-11-23)
 
 ### Features
